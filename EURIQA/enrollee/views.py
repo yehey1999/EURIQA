@@ -5,6 +5,7 @@ from django.contrib.auth.models import auth, User
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from enrollee.models import *
+
 # Create your views here.
 
 class EnrolleeHomeView(View):
