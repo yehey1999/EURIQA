@@ -7,6 +7,10 @@ from django.contrib import messages
 from enrollee.models import *
 # Create your views here.
 
+class EnrolleeHomeView(View):
+    def get(self, request):
+        return render(request, 'enrolleeHome.html')
+
 class EnrolleeLoginView(View):
     def get(self, request):
         return render(request, 'enrolleeLogin.html')
@@ -22,7 +26,7 @@ class EnrolleeLoginView(View):
             is_enrollee = Enrollee.objects.filter(user_id=request.user.id)
 
             if is_enrollee:
-                return redirect('enrollee:dummy')  # Change to redirect to confirmation page
+                return redirect('enrollee:enrollee_home')  # Change to redirect to confirmation page
 
             else:
                 messages.error(request,"Your account is unauthorized to log in.")
@@ -31,7 +35,3 @@ class EnrolleeLoginView(View):
         else:
             messages.error(request, 'Invalid username or password.')
             return redirect("enrollee:enrollee_login")
-
-class DummyView(View):
-    def get(self, request):
-        return render(request, 'dummy.html')
