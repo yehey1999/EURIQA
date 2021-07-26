@@ -36,3 +36,7 @@ class EnrolleeLoginView(View):
         else:
             messages.error(request, 'Invalid username or password.')
             return redirect("enrollee:enrollee_login")
+
+class EnrolleeDetailsCheckView(View):
+    def get(self, request):
+        return render(request, 'enrolleeDetails.html')
