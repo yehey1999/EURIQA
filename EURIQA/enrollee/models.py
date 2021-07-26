@@ -8,7 +8,7 @@ class Enrollee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     middle_name = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50, blank=False)
-    year_level = models.CharField(max_length = 2, null=True, blank=False)
+    level = models.CharField(max_length = 50, null=True, blank=False)
     pictures = models.ImageField(null=True, blank=True)
 
     class Meta:

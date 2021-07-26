@@ -21,6 +21,11 @@
     <!-- MultiForm CSS Files-->
     <link rel="stylesheet" href="{% static 'assets/css/enrolleedetails.css' %}">
 
+    <!-- FAVICON -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/favicon/site.webmanifest' %}">
   </head>
 
   
@@ -30,9 +35,9 @@
   <!--header-->
   <header class="main-header clearfix" role="header">
     <div class="logo">
-      <a href="index.html"><em>EURIQA</em></a>
+      <a href=""><em>EURIQA</em></a>
     </div>
-   
+    <a href="../enrollee/logout" class="external" style="color: #fff;  padding: 20px 20px 5px 0px; font-size: 14px;">Logout</a>
   </header>
 
   <br><br><br>
@@ -44,22 +49,22 @@
         <div class="col-md-12 ">
           <div class="left-content">
             <div id="svg_wrap"></div>
-              <h4>Before we <em>Proceed</em></h4>
+              <center><h4>Before we <em>Proceed</em></h4></center>
               <p>Double check the details below. If there’s something wrong, contact your enrollment officer.</p>
               <section>
-                <input type="name" placeholder="Firstname" />
-                <input type="text" placeholder="Address" />
-                <input type="email" placeholder="Email" />
-                <input type="text" placeholder="Level" />
-                <input type="text" placeholder="Program" />
-              </section> 
-              <section>
-                <p>General condtitions</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                {% for enrollee in enrollees %}
+                <label>First name</label>
+                  <input name="firstname" type="text" value="{{user.first_name}}" readonly>
+                <label class="label">Middle name</label>
+                  <input name="middlename" type="text" value="{{enrollee.middle_name}}" readonly>
+                <label class="label">Address
+                  <input name="address" type="text" value="{{enrollee.address}}" readonly>
+                <label class="label">Email</label>
+                  <input name="email" type="text" value="{{user.email}}" readonly>
+                {% endfor %}
+                <br><br>
+                <center><div class="button" name="btn-Proceed"><a  href="../enrollee/terms" style="color: white;">Proceed &rarr;</a></div></center>
               </section>
-
-              <div class="button" id="next" href="steps.html">Proceed &rarr;</div>
-
             </div>
           </div>  
         </div>
