@@ -15,18 +15,21 @@
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/owl.cs' %}s">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
+
+    <!-- DROPDOWN -->
+    <link rel="stylesheet" href="{% static 'assets/css/dropdown.css' %}">
     
     <!-- FAVICON -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'assets/favicon/site.webmanifest' %}">
+
     
   </head>
 
-  
 
 <body>
 
@@ -47,7 +50,7 @@
           <div class="left-content">
             <h4>READY FOR <em>SCHOOL?</em></h4>
     
-            <span>TAKE THE ENTRANCE EXAM IN THE COMFORT OF YOUR HOMES!</span><br><br>
+            <span>TAKE THE ENTRANCE IQ TEST IN THE COMFORT OF YOUR HOMES!</span><br><br>
             <p>Euriqa is Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
               Duis congue consequat massa, sit amet ultrices diam sollicitudin ut.
                Vivamus at porttitor dui. Nunc luctus orci ut metus venenatis feugiat 
@@ -58,7 +61,8 @@
           </div>
         </div>
         <div class="col-md-6">
-          <article class="video-item">
+            <img src="{% static 'assets/images/virtual-meeting.jpg' %}" width="500" height="300" style="box-shadow: 5px 5px 20px;">
+          <!-- <article class="video-item">
             <div class="video-caption">
                 <h5> Take me to the exam!</h5>
             </div>
@@ -81,12 +85,35 @@
               </div>
               <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
             </div>
-            </div>
+            </div> --> 
         </div>
+        
+        <div class=container>
+        <div class="dropdown" id="dropdown">
+            <div class="select">
+                <span>Which level are you enrolling?</span>
+                <i class="fa fa-chevron-left"></i>
+                </div>
+            <input type="hidden" name="gender">
+
+            <ul class="dropdown-menu">
+              <li name="elementary">Elementary Level</li>
+              <li name="jhs">Junior High School Level</li>
+              <li name="shs">Senior High School Level</li>
+              <li name="college">College Level</li>
+            </ul>
+        </div>
+        </div>
+
+        </div>
+        <br> 
+        <button class="btn btn-warning">
+          <a href="../enrollee/login" style="color:black;">Proceed</a>
+        </button>
       </div>
     </div>
-  </section>
 
+  </section>
   <hr>
 
   <!-- Youtube Video -->
@@ -151,7 +178,6 @@
   </section>
 
 
-
   <footer>
     <div class="container">
       <div class="row">
@@ -161,6 +187,7 @@
         </div>
       </div>
     </div>
+    
   </footer>
 
   <!-- Scripts -->
@@ -175,6 +202,7 @@
     <script src="{% static 'assets/js/video.js' %}"></script>
     <script src="{% static 'assets/js/slick-slider.js' %}"></script>
     <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script src="{% static 'assets/js/dropdown.js' %}"></script>
     <script>
         //according to loftblog tut
         $('.nav li:first').addClass('active');
@@ -224,11 +252,6 @@
         $(window).scroll(function () {
           checkSection();
         });
-
-
-
-        
-
     </script>
 </body>
 </html>
