@@ -928,6 +928,77 @@ section.video .left-content .main-button {
   margin-top: 30px;
 }
 
+section.video1 {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #fff;
+
+}
+
+section.video1 .left-content {
+  color: #000;
+}
+
+section.video1 .left-content span {
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: 0.5px;
+}
+
+section.video1 .left-content h4 {
+    margin-top: 20px;
+    font-size: 30px;
+    color: #000;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    line-height: 40px;
+    margin-bottom: 20px;
+}
+section.video1 .left-content h4 em {
+    font-style: normal;
+    color: #FACA10;
+}
+
+section.video1 .left-content .main-button {
+  margin-top: 30px;
+}
+
+section.video2 {
+  background-repeat: repeat;
+  background-image: url(../images/bg6.png);
+  background-color: #fff;
+  padding: 100px 0px;
+}
+
+section.video2 .left-content {
+color: #000;
+}
+
+section.video2 .left-content span {
+text-transform: uppercase;
+font-size: 24px;
+letter-spacing: 0.5px;
+}
+
+section.video2 .left-content h4 {
+  margin-top: 20px;
+  font-size: 30px;
+  color: #000;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 40px;
+  margin-bottom: 20px;
+}
+section.video2 .left-content h4 em {
+  font-style: normal;
+  color: #FACA10;
+}
+
+section.video2 .left-content .main-button {
+margin-top: 30px;
+}
+
+
 .video-item {
   position: relative;
   width: 100%;
