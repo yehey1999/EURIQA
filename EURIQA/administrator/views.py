@@ -19,9 +19,9 @@ class AdminLoginView(View):
         
         if user is not None:
             auth.login(request, user)
-            is_enrollee = Administrator.objects.filter(user_id=request.user.id)
+            is_admin = Administrator.objects.filter(user_id=request.user.id)
 
-            if is_enrollee:
+            if is_admin:
                 return redirect('administrator:admin_home')
 
             else:
@@ -43,5 +43,12 @@ class AdminLogoutView(View):
 
 class AdminHomeView(View):
     def get(self,request):
-        logout(request)
-        return  render(request, 'adminHome.html')
+        if not request.user.is_authenticated:
+            return redirect("administrator:admin_login")
+        return render(request, 'adminHome.html')
+
+class AdminAccountRegistrationView(View):
+    def get(self,request):
+        if not request.user.is_authenticated:
+            return redirect("administrator:admin_login")
+        return render(request, 'adminRegForm.html')
