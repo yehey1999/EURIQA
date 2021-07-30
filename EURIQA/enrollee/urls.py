@@ -8,5 +8,6 @@ urlpatterns = [
     path('login', views.EnrolleeLoginView.as_view(), name='enrollee_login'),
     path('logout', views.EnrolleeLogoutView.as_view(), name='enrollee_logout'),
     path('details', views.EnrolleeDetailsCheckView.as_view(), name='enrollee_details'),
-    path('terms', views.EnrolleeTermsView.as_view(), name='enrollee_terms')
+    path('terms', views.EnrolleeTermsView.as_view(), name='enrollee_terms'),
+    path('exam', views.EnrolleeExamView.as_view(), name='enrollee_terms')
 ]

@@ -1,4 +1,5 @@
 {% load static %}
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,68 +44,10 @@
   <body>
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5"></div>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-12 col-lg-10">
-					<div class="wrap d-md-flex">
-						<div class="img" style="background-image: url({% static 'assets/images/citbldg.jpg' %}); background-position:fixed; background-size: cover;"></div>
-						<div class="login-wrap p-4 p-md-5">
-                            <div class="d-flex">
-                                <div class="w-100">
-                                    <h3 class="mb-4">Log in</h3>
-                                </div>
-                                        <!-- <div class="w-100">
-                                            <p class="social-media d-flex justify-content-end">
-                                                <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
-                                                <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-twitter"></span></a>
-                                            </p>
-                                        </div> -->
-                            </div>
-						
-                    <!-- LOGIN FORM -->
-                        <form class="signin-form" method="POST">
-                            {% csrf_token %}
-                            <div class="form-group mb-3">
-                                <label class="label" for="name">ID Number</label>
-                                <input type="text" class="form-control" placeholder="ID Number" name="username" required>
-                            </div>
-
-                            <div class="form-group mb-3">
-                                <label class="label" for="password">Password</label>
-                                <input type="password" class="form-control" placeholder="Password" name="password" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Log In</button>
-                            </div>
-
-                            <div class="form-group d-md-flex">
-                                <div class="w-50 text-left">
-                                    <label class="checkbox-wrap checkbox-primary mb-0">Remember Me
-                                        <input type="checkbox" checked>
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="w-50 text-md-right">
-                                    <a href="#">Forgot Password</a>
-                                </div>
-                            </div>
-
-                            {% for message in messages %}
-                                <div style="font-family: Montserrat-Regular; font-size: 13px;" class="alert alert-danger" role="alert">
-                                {{ message }}
-                                </div>
-                            {% endfor %}  
-
-		                </form>
-
-		                    <p><br>* Login details are to be provided by your school. If you don’t have an account, contact your enrollment officer.</p>
-		                </div>
-		            </div>
-			    </div>
-		    </div>
+            <div class="row">
+                <div class="col-sm-8">col-sm-8col-sm-8col-sm-8col-sm-8col-sm-8col-sm-8col-sm-8col-sm-8col-sm-8col-sm-8col-sm-8col-sm-8col-sm-8</div>
+                <div class="col-sm-4">col-sm-4</div>
+              </div>
 		</div>
 	</section>
 
