@@ -100,7 +100,7 @@
                             </div>
 
                             {% for message in messages %}
-                                <div style="font-family: Montserrat-Regular; font-size: 13px;" class="alert alert-danger" role="alert">
+                                <div class="alert alert-danger" role="alert">
                                 {{ message }}
                                 </div>
                             {% endfor %}  
@@ -135,6 +135,7 @@
   </footer>
 
   <!-- Scripts -->
+
   <!-- Bootstrap core JavaScript -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -145,6 +146,7 @@
     <script src="{% static 'assets/js/video.js' %}"></script>
     <script src="{% static 'assets/js/slick-slider.js' %}"></script>
     <script src="{% static 'assets/js/custom.js' %}"></script>
+
     <script>
         //according to loftblog tut
         $('.nav li:first').addClass('active');
@@ -194,10 +196,5 @@
         $(window).scroll(function () {
           checkSection();
         });
-
-
-
-        
-
     </script>
 </body>

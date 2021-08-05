@@ -52,3 +52,17 @@ class AdminAccountRegistrationView(View):
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
         return render(request, 'adminRegForm.html')
+
+    def post(self, request):
+        if request.method == 'POST':
+            if 'btnSubmit' in request.POST:
+                username = request.POST.get('username')
+                password = request.POST.get('password')
+                email = request.POST.get('email')
+                firstname = request.POST.get('first_name')
+                lastname = request.POST.get('last_name')
+                
+                user = User.objects.create_user(username=username, password=password, email=email, first_name=firstname, last_name=lastname)
+        
+        messages.success(request, "Account created")
+        return render(request, 'adminRegForm.html')

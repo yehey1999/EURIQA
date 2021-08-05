@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Enrollee(models.Model):
     enrollee_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)       #Password format: Lastname.123456
     middle_name = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50, blank=False)
     level = models.CharField(max_length = 50, null=True, blank=False)
