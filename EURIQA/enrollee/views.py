@@ -10,11 +10,11 @@ from enrollee.models import *
 
 class EnrolleeHomeView(View):
     def get(self, request):
-        return render(request, 'enrolleeHome.html')
+        return render(request, 'enrollee/enrolleeHome.html')
 
 class EnrolleeLoginView(View):
     def get(self, request):
-        return render(request, 'enrolleeLogin.html')
+        return render(request, 'enrollee/enrolleeLogin.html')
 
     def post(self, request):
         username = request.POST.get('username')
@@ -58,16 +58,16 @@ class EnrolleeDetailsCheckView(View):
 
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
-        return render(request, 'enrolleeDetails.html', context)
+        return render(request, 'enrollee/enrolleeDetails.html', context)
 
 class EnrolleeTermsView(View):
     def get(self, request):
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
-        return render(request, 'enrolleeTerms.html')
+        return render(request, 'enrollee/enrolleeTerms.html')
 
 class EnrolleeExamView(View):
     def get(self, request):
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
-        return render(request, 'enrolleeExam.html')
+        return render(request, 'enrollee/enrolleeExam.html')

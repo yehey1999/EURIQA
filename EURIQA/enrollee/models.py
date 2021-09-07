@@ -7,7 +7,7 @@ class Enrollee(models.Model):
     enrollee_id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)       #Password format: Lastname.123456
     middle_name = models.CharField(max_length=50, null=True)
-    address = models.CharField(max_length=50, blank=False)
+    address = models.CharField(max_length=250, blank=False)
     level = models.CharField(max_length = 50, null=True, blank=False)
     pictures = models.ImageField(null=True, blank=True)
 
