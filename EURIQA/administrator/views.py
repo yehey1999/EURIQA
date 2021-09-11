@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from administrator.models import *
 from enrollee.models import *
-# from .forms import RegistrationForm
+# from .forms import EnrolleeRegistrationForm
 
 # Create your views here.
 
@@ -70,7 +70,9 @@ class AdminAccountRegistrationView(View):
                 firstname = request.POST.get('first_name')
                 middlename = request.POST.get('middle_name')
                 lastname = request.POST.get('last_name')
+                
                 level = request.POST.get('level')
+                user_type = request.POST.get('user_type')
 
                 #Address
                 street = request.POST.get('street')
@@ -82,7 +84,16 @@ class AdminAccountRegistrationView(View):
                 
                 user = User.objects.create_user(username=username, password=password, email=email, first_name=firstname, last_name=lastname)
 
+
+            if user_type == 'enrollee':
+                user_id_latest_added=User.objects.all().last()
+                register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level)
+                register_enrollee.save()
+            else:
+                # register_admin = Administrator(user = user_id_latest_added, middle_name=middlename, address = full_address, department = level)
+                register_enrollee.save()
         messages.success(request, "Account created")
+
         return render(request, 'administrator/adminRegForm.html')
 
 class AdminManageAccounts(View):

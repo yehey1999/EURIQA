@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/menuicon.css' %}">
 
     <!-- Font Awesome JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 </head>
@@ -105,11 +106,11 @@
             </div>
           </div>
 
+        <!-- Input Account Details -->
         <form class="row g-3 needs-validation" novalidate method="POST">
             {% csrf_token %}
         
-            <!-- Input Account Details -->
-
+            <!-- Message loader -->
             {% for message in messages %}
             <div class="alert alert-success" role="alert">
                 {{ message }}
@@ -119,6 +120,7 @@
             <h2>Account Details</h2>
             <hr>
 
+            <!-- Username input field -->
             <div class="col-md-6">
                 <label for="inputUname" class="form-label">Username</label>
                 <input type="text" class="form-control" id="inputUname" placeholder="ID Number" name="username" required>
@@ -129,6 +131,7 @@
 
             </div>
 
+            <!-- Password input field -->
             <div class="col-md-6">
                 <label for="inputPass" class="form-label">Password</label>
                 <input type="password" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" required>
@@ -138,9 +141,19 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <!-- Type input field -->
+            <div class="col-md-2">
+                <label for="user_type" class="form-label" >Type</label>
+                <select id="type" class="form-select type" name="user_type" required>
+                    <option value="enrollee">Enrollee</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+
+            <!-- School level input field -->
+            <div class="col-md-5">
                 <label for="inputLevel" class="form-label" >School Level</label>
-                <select id="inputLevel" class="form-select" name="level" required>
+                <select id="inputLevel" class="form-select level" name="level" required>
                     <option value ="college" selected>College</option>
                     <option value="elem">Elementary</option>
                     <option value="jhs">Junior High School</option>
@@ -148,7 +161,19 @@
                 </select>
             </div>
 
-            <div class="col-md-6">
+            <!-- Department  input field -->
+            <div class="col-md-5">
+                <label for="inputDept" class="form-label" >Department</label>
+                <select id="inputDept" class="form-select department" name="level" required>
+                    <option value ="college" selected>College</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="CS">Computer Science</option>
+                    <option value="EE">Electrical Engineering   </option>
+                </select>
+            </div>
+
+            <!-- Email input field -->
+            <div class="col-md-5">
                 <label for="inputEmail" class="form-label">Email Address</label>
                 <input type="email" class="form-control" id="inputEmail" required>
 
@@ -163,6 +188,7 @@
             <h2>Enrollee Information</h2>
             <hr>
 
+            <!-- First name input field -->
             <div class="col-md-4">
                 <label for="inputFname" class="form-label">First Name</label>
                 <input type="text" class="form-control" id="inputFname" name="first_name" required>
@@ -171,11 +197,13 @@
                 </div>
             </div>
 
+            <!-- Middle name input field -->
             <div class="col-md-4">
                 <label for="inputMname" class="form-label">Middle Name</label>
                 <input type="text" class="form-control" id="inputMname" name="middle_name">
             </div>
 
+            <!-- Last name input field -->
             <div class="col-md-4">
                 <label for="inputLname" class="form-label">Last Name</label>
                 <input type="text" class="form-control" id="inputLname" name="last_name" required>
@@ -184,7 +212,8 @@
                     This field is required.
                 </div>
             </div>
-             
+            
+            <!-- Address input fields -->
             <div class="col-md-12">
                 <label for="inputAddress" class="form-label">House No., Street, Baranggay</label>
                 <input type="text" class="form-control" id="inputAddress" name ="street" required>
@@ -221,6 +250,7 @@
                 </div>
             </div>
             
+            <!-- Register button -->
             <br><br><br><br><br>
                 <center>
                     <button type="submit" class="btn btn-warning" name="btnSubmit">Register</button>
@@ -228,7 +258,9 @@
         </form>
     </div>
     </div>
+</body>
 
+<!-- SCRIPTS -->
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     
@@ -250,6 +282,26 @@
     <!-- MENU ICON -->
     <script src="{% static 'assets/js/menuicon.js' %}"></script>
 
-</body>
+    <!-- DISABLE LEVEL INPUT FIELD -->
+    <script>
+        // $(function() {
+        // $(".type").on("change",function() {
+        //     $(".level").prop('disabled',this.value=="admin");
+        // }).change();
+        // });
 
+        $(".type").change(function() {
+        if ($(this).val() == "admin") {
+            $('.department').show();
+            $('.level').hide();
+            // $('#otherField').attr('required', '');
+            // $('#otherField').attr('data-error', 'This field is required.');
+        } else {
+            $('.department').hide();
+            $('.level').show();
+            // $('').removeAttr('required');
+            // $('#otherField').removeAttr('data-error');
+        }
+        });
+    </script>
 </html>
