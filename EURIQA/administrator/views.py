@@ -72,6 +72,7 @@ class AdminAccountRegistrationView(View):
                 lastname = request.POST.get('last_name')
                 
                 level = request.POST.get('level')
+                position = request.POST.get('position')
                 user_type = request.POST.get('user_type')
 
                 #Address
@@ -90,8 +91,9 @@ class AdminAccountRegistrationView(View):
                 register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level)
                 register_enrollee.save()
             else:
-                # register_admin = Administrator(user = user_id_latest_added, middle_name=middlename, address = full_address, department = level)
-                register_enrollee.save()
+                user_id_latest_added=User.objects.all().last()
+                register_admin = Administrator(user = user_id_latest_added, middle_name=middlename, address = full_address, position = position)
+                register_admin.save()
         messages.success(request, "Account created")
 
         return render(request, 'administrator/adminRegForm.html')

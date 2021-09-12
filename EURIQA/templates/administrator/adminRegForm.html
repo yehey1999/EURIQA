@@ -134,7 +134,7 @@
             <!-- Password input field -->
             <div class="col-md-6">
                 <label for="inputPass" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" required>
+                <input type="text" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" disabled required>
 
                 <div class="invalid-feedback">
                     This field is required.
@@ -142,16 +142,16 @@
             </div>
 
             <!-- Type input field -->
-            <div class="col-md-2">
+            <div class="col-md-2 div_type">
                 <label for="user_type" class="form-label" >Type</label>
-                <select id="type" class="form-select type" name="user_type" required>
-                    <option value="enrollee">Enrollee</option>
+                <select class="form-select type" name="user_type" required>
+                    <option value="enrollee" selected>Enrollee</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
 
             <!-- School level input field -->
-            <div class="col-md-5">
+            <div class="col-md-5 div_level">
                 <label for="inputLevel" class="form-label" >School Level</label>
                 <select id="inputLevel" class="form-select level" name="level" required>
                     <option value ="college" selected>College</option>
@@ -161,21 +161,21 @@
                 </select>
             </div>
 
-            <!-- Department  input field -->
-            <div class="col-md-5">
-                <label for="inputDept" class="form-label" >Department</label>
-                <select id="inputDept" class="form-select department" name="level" required>
-                    <option value ="college" selected>College</option>
-                    <option value="IT">Information Technology</option>
-                    <option value="CS">Computer Science</option>
-                    <option value="EE">Electrical Engineering   </option>
+            <!-- Position  input field -->
+            <div class="col-md-5 div_pos">
+                <label for="inputPos" class="form-label" >Position</label>
+                <select id="inputPos" class="form-select position" name="position" required>
+                    <option value="guidance" selected>Guidance Center Personnel</option>
+                    <option value="college">College Faculty</option>
+                    <option value="shs">SHS Faculty</option>
+                    <option value="jhs">JHS Faculty</option>
                 </select>
             </div>
 
             <!-- Email input field -->
             <div class="col-md-5">
                 <label for="inputEmail" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="inputEmail" required>
+                <input type="email" class="form-control" name="email" id="inputEmail" required>
 
                 <div class="invalid-feedback">
                     Input a valid email address.
@@ -262,7 +262,7 @@
 
 <!-- SCRIPTS -->
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
@@ -282,26 +282,34 @@
     <!-- MENU ICON -->
     <script src="{% static 'assets/js/menuicon.js' %}"></script>
 
-    <!-- DISABLE LEVEL INPUT FIELD -->
+    <!-- INPUT SCRIPTS -->
     <script>
-        // $(function() {
-        // $(".type").on("change",function() {
-        //     $(".level").prop('disabled',this.value=="admin");
-        // }).change();
-        // });
-
+        // DISABLE LEVEL INPUT FIELD
         $(".type").change(function() {
-        if ($(this).val() == "admin") {
-            $('.department').show();
-            $('.level').hide();
+        if ($(this).val() == "enrollee") {
+            $('.div_pos').hide();
+            $('.div_level').show();
             // $('#otherField').attr('required', '');
             // $('#otherField').attr('data-error', 'This field is required.');
         } else {
-            $('.department').hide();
-            $('.level').show();
+            $('.div_pos').show();
+            $('.div_level').hide();
             // $('').removeAttr('required');
             // $('#otherField').removeAttr('data-error');
         }
         });
+        $(".type").trigger("change");
+
+        // PASSWORD SETTER
+        document.getElementById("inputLname").onchange = function() {passwordSet()};
+
+        function passwordSet() {
+            var lastname = document.getElementById("inputLname").value;
+            var inputPass = document.getElementById("inputPass")
+
+            inputPass.value = lastname + "." + "123456"
+
+        }
+
     </script>
-</html>
+</html> 

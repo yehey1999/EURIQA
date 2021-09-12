@@ -8,7 +8,7 @@ class Administrator(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     middle_name = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50, blank=False)
-    department = models.CharField(max_length=50, blank=False)
+    position = models.CharField(max_length=50, blank=False)
     
     class Meta:
         db_table = 'administrator'
