@@ -55,6 +55,17 @@ class AdminDashboard(View):
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminDashboard.html')
 
+class AdmminProfile(View):
+    def get(self,request):
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        context = {
+            'admin_details': qs_admin,
+        }
+        
+        if not request.user.is_authenticated:
+            return redirect("administrator:admin_login")
+        return render(request, 'administrator/adminProfile.html', context)
+        
 class AdminAccountRegistrationView(View):
     def get(self,request):
         if not request.user.is_authenticated:
