@@ -1,0 +1,204 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EURIQA Admin</title>
+
+    <!-- Bootstrap CSS CDN (BOOTSTRAP 5)-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- SIDEBAR -->
+    <link rel="stylesheet" href="{% static 'assets/css/sidebar.css' %}">
+
+    <!-- MENU ICON -->
+    <link rel="stylesheet" href="{% static 'assets/css/menuicon.css' %}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- SIDEBAR -->
+    <div class="wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <img style="float: right; margin-right: 50px; margin-top: 5px; " width="150" height="50" src="{% static 'assets/images/logo-02.png' %}">
+            </div>
+
+            <ul class="list-unstyled components">
+                <br>
+                <p>Welcome, {{user.first_name}}!</p>
+                <li>
+                    <a href="../administrator/home">Home</a>
+                </li>
+                <li>
+                    <a href="../administrator/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#regSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Enrollee Management</a>
+                    <ul class="collapse list-unstyled" id="regSubmenu">
+                        <li>
+                            <a href="../administrator/enrollee-management/regform">Account Registration </a>
+                        </li>
+                        <li>
+                            <a href="../administrator/enrollee-management/accounts">Manage Accounts</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#examSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Exam Management</a>
+                    <ul class="collapse list-unstyled" id="examSubmenu">
+                        <li>
+                            <a href="#">Elementary</a>
+                        </li>
+                        <li>
+                            <a href="#">Junior High School</a>
+                        </li>
+                        <li>
+                            <a href="#">Senior High School</a>
+                        </li>
+                        <li>
+                            <a href="#">College</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="active">
+                    <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
+                    <ul class="collapse list-unstyled" id="accountSubmenu">
+                        <li class="active">
+                            <a href="../administrator/profile">Profile</a>
+                        </li>
+                        <li>
+                            <a href="../administrator/logout">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <br><br><br><br><br>
+            <center>
+                <img width="70" height="70" src="{% static 'assets/images/logo1.png' %}">
+            </center>
+        </nav>
+    </div>
+
+    <!-- Content -->
+    <div id="content">
+        <div class="container">
+            <!-- Sidebar Collapse Button-->
+            <!-- <div class="row">
+                <div class="col">
+                    <div id="sidebarCollapse">
+                        <div id="nav-icon4">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            
+            <br><br><br>
+            <!-- Content Navigation Bar -->
+            <div class="row">
+                  <nav class="navbar">
+                      <button class="navbar-toggler" type="button">
+                        <span class="navbar-toggler-icon" id=sidebarCollapse></span>
+                      </button>
+                  </nav>
+                <!-- <div class="col">
+                    <nav class="navbar navbar-dark bg-dark">
+                        ASDASD
+                    </nav>
+                </div> -->
+            </div>
+        
+            <!-- Content Body -->
+            {% for admin_details in admin_details %}
+            <div class="row">
+                <div class="col-12 col-sm-auto mb-3">
+                    <div style="width: 140px;">
+                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                            image here
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm d-flex flex-column flex-sm-row justify-content-between mb-3">
+                    <div class="text-sm-left mb-2 mb-sm-0">
+                        <h2 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{admin_details.user.get_full_name}}</h4>
+                        <p class="mb-0"><small>{{admin_details.user.username}}</small></p>
+                        <div class="text-muted">
+                            <small>{{admin_details.position}}</small>
+                        </div>
+                        <small><a href="#" style="color: #741E1E">Change photo</a></small>
+                    </div>
+                    <div class="text-justified text-sm-right">
+                    <div class="text-muted"><small>Last logged in: <br><em>{{admin_details.user.last_login}}</em></small></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card border-light mb-3">
+                        <div class="card-header">
+                            <b>Personal Information</b>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row">
+                                <dt class="col-sm-3">Full Name</dt>
+                                <dd class="col-sm-9">{{admin_details.user.get_full_name}}</dd>
+
+                                <dt class="col-sm-3">Email</dt>
+                                <dd class="col-sm-9">{{admin_details.user.email}}</dd>
+
+                                <dt class="col-sm-3">Address</dt>
+                                <dd class="col-sm-9">{{admin_details.address}}</dd>
+                              
+                                <dt class="col-sm-3">Position</dt>
+                                <dd class="col-sm-9">Faculty/NAS/Admin</dd>
+                              
+                                <dt class="col-sm-3">College</dt>
+                                <dd class="col-sm-9"></dd>
+
+                                <dt class="col-sm-3">Department</dt>
+                                <dd class="col-sm-9">{{admin_details.position}}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+        </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    
+    <!-- SIDEBAR -->
+    <script src="{% static 'assets/js/sidebar.js' %}"></script>
+
+    <!-- BOOTSTRAP FORM VALIDATION -->
+    <script src="{% static 'assets/js/formvalidation.js' %}"></script>
+
+    <!-- MENU ICON -->
+    <!-- <script src="{% static 'assets/js/menuicon.js' %}"></script> -->
+
+</body>
+
+</html>

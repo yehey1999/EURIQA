@@ -70,7 +70,7 @@
                     <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
                     <ul class="collapse list-unstyled" id="accountSubmenu">
                         <li>
-                            <a href="#">Profile</a>
+                            <a href="../profile">Profile</a>
                         </li>
                         <li>
                             <a href="../logout">Logout</a>
@@ -134,7 +134,7 @@
             <!-- Password input field -->
             <div class="col-md-6">
                 <label for="inputPass" class="form-label">Password</label>
-                <input type="text" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" disabled required>
+                <input type="text" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" readonly required>
 
                 <div class="invalid-feedback">
                     This field is required.
@@ -301,15 +301,11 @@
         $(".type").trigger("change");
 
         // PASSWORD SETTER
-        document.getElementById("inputLname").onchange = function() {passwordSet()};
-
         function passwordSet() {
-            var lastname = document.getElementById("inputLname").value;
-            var inputPass = document.getElementById("inputPass")
-
-            inputPass.value = lastname + "." + "123456"
-
+            document.getElementById("inputPass").value = document.getElementById("inputLname").value + "." + "123456"
         }
+
+        document.getElementById("inputLname").onchange = function() {passwordSet()};
 
     </script>
 </html> 

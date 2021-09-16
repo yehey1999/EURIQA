@@ -55,6 +55,17 @@ class AdminDashboard(View):
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminDashboard.html')
 
+class AdmminProfile(View):
+    def get(self,request):
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        context = {
+            'admin_details': qs_admin,
+        }
+        
+        if not request.user.is_authenticated:
+            return redirect("administrator:admin_login")
+        return render(request, 'administrator/adminProfile.html', context)
+        
 class AdminAccountRegistrationView(View):
     def get(self,request):
         if not request.user.is_authenticated:
@@ -84,12 +95,12 @@ class AdminAccountRegistrationView(View):
                 full_address = street + ", " + city + ", " + province + ", " + zip_code
                 
                 user = User.objects.create_user(username=username, password=password, email=email, first_name=firstname, last_name=lastname)
-
-
+                
             if user_type == 'enrollee':
                 user_id_latest_added=User.objects.all().last()
                 register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level)
                 register_enrollee.save()
+
             else:
                 user_id_latest_added=User.objects.all().last()
                 register_admin = Administrator(user = user_id_latest_added, middle_name=middlename, address = full_address, position = position)
