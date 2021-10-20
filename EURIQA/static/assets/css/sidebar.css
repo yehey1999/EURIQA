@@ -36,7 +36,8 @@ a:focus {
 }
 
 #sidebar {
-    width: 250px;
+    
+    width: 260px;
     position: fixed;
     top: 0;
     left: 0;
@@ -45,6 +46,8 @@ a:focus {
     background: #741E1E;
     color: #fff;
     transition: all 0.3s;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #sidebar.active {
