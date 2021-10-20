@@ -111,6 +111,11 @@ class AdminAccountRegistrationView(View):
 
 class AdminManageAccounts(View):
     def get(self,request):
+        qs_accounts = Enrollee.objects.all()
+        context = {
+            'accounts': qs_accounts,
+        }
+
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
-        return render(request, 'administrator/adminManageAccounts.html')
+        return render(request, 'administrator/adminManageAccounts.html', context)
