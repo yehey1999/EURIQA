@@ -68,9 +68,16 @@ class AdmminProfile(View):
         
 class AdminAccountRegistrationView(View):
     def get(self,request):
+        qs_program = Program.objects.order_by('program_name')
+        qs_strand = Strand.objects.order_by('strand_name')
+        context = {
+            'programs': qs_program,
+            'strands': qs_strand,
+        }
+
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
-        return render(request, 'administrator/adminRegForm.html')
+        return render(request, 'administrator/adminRegForm.html', context)
 
     def post(self, request):
         if request.method == 'POST':
@@ -83,6 +90,19 @@ class AdminAccountRegistrationView(View):
                 lastname = request.POST.get('last_name')
                 
                 level = request.POST.get('level')
+                set_program = request.POST.get('program')
+                set_strand = request.POST.get('strand')
+
+                if set_program is None:
+                    program = None
+                else:
+                    program = Program.objects.get(program_id=set_program)
+                
+                if set_strand is None:
+                    strand = None
+                else:
+                    strand = Strand.objects.get(strand_id=set_strand)
+                
                 position = request.POST.get('position')
                 user_type = request.POST.get('user_type')
 
@@ -98,7 +118,7 @@ class AdminAccountRegistrationView(View):
                 
             if user_type == 'enrollee':
                 user_id_latest_added=User.objects.all().last()
-                register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level)
+                register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level, program = program, strand = strand)
                 register_enrollee.save()
 
             else:

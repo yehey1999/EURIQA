@@ -45,7 +45,6 @@ class EnrolleeLogoutView(View):
         logout(request)
         return  redirect("enrollee:enrollee_login")
 
-
 class EnrolleeDetailsCheckView(View):
     def get(self, request):
         qs_enrollee = Enrollee.objects.filter(user_id=request.user.id)

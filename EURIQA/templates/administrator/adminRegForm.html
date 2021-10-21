@@ -122,7 +122,7 @@
             <hr>
 
             <!-- Username input field -->
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="inputUname" class="form-label">Username</label>
                 <input type="text" class="form-control" id="inputUname" placeholder="ID Number" name="username" required>
                 
@@ -133,7 +133,7 @@
             </div>
 
             <!-- Password input field -->
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="inputPass" class="form-label">Password</label>
                 <input type="text" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" readonly required>
 
@@ -142,8 +142,18 @@
                 </div>
             </div>
 
+            <!-- Email input field -->
+            <div class="col-md-4">
+                <label for="inputEmail" class="form-label">Email Address</label>
+                <input type="email" class="form-control" name="email" id="inputEmail" required>
+
+                <div class="invalid-feedback">
+                    Input a valid email address.
+                </div>
+            </div>
+
             <!-- Type input field -->
-            <div class="col-md-2 div_type">
+            <div class="col-md-4 div_type">
                 <label for="user_type" class="form-label" >Type</label>
                 <select class="form-select type" name="user_type" required>
                     <option value="enrollee" selected>Enrollee</option>
@@ -152,18 +162,38 @@
             </div>
 
             <!-- School level input field -->
-            <div class="col-md-5 div_level">
+            <div class="col-md-4 div_level">
                 <label for="inputLevel" class="form-label" >School Level</label>
                 <select id="inputLevel" class="form-select level" name="level" required>
                     <option value ="college" selected>College</option>
-                    <option value="elem">Elementary</option>
-                    <option value="jhs">Junior High School</option>
                     <option value="shs">Senior High School</option>
+                    <option value="jhs">Junior High School</option>
+                    <option value="elem">Elementary</option>
+                </select>
+            </div>
+
+            <!-- Program input field -->
+            <div class="col-md-4 div_program">
+                <label for="inputProgram" class="form-label" >Enrolled Program</label>
+                <select id="inputProgram" class="form-select program" name="program" required>
+                    {% for program in programs %}
+                        <option value={{program.program_id}}>{{program.program_name}}</option> 
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Strand input field -->
+            <div class="col-md-4 div_strand">
+                <label for="inputStrand" class="form-label" >Enrolled Strand</label>
+                <select id="inputStrand" class="form-select program" name="strand" required>
+                    {% for strand in strands %}
+                        <option value={{strand.strand_id}}>{{strand.strand_name}}</option>
+                    {% endfor %}
                 </select>
             </div>
 
             <!-- Position  input field -->
-            <div class="col-md-5 div_pos">
+            <div class="col-md-3 div_pos">
                 <label for="inputPos" class="form-label" >Position</label>
                 <select id="inputPos" class="form-select position" name="position" required>
                     <option value="guidance" selected>Guidance Center Personnel</option>
@@ -171,16 +201,6 @@
                     <option value="shs">SHS Faculty</option>
                     <option value="jhs">JHS Faculty</option>
                 </select>
-            </div>
-
-            <!-- Email input field -->
-            <div class="col-md-5">
-                <label for="inputEmail" class="form-label">Email Address</label>
-                <input type="email" class="form-control" name="email" id="inputEmail" required>
-
-                <div class="invalid-feedback">
-                    Input a valid email address.
-                </div>
             </div>
 
             <!-- Input Enrollee Information-->
@@ -285,21 +305,47 @@
 
     <!-- INPUT SCRIPTS -->
     <script>
-        // DISABLE LEVEL INPUT FIELD
+        // Hide level input field when user type is admin and vice versa
         $(".type").change(function() {
         if ($(this).val() == "enrollee") {
             $('.div_pos').hide();
             $('.div_level').show();
-            // $('#otherField').attr('required', '');
-            // $('#otherField').attr('data-error', 'This field is required.');
+
         } else {
             $('.div_pos').show();
             $('.div_level').hide();
-            // $('').removeAttr('required');
-            // $('#otherField').removeAttr('data-error');
         }
         });
+
+        // Hide and disable strand input field when level is 'college'
+        $(".level").change(function() {
+        if ($(this).val() == "college") {
+            $('.div_strand').hide();
+            $("#inputStrand").prop('disabled', true);
+            $('.div_program').show();
+
+        // Hide and disable program input field when level is 'shs'
+        } else {
+            $('.div_strand').show();
+            $('.div_program').hide();
+            $("#inputStrand").prop('disabled', false);
+            $("#inputProgram").prop('disabled', true);
+        }
+        });
+
+        // Hide and disable strand and program when level is 'elem' or 'jhs'
+        $(".level").change(function() {
+        if ($(this).val() == "elem" || $(this).val() == "jhs" ) {
+            $('.div_strand').hide();
+            $('.div_program').hide();
+
+            $("#inputStrand").prop('disabled', true);
+            $("#inputProgram").prop('disabled', true);
+        }
+        });
+
         $(".type").trigger("change");
+        $(".level").trigger("change");
 
         // PASSWORD SETTER
         function passwordSet() {
