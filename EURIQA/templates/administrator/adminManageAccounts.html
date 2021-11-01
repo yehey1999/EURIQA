@@ -33,9 +33,6 @@
         }
     </style>
 
-
-
-
 </head>
 
 <body>
@@ -123,17 +120,125 @@
             <tbody>
                 {% for account in accounts %}
                 <tr>
-                    <td>{{account.user.get_full_name}}</td>
+                    <td>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#enrolleInfoModal-{{account.enrollee_id}}">
+                            {{account.user.get_full_name}}
+                        </a>
+                    </td>
                     <td>{{account.address}}</td>
                     <td>{{account.user.email}}</td>
                     <td>{{account.program.program_name}}</td>
                     <td>{{account.exam_status}}</td>
                     <td style="text-align:center;">
-                        <button>
-                            <i class="fas fa-trash"></i>
+                        <button style="border: none;">
+                            <i class="fas fa-trash-alt" style="color: red;"></i>
                         </button>
                     </td>
-                </tr>
+                </tr>  
+                
+                    <!-- Enrolle Info  Modal -->
+                    <div class="modal fade" id="enrolleInfoModal-{{account.enrollee_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        
+                        <!-- Modal Header -->
+                        <div class="modal-dialog modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Enrollee Information</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            <!-- Modal Body -->    
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Image -->
+                                    <div class="col-12 col-sm-auto mb-3">
+                                        <div style="width: 140px;">
+                                            <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                    image here
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Summary of Information -->
+                                    <div class="col-sm d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                        <div class="text-sm-left mb-2 mb-sm-0">
+                                            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{account.user.get_full_name}}</h4>
+                                            <p class="mb-0"><small>{{account.user.username}}</small></p>
+                                            <div class="text-muted">
+                                                {% if account.level == 'college' %}
+                                                <small>College</small><br>
+                                                <small>{{account.program.program_name}}</small>
+
+                                                {% elif account.level == 'shs' %}
+                                                <small>Senior High School</small><br>
+                                                <small>{{account.strand.strand_name}}</small>
+
+                                                {% elif account.level == 'jhs' %}
+                                                <small>Junior High School</small>
+
+                                                {% elif account.level == 'elem' %}
+                                                <small>Elementary</small>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- Personal Information -->
+                                    <div class="col">
+                                        <div class="card border-light mb-3">
+                                            <div class="card-header">
+                                                <b>Personal Information</b>
+                                            </div>
+                                            <div class="card-body">
+                                                <dl class="row">
+                                                    <dt class="col-sm-4">Full Name</dt>
+                                                    <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
+                    
+                                                    <dt class="col-sm-4">Email</dt>
+                                                    <dd class="col-sm-8">{{account.user.email}}</dd>
+                    
+                                                    <dt class="col-sm-4">Address</dt>
+                                                    <dd class="col-sm-8">{{account.address}}</dd>
+                                                  
+                                                    <dt class="col-sm-4">Account Created</dt>
+                                                    <dd class="col-sm-8">{{account.user.date_joined}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Enrolle Performance-->
+                                    <!-- <div class="col">
+                                        <div class="card border-light mb-3">
+                                            <div class="card-header">
+                                                <b>Personal Information</b>
+                                            </div>
+                                            <div class="card-body">
+                                                <dl class="row">
+                                                    <dt class="col-sm-4">Full Name</dt>
+                                                    <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
+                    
+                                                    <dt class="col-sm-4">Email</dt>
+                                                    <dd class="col-sm-8">{{account.user.email}}</dd>
+                    
+                                                    <dt class="col-sm-4">Address</dt>
+                                                    <dd class="col-sm-8">{{account.address}}</dd>
+                                                  
+                                                    <dt class="col-sm-4">Account Created</dt>
+                                                    <dd class="col-sm-8">{{account.user.date_joined}}</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <!-- Modal Footer-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" style="background-color: maroon; " data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 {% endfor %}
             </tbody>
             
@@ -149,7 +254,9 @@
     
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    
+    <!-- ootstrap 5 JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
     <!-- jQuery Custom Scroller CDN -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> -->
     

@@ -321,6 +321,7 @@
         $(".level").change(function() {
         if ($(this).val() == "college") {
             $('.div_strand').hide();
+            $("#inputProgram").prop('disabled', false);
             $("#inputStrand").prop('disabled', true);
             $('.div_program').show();
 
