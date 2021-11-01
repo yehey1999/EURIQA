@@ -26,6 +26,7 @@ class Enrollee(models.Model):
     middle_name = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=250, blank=False)
     level = models.CharField(max_length = 50, null=True, blank=False)
+    enrolled_as = models.CharField(max_length = 50, null=True, blank=False)
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, null=True, blank=True)
     strand = models.ForeignKey(Strand, on_delete=models.CASCADE, default=None, null=True, blank=True)
     exam_status = models.CharField(max_length = 10, null=True, blank=False, default="not done")
