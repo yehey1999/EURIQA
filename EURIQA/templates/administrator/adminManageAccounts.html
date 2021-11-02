@@ -25,14 +25,6 @@
     <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
     <link href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.bootstrap5.min.css">
     
-    <!-- DATA TABLE STYLING -->
-    <style>
-        table.dataTable tbody tr.selected {
-            color: white !important;
-            background-color: #741e1eb7 !important;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -105,35 +97,72 @@
 
         <br><br>
         
-        <table id="example" class="table table-striped" style="width:100%">
+                <!-- Message Loader -->
+                {% for message in messages %}
+                    <div class="alert {{message.tags}}" role="alert">
+                    {{ message }}
+                    </div>
+                {% endfor %}  
+
+        <table id="accounts" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Email</th>
-                    <th>Program</th>
-                    <th>Exam Status</th>
-                    <th>Action</th>
+                    <th style="text-align: center;">ID</th>
+                    <th style="text-align: center;">Name</th>
+                    <th style="text-align: center;">Email</th>
+                    <th style="text-align: center;">Level</th>
+                    <th style="text-align: center;">Exam Status</th>
+                    <th style="text-align: center;">Action</th>
                 </tr>
             </thead>
             
             <tbody>
                 {% for account in accounts %}
-                <tr>
+                
+                <!-- Show only accounts that are not deactivated -->
+                {% if account.user.is_active == 1 %}
+                <tr style="text-align: center;">
+                    <td style="text-align: center;">{{account.enrollee_id}}</td>
                     <td>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#enrolleInfoModal-{{account.enrollee_id}}">
+                        <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#enrolleInfoModal-{{account.enrollee_id}}">
                             {{account.user.get_full_name}}
                         </a>
                     </td>
-                    <td>{{account.address}}</td>
                     <td>{{account.user.email}}</td>
-                    <td>{{account.program.program_name}}</td>
+                    <td>{{account.level}}</td>
                     <td>{{account.exam_status}}</td>
                     <td style="text-align:center;">
-                        <button style="border: none;">
-                            <i class="fas fa-trash-alt" style="color: red;"></i>
-                        </button>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input name="user_id" value={{account.user.id}} hidden />
+                            <input name="exam_status" value="{{account.exam_status}}" hidden />
+                        
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#deactivateAcc" style="border: none;">
+                                <i class="fas fa-trash-alt" style="color: red;"></i>
+                            </button>
+                        
+                            <div class="modal fade" id="deactivateAcc" tabindex="-1" aria-labelledby="deactivateAccLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deactivateAccLabel"></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+
+                                    <div class="modal-body">
+                                    Are you sure you want to disable account?
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="btn_deact" class="btn btn-secondary" style="background-color: maroon;">Yes</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </form>
                     </td>
+                    {% endif %}
                 </tr>  
                 
                     <!-- Enrolle Info  Modal -->
@@ -201,7 +230,7 @@
                                                     <dd class="col-sm-8">{{account.address}}</dd>
                                                   
                                                     <dt class="col-sm-4">Account Created</dt>
-                                                    <dd class="col-sm-8">{{account.user.date_joined}}</dd>
+                                                    <dd class="col-sm-8">{{account.user.date_joined|date:"F d, Y"}}</dd>
                                                 </dl>
                                             </div>
                                         </div>
@@ -270,46 +299,15 @@
     <script src="{% static 'assets/js/menuicon.js' %}"></script>
 
     <!-- DATATABLE -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-html5-2.0.1/fh-3.2.0/r-2.2.9/sl-1.3.3/datatables.min.js"></script>
-    
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
 
     <script>
-    $(document).ready(function() {
-        var table = $('#example').DataTable( {
-            lengthChange: false,
-            select:true,
-            
-            buttons: [
-                {
-                    extend: 'csv',
-                    split: [ 'csv', 'pdf', 'excel'],
-                    text: 'Export as',
-                    exportOptions: {
-                        columns: [ 0, 1, 2, 3 ]
-                    }
-                }
-            ]
+        $(document).ready(function() {
+            $('#accounts').DataTable();
         } );
-    
-        table.buttons().container()
-            .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-    } );
     </script>
-
 </body>
 
 </html>

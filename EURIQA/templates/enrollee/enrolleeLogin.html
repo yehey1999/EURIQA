@@ -93,11 +93,12 @@
                                 </div>
                             </div>
 
+                            <!-- Message Loader -->
                             {% for message in messages %}
-                                <div style="font-family: Montserrat-Regular; font-size: 13px;" class="alert alert-danger" role="alert">
-                                {{ message }}
-                                </div>
-                            {% endfor %}  
+                              <div class="alert {{message.tags}}" role="alert">
+                              {{ message }}
+                              </div>
+                            {% endfor %}   
 
 		                </form>
 

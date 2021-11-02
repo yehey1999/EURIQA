@@ -127,7 +127,7 @@ class AdminAccountRegistrationView(View):
                 register_admin.save()
         messages.success(request, "Account created")
 
-        return render(request, 'administrator/adminRegForm.html')
+        return redirect("administrator:admin_regform")
 
 class AdminManageAccounts(View):
     def get(self,request):
@@ -139,3 +139,19 @@ class AdminManageAccounts(View):
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminManageAccounts.html', context)
+
+    def post(self, request):
+        # Deactivate accounts that are done taking the exam
+        if request.method == "POST":
+            if 'btn_deact' in request.POST:
+                user_id = request.POST.get('user_id')
+                exam_status = request.POST.get('exam_status')
+                
+                if exam_status == "done":
+                    update = User.objects.filter(id = user_id).update(is_active=0)
+                    messages.success(request, 'Account deactivated')
+
+                else:
+                    messages.error(request, 'Cannot deactivate account.')
+
+        return redirect("administrator:admin_accounts")

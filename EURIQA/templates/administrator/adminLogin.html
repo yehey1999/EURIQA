@@ -82,11 +82,12 @@
                       <button type="submit" class="form-control btn btn-primary rounded submit px-3">Log In</button>
                     </div>
 
-                  {% for message in messages %}
-                  <div class="alert alert-danger" role="alert">
-                  {{ message }}
-                  </div>
-                  {% endfor %}  
+                    <!-- Message Loader -->
+                    {% for message in messages %}
+                      <div class="alert {{message.tags}}" role="alert">
+                      {{ message }}
+                      </div>
+                    {% endfor %}   
 
 		            </form>
 
