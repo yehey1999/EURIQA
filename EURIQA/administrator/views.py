@@ -141,17 +141,25 @@ class AdminManageAccounts(View):
         return render(request, 'administrator/adminManageAccounts.html', context)
 
     def post(self, request):
-        # Deactivate accounts that are done taking the exam
         if request.method == "POST":
+            # Deactivate accounts that are done taking the exam
             if 'btn_deact' in request.POST:
                 user_id = request.POST.get('user_id')
                 exam_status = request.POST.get('exam_status')
                 
                 if exam_status == "done":
-                    update = User.objects.filter(id = user_id).update(is_active=0)
+                    deactivate_acc = User.objects.filter(id = user_id).update(is_active=0)
                     messages.success(request, 'Account deactivated')
-
                 else:
                     messages.error(request, 'Cannot deactivate account.')
+
+            # Reactivate accounts that are deactivated
+            if 'btn_react' in request.POST:
+                deact_uid = request.POST.get('deact-user_id')
+                enrollee_id = request.POST.get('enrollee_id')
+
+                reactivate_acc = User.objects.filter(id = deact_uid).update(is_active=1)
+                update_examstat = Enrollee.objects.filter(enrollee_id = enrollee_id).update(exam_status="not done")
+                messages.success(request, 'Account reactivated')
 
         return redirect("administrator:admin_accounts")
