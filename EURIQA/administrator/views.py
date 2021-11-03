@@ -7,6 +7,7 @@ from django.contrib import messages
 from administrator.models import *
 from enrollee.models import *
 # from .forms import EnrolleeRegistrationForm
+from .forms import QuestionForm
 
 # Create your views here.
 
@@ -163,3 +164,29 @@ class AdminManageAccounts(View):
                 messages.success(request, 'Account reactivated')
 
         return redirect("administrator:admin_accounts")
+
+class AdminQuestionCreateView(View):
+    def get(self, request):
+        print("ok")
+        return render(request, 'administrator/adminManageExam.html')
+
+    def post(self, request):
+        form = QuestionForm(request.POST)
+        if 'btnSubmit' in request.POST:
+            question = request.POST.get("question")
+            optionA = request.POST.get("option_a")
+            optionB = request.POST.get("option_b")
+            optionC = request.POST.get("option_c")
+            optionD = request.POST.get("option_d")
+            answer = request.POST.get("answer")
+            points = request.POST.get("points")
+            form = Question(question = question, optionA = optionA, optionB = optionB, optionC = optionC,
+                optionD = optionD, answer = answer, points = points)
+            form.save()
+
+            return HttpResponse('Question Saved!')
+            # return render(request, '.html')
+
+        else:
+            print(form.errors)
+            return HttpResponse('INVALID! Question not saved.')
