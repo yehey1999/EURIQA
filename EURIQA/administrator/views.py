@@ -190,3 +190,12 @@ class AdminQuestionCreateView(View):
         else:
             print(form.errors)
             return HttpResponse('INVALID! Question not saved.')
+
+class AdminMainExamTableView(View):
+    def get(self, request):
+        print("ok")
+        return render(request, 'administrator/adminManageMainExam.html')
+
+    # def post
+
+        

@@ -31,8 +31,8 @@ class Question(models.Model):
 	optionD = models.CharField(max_length = 100)
 	answer = models.CharField(max_length = 100)
 	points = models.IntegerField()
-	# part = models.ForeignKey(Part, on_delete=models.CASCADE, default=None, null=True, blank=True)
-	# created_by = models.ForeignKey(Administrator, on_delete=models.CASCADE, default=None, null=True, blank=True)
+	part = models.ForeignKey(Part, on_delete=models.CASCADE, default=None, null=True, blank=True)
+	created_by = models.ForeignKey(Administrator, on_delete=models.CASCADE, default=None, null=True, blank=True)
 
 	class Meta:
 		db_table = "question"
