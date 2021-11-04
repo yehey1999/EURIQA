@@ -195,10 +195,3 @@ class AdminMainExamTableView(View):
     def get(self, request):
         print("ok")
         return render(request, 'administrator/adminManageMainExam.html')
-
-class AdminExamPartView(View):
-    def get(self, request):
-        print("ok")
-        return render(request, 'administrator/adminExamPart.html')
-
-        
