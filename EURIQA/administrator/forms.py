@@ -9,8 +9,8 @@ class EnrolleeRegistrationForm(forms.ModelForm):
 		model = Enrollee
 		fields = ('user', 'address', 'level')
 
-class QuestionForm(forms.ModelForm):
+# class QuestionForm(forms.ModelForm):
 
-	class Meta():
-		model = Question
-		fields = ('__all__')
+# 	class Meta():
+# 		model = Question
+# 		fields = ('__all__')

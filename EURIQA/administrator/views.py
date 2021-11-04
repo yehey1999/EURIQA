@@ -7,7 +7,7 @@ from django.contrib import messages
 from administrator.models import *
 from enrollee.models import *
 # from .forms import EnrolleeRegistrationForm
-from .forms import QuestionForm
+# from .forms import QuestionForm
 
 # Create your views here.
 
@@ -78,7 +78,7 @@ class AdminAccountRegistrationView(View):
 
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
-        return render(request, 'administrator/adminRegForm.html', context)
+        return render(request, 'administrator/enrolleeRegistration/adminRegForm.html', context)
 
     def post(self, request):
         if request.method == 'POST':
@@ -139,7 +139,7 @@ class AdminManageAccounts(View):
 
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
-        return render(request, 'administrator/adminManageAccounts.html', context)
+        return render(request, 'administrator/enrolleeRegistration/adminManageAccounts.html', context)
 
     def post(self, request):
         if request.method == "POST":
@@ -165,36 +165,59 @@ class AdminManageAccounts(View):
 
         return redirect("administrator:admin_accounts")
 
-class AdminQuestionCreateView(View):
-    def get(self, request):
-        print("ok")
-        return render(request, 'administrator/adminManageExam.html')
+class AdminCreateExam(View):
+    def get(self,request):
+        qs_question = Question.objects.all()
+        context = {
+            'questions': qs_question,
+        }
+
+        if not request.user.is_authenticated:
+            return redirect("administrator:admin_login")
+        return render(request, 'administrator/examManagement/adminCreateExam.html', context)
 
     def post(self, request):
-        form = QuestionForm(request.POST)
-        if 'btnSubmit' in request.POST:
+        if 'btnSaveExam' in request.POST:
+            exam_title = request.POST.get("exam_title")
+            exam_takers = request.POST.get("exam_takers")
+            
+            get_admin_id = Administrator.objects.get(user_id = request.user.id)
+
+            create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id)
+            create_exam.save()
+            messages.success(request, "Exam created.")
+
+        elif 'btnSaveQuestion' in request.POST:
+            # exam = request.POST.get("exam")
+            # part = request.POST.get("part")
+            question_no = request.POST.get("question_no")
             question = request.POST.get("question")
-            optionA = request.POST.get("option_a")
-            optionB = request.POST.get("option_b")
-            optionC = request.POST.get("option_c")
-            optionD = request.POST.get("option_d")
+            optionA = request.POST.get("optionA")
+            optionB = request.POST.get("optionB")
+            optionC = request.POST.get("optionC")
+            optionD = request.POST.get("optionD")
             answer = request.POST.get("answer")
             points = request.POST.get("points")
-            form = Question(question = question, optionA = optionA, optionB = optionB, optionC = optionC,
-                optionD = optionD, answer = answer, points = points)
-            form.save()
+            
+            # create_exam = Exam()
+            # create_exam.save()
 
-            return HttpResponse('Question Saved!')
-            # return render(request, '.html')
+            
+            add_question = Question(question_no = question_no, question = question, optionA = optionA, optionB = optionB, optionC = optionC, optionD = optionD, answer = answer, points = points)
+            add_question.save()
+
+            messages.success(request, "Question saved.")
 
         else:
             print(form.errors)
             return HttpResponse('INVALID! Question not saved.')
 
+        return redirect("administrator:question_form")
+
 class AdminMainExamTableView(View):
     def get(self, request):
         print("ok")
-        return render(request, 'administrator/adminManageMainExam.html')
+        return render(request, 'administrator/examManagement/adminManageMainExam.html')
 
     # def post
 
