@@ -196,6 +196,9 @@ class AdminMainExamTableView(View):
         print("ok")
         return render(request, 'administrator/adminManageMainExam.html')
 
-    # def post
+class AdminExamPartView(View):
+    def get(self, request):
+        print("ok")
+        return render(request, 'administrator/adminExamPart.html')
 
         
