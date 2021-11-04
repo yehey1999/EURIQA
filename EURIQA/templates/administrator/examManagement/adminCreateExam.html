@@ -52,7 +52,7 @@
                     <ul class="collapse list-unstyled" id="examSubmenu">
                         <li><a href="../exam-management/mainexamtable">All Exams</a></li>
                         <li>
-                            <a href="../exam-management/questionform">Create Exam</a>
+                            <a href="../exam-management/create-questions">Create Exam</a>
                         </li>
                     </ul>
                 </li>
@@ -91,7 +91,7 @@
             </div>
 
             <div class="col">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">ASDASD</nav>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
             </div>
           </div>
 
@@ -107,10 +107,10 @@
         <br>
         <div class="container">
 
-        <form class="row g-3 needs-validation" novalidate method="POST"> 
-        {% csrf_token %}
+        <!-- <form class="row g-3 needs-validation" novalidate method="POST"> 
+        {% csrf_token %} -->
             <!-- Exam -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-1"></div>
                 <div class="col-10">
                     <div class="card">
@@ -129,11 +129,11 @@
                                 <div class="col-4">
                                     <div class="form-floating">
                                         <select class="form-select" name="exam_takers" id="floatingExamTitle" placeholder="Exam Title" required>
-                                            <option value="College">College</option>
+                                            <option value="College">College</option> -->
                                             <!-- <option value="">Senior High School</option>
                                             <option value="">Junior High School</option>
                                             <option value="">Elementary</option> -->
-                                        </select>
+                                        <!-- </select>
                                         <label for="floatingExamTitle">Assigned to</label>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                 </div>
                 <div class="col-1"></div>
             </div>
-        </form>
+        </form> -->
 
         <form class="row g-3 needs-validation" novalidate method="POST"> 
             {% csrf_token %}
@@ -314,14 +314,13 @@
                 </thead>
                 
                 <tbody>
+                    {% for question in questions %}
                     <tr style="text-align: center;">
-                        <td style="text-align: center;"></td>
-                        <td>
-                            <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#">
-                            </a>
-                        </td>
-                        <td></td>
-                        <td></td>
+                        <td>{{question.question_no}}</td>
+                        <td>{{question.part}}</td>
+                        <td>{{question.question}}</td>
+                        <td>Edit Question</td>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

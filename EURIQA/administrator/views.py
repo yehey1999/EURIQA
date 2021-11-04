@@ -165,7 +165,7 @@ class AdminManageAccounts(View):
 
         return redirect("administrator:admin_accounts")
 
-class AdminCreateExam(View):
+class AdminAddQuestions(View):
     def get(self,request):
         qs_question = Question.objects.all()
         context = {
@@ -202,7 +202,6 @@ class AdminCreateExam(View):
             # create_exam = Exam()
             # create_exam.save()
 
-            
             add_question = Question(question_no = question_no, question = question, optionA = optionA, optionB = optionB, optionC = optionC, optionD = optionD, answer = answer, points = points)
             add_question.save()
 
@@ -212,7 +211,7 @@ class AdminCreateExam(View):
             print(form.errors)
             return HttpResponse('INVALID! Question not saved.')
 
-        return redirect("administrator:question_form")
+        return redirect("administrator:admin_create_qs")
 
 class AdminMainExamTableView(View):
     def get(self, request):
