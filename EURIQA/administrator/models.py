@@ -13,15 +13,6 @@ class Administrator(models.Model):
     class Meta:
         db_table = 'administrator'
 
-class Part(models.Model):
-	part_id = models.AutoField(primary_key=True)
-	part_name = models.CharField(max_length = 200)
-	instructions = models.CharField(max_length = 200)
-	overall_points = models.IntegerField(default=None, null=True,)
-
-	class Meta:
-		db_table = "exam_parts"
-
 class Exam(models.Model):
 	exam_id = models.AutoField(primary_key=True)
 	title = models.CharField(max_length=100, default=None)
@@ -32,6 +23,16 @@ class Exam(models.Model):
 
 	class Meta:
 		db_table = "exam"
+
+class Part(models.Model):
+	part_id = models.AutoField(primary_key=True)
+	part_name = models.CharField(max_length = 200)
+	instructions = models.CharField(max_length = 200)
+	overall_points = models.IntegerField(default=None, null=True,)
+	exam = models.ForeignKey(Exam, on_delete=models.CASCADE, default=None, null=True, blank=True)
+
+	class Meta:
+		db_table = "exam_parts"
 
 class Question(models.Model):
 	question_id = models.AutoField(primary_key=True)
