@@ -1,143 +1,590 @@
 {% load static %}
 
-  <head>
+<head>
+    <title>Admin Dashboard</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-    <title>EURIQA - Home Page</title>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Favicon icon -->
+    <link rel="icon" href="{% static 'assets/images/dashboard/favicon.svg' %}" type="image/x-icon">
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
-    
-    <!-- FAVICON -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicon/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'assets/favicon/site.webmanifest' %}">
-  </head>
+    <!-- font css -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/material.css' %}">
 
-  
+    <!-- vendor css -->
+    <link rel="stylesheet" href="{% static 'assets/css/dashboard/style.css' %}" id="main-style-link">
 
-<body>
+</head>
 
-  <!--header-->
-  <header class="main-header clearfix" role="header">
-    <div class="logo">
-      <a href=""><em>EURIQA</em></a>
+<body class="">
+    <!-- [ Pre-loader ] start -->
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
     </div>
-   
-  </header>
-    
-  <!-- Body -->
-  <body>
-	<section class="ftco-section">
-		<div class="container">
-            <div class="row">
-                <div class="col-sm-8">
-                    
-                </div>
-                <div class="col-sm-4">
-
-                </div>
-              </div>
-		</div>
-	</section>
-
-	<script src="{% static 'assests/js/jquery.min.js' %}"></script>
-    <script src="{% static 'assestsjs/popper.js' %}"></script>
-    <script src="{% static 'assestsjs/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assestsjs/main.js' %}"></script>
-
-	</body>
-
-
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <p><i class="fa fa-copyright"></i> Copyright 2021 by EURIQA 
-
+  </div>
+  <!-- [ Pre-loader ] End -->
+  <!-- [ Mobile header ] start -->
+  <div class="pc-mob-header pc-header">
+    <div class="pcm-logo">
+      <img src="{% static 'assets/images/logo.png' %}" alt="" class="logo logo-lg">
+    </div>
+    <div class="pcm-toolbar">
+      <a href="#!" class="pc-head-link" id="mobile-collapse">
+        <div class="hamburger hamburger--arrowturn">
+          <div class="hamburger-box">
+            <div class="hamburger-inner"></div>
+          </div>
         </div>
+      </a>
+      <a href="#!" class="pc-head-link" id="header-collapse">
+        <i data-feather="more-vertical"></i>
+      </a>
+    </div>
+  </div>
+  <!-- [ Mobile header ] End -->
+
+  <!-- [ navigation menu ] start -->
+  <nav class="pc-sidebar ">
+    <div class="navbar-wrapper">
+      <div class="m-header">
+        <a href="index.html" class="b-brand">
+          <img src="{% static 'assets/img/logotype with favicon.png' %}" alt="" class="logo logo-sm">
+        </a>
+      </div>
+      <div class="navbar-content">    
+                <br><br>
+        <ul class="pc-navbar">
+          <li class="pc-item pc-caption">
+            <label>Navigation</label>
+          </li>
+          <li class="pc-item">
+            <a href="index.html" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">home</i></span><span class="pc-mtext">Home</span></a>
+          </li>
+
+          <li class="pc-item">
+            <a href="icon-feather.html" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">history_edu</i></span><span class="pc-mtext">Profile</span></a>
+          </li>
+          <li class="pc-item pc-caption">
+            <label>Exam Management</label>
+            <span>Examination Settings</span>
+          </li>
+          <li class="pc-item">
+            <a href="chart-apex.html" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">bubble_chart</i></span><span class="pc-mtext">Examinations</span></a>
+          </li>
+          <li class="pc-item">
+            <a href="map-google.html" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">my_location</i></span><span class="pc-mtext">Data </span></a>
+          </li>
+          <li class="pc-item pc-caption">
+            <label>Enrollee Registration</label>
+            <span>Enrollee Registration Settings</span>
+          </li>
+          <li class="pc-item pc-hasmenu">
+            <a href="#!" class="pc-link"><span class="pc-micon"><i class="material-icons-two-tone">https</i></span><span class="pc-mtext">Registration</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+            <ul class="pc-submenu">
+              <li class="pc-item"><a class="pc-link" href="auth-signup.html" target="_blank">Add Enrollee</a></li>
+              <li class="pc-item"><a class="pc-link" href="auth-signin.html" target="_blank">Manage Enrollee</a></li>
+            </ul>
+          </li>
+
+        </ul>
       </div>
     </div>
-  </footer>
+  </nav>
+  <!-- [ navigation menu ] end -->
 
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'assets/js/isotope.min.js' %}"></script>
-    <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
-    <script src="{% static 'assets/js/lightbox.js' %}"></script>
-    <script src="{% static 'assets/js/tabs.js' %}"></script>
-    <script src="{% static 'assets/js/video.js' %}"></script>
-    <script src="{% static 'assets/js/slick-slider.js' %}"></script>
-    <script src="{% static 'assets/js/custom.js' %}"></script>
-    <script>
-        //according to loftblog tut
-        $('.nav li:first').addClass('active');
+  <!-- [ Header ] start -->
+  <header class="pc-header ">
+    <div class="header-wrapper">
 
-        var showSection = function showSection(section, isAnimate) {
-          var
-          direction = section.replace(/#/, ''),
-          reqSection = $('.section').filter('[data-section="' + direction + '"]'),
-          reqSectionPos = reqSection.offset().top - 0;
+      <div class="ml-auto">
+        <ul class="list-unstyled">
+          <li class="dropdown pc-h-item">
+            <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+              <img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="user-image" class="user-avtar">
+              <span>
+                <span class="user-name"></span>
+                <span class="user-desc">Administrator</span>
+              </span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
+                            <a href="#!" class="dropdown-item">
+                <i class="material-icons-two-tone">support</i>
+                <span>Support</span>
+              </a>
+              <a href="#!" class="dropdown-item">
+                <i class="material-icons-two-tone">settings</i>
+                <span>Settings</span>
+              </a>
+              <a href="#!" class="dropdown-item">
+                <i class="material-icons-two-tone">chrome_reader_mode</i>
+                <span>Logout</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-          if (isAnimate) {
-            $('body, html').animate({
-              scrollTop: reqSectionPos },
-            800);
-          } else {
-            $('body, html').scrollTop(reqSectionPos);
-          }
+    </div>
+  </header>
+  <!-- [ Header ] end -->
 
-        };
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pcoded-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Dashboard</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item">Dashboard</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <!-- [ Main Content ] start -->
+        <div class="row">
+            <!-- support-section start -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card flat-card">
+                    <div class="row-table">
+                        <div class="col-sm-6 card-body br">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="material-icons-two-tone text-primary mb-1">group</i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>1000</h5>
+                                    <span>Customers</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 d-none d-md-table-cell d-lg-table-cell d-xl-table-cell card-body br">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="material-icons-two-tone text-primary mb-1">language</i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>$1252</h5>
+                                    <span>Revenue</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="material-icons-two-tone text-primary mb-1">unarchive</i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>600</h5>
+                                    <span>Growth</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-table">
+                        <div class="col-sm-6 card-body br">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="material-icons-two-tone text-primary mb-1">swap_horizontal_circle</i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>3550</h5>
+                                    <span>Returns</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 d-none d-md-table-cell d-lg-table-cell d-xl-table-cell card-body br">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="material-icons-two-tone text-primary mb-1">cloud_download</i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>3550</h5>
+                                    <span>Downloads</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="material-icons-two-tone text-primary mb-1">shopping_cart</i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>100%</h5>
+                                    <span>Order</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card support-bar overflow-hidden">
+                            <div class="card-body pb-0">
+                                <h2 class="m-0">53.94%</h2>
+                                <span class="text-primary">Conversion Rate</span>
+                                <p class="mb-3 mt-3">Number of conversions divided by the total visitors. </p>
+                            </div>
+                            <div id="support-chart"></div>
+                            <div class="card-footer border-0 bg-primary text-white background-pattern-white">
+                                <div class="row text-center">
+                                    <div class="col">
+                                        <h4 class="m-0 text-white">10</h4>
+                                        <span>2018</span>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="m-0 text-white">15</h4>
+                                        <span>2017</span>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="m-0 text-white">13</h4>
+                                        <span>2016</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card support-bar overflow-hidden">
+                            <div class="card-body pb-0">
+                                <h2 class="m-0">1432</h2>
+                                <span class="text-primary">Order delivered</span>
+                                <p class="mb-3 mt-3">Total number of order delivered in this month.</p>
+                            </div>
+                            <div class="card-footer border-0">
+                                <div class="row text-center">
+                                    <div class="col">
+                                        <h4 class="m-0">130</h4>
+                                        <span>May</span>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="m-0">251</h4>
+                                        <span>June</span>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="m-0 ">235</h4>
+                                        <span>July</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="support-chart1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Department wise monthly sales report</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row pb-2">
+                            <div class="col-auto m-b-10">
+                                <h3 class="mb-1">$21,356.46</h3>
+                                <span>Total Sales</span>
+                            </div>
+                            <div class="col-auto m-b-10">
+                                <h3 class="mb-1">$1935.6</h3>
+                                <span>Average</span>
+                            </div>
+                        </div>
+                        <div id="account-chart"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- support-section end -->
+            <!-- customer-section start -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h6>Customer Satisfaction</h6>
+                        <span>It takes continuous effort to maintain high customer satisfaction levels Internal and external.</span>
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="col">
+                                <div id="satisfaction-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card table-card">
+                    <div class="card-header">
+                        <h5>New Products</h5>
+                    </div>
+                    <div class="pro-scroll" style="height:255px;position:relative;">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover m-b-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Image</th>
+                                            <th>Status</th>
+                                            <th>Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>HeadPhone</td>
+                                            <td><img src="{% static 'assets/img/dashboard/widget/p1.jpg' %}" alt="" class="img-20"></td>
+                                            <td>
+                                                <div><label class="badge bg-light-warning">Pending</label></div>
+                                            </td>
+                                            <td>$10</td>
+                                            <td><a href="#!"><i class="icon feather icon-edit f-16  text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Iphone 6</td>
+                                            <td><img src="{% static 'assets/img/dashboard/widget/p2.jpg' %}" alt="" class="img-20"></td>
+                                            <td>
+                                                <div><label class="badge bg-light-danger">Cancel</label></div>
+                                            </td>
+                                            <td>$20</td>
+                                            <td><a href="#!"><i class="icon feather icon-edit f-16  text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jacket</td>
+                                            <td><img src="{% static 'assets/img/dashboard/widget/p3.jpg' %}" alt="" class="img-20"></td>
+                                            <td>
+                                                <div><label class="badge bg-light-success">Success</label></div>
+                                            </td>
+                                            <td>$35</td>
+                                            <td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sofa</td>
+                                            <td><img src="{% static 'assets/img/dashboard/widget/p4.jpg' %}" alt="" class="img-20"></td>
+                                            <td>
+                                                <div><label class="badge bg-light-danger">Cancel</label></div>
+                                            </td>
+                                            <td>$85</td>
+                                            <td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Iphone 6</td>
+                                            <td><img src="{% static 'assets/img/dashboard/widget/p2.jpg' %}" alt="" class="img-20"></td>
+                                            <td>
+                                                <div><label class="badge bg-light-success">Success</label></div>
+                                            </td>
+                                            <td>$20</td>
+                                            <td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>HeadPhone</td>
+                                            <td><img src="{% static 'assets/img/dashboard/widget/p1.jpg' %}" alt="" class="img-20"></td>
+                                            <td>
+                                                <div><label class="badge bg-light-warning">Pending</label></div>
+                                            </td>
+                                            <td>$50</td>
+                                            <td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Iphone 6</td>
+                                            <td><img src="{% static 'assets/img/dashboard/widget/p2.jpg' %}" alt="" class="img-20"></td>
+                                            <td>
+                                                <div><label class="badge bg-light-danger">Cancel</label></div>
+                                            </td>
+                                            <td>$30</td>
+                                            <td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card prod-p-card background-pattern">
+                            <div class="card-body">
+                                <div class="row align-items-center m-b-0">
+                                    <div class="col">
+                                        <h6 class="m-b-5">Total Profit</h6>
+                                        <h3 class="m-b-0">$1,783</h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="material-icons-two-tone text-primary">card_giftcard</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card prod-p-card bg-primary background-pattern-white">
+                            <div class="card-body">
+                                <div class="row align-items-center m-b-0">
+                                    <div class="col">
+                                        <h6 class="m-b-5 text-white">Total Orders</h6>
+                                        <h3 class="m-b-0 text-white">15,830</h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="material-icons-two-tone text-white">local_mall</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card prod-p-card bg-primary background-pattern-white">
+                            <div class="card-body">
+                                <div class="row align-items-center m-b-0">
+                                    <div class="col">
+                                        <h6 class="m-b-5 text-white">Average Price</h6>
+                                        <h3 class="m-b-0 text-white">$6,780</h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="material-icons-two-tone text-white">monetization_on</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card prod-p-card background-pattern">
+                            <div class="card-body">
+                                <div class="row align-items-center m-b-0">
+                                    <div class="col">
+                                        <h6 class="m-b-5">Product Sold</h6>
+                                        <h3 class="m-b-0">6,784</h3>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="material-icons-two-tone text-primary">local_offer</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card feed-card">
+                    <div class="card-header">
+                        <h5>Feeds</h5>
+                    </div>
+                    <div class="feed-scroll" style="height:385px;position:relative;">
+                        <div class="card-body">
+                            <div class="row m-b-25 align-items-center">
+                                <div class="col-auto p-r-0">
+                                    <i data-feather="bell" class="bg-light-primary feed-icon p-2 wid-30 hei-30"></i>
+                                </div>
+                                <div class="col">
+                                    <a href="#!">
+                                        <h6 class="m-b-5">You have 3 pending tasks. <span class="text-muted float-right f-14">Just Now</span></h6>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row m-b-25 align-items-center">
+                                <div class="col-auto p-r-0">
+                                    <i data-feather="shopping-cart" class="bg-light-danger feed-icon p-2 wid-30 hei-30"></i>
+                                </div>
+                                <div class="col">
+                                    <a href="#!">
+                                        <h6 class="m-b-5">New order received <span class="text-muted float-right f-14">30 min ago</span></h6>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row m-b-25 align-items-center">
+                                <div class="col-auto p-r-0">
+                                    <i data-feather="file-text" class="bg-light-success feed-icon p-2 wid-30 hei-30"></i>
+                                </div>
+                                <div class="col">
+                                    <a href="#!">
+                                        <h6 class="m-b-5">You have 3 pending tasks. <span class="text-muted float-right f-14">Just Now</span></h6>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row m-b-25 align-items-center">
+                                <div class="col-auto p-r-0">
+                                    <i data-feather="bell" class="bg-light-primary feed-icon p-2 wid-30 hei-30"></i>
+                                </div>
+                                <div class="col">
+                                    <a href="#!">
+                                        <h6 class="m-b-5">You have 4 tasks Done. <span class="text-muted float-right f-14">1 hours ago</span></h6>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row m-b-25 align-items-center">
+                                <div class="col-auto p-r-0">
+                                    <i data-feather="file-text" class="bg-light-success feed-icon p-2 wid-30 hei-30"></i>
+                                </div>
+                                <div class="col">
+                                    <a href="#!">
+                                        <h6 class="m-b-5">You have 2 pending tasks. <span class="text-muted float-right f-14">Just Now</span></h6>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row m-b-25 align-items-center">
+                                <div class="col-auto p-r-0">
+                                    <i data-feather="shopping-cart" class="bg-light-danger feed-icon p-2 wid-30 hei-30"></i>
+                                </div>
+                                <div class="col">
+                                    <a href="#!">
+                                        <h6 class="m-b-5">New order received <span class="text-muted float-right f-14">4 hours ago</span></h6>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row m-b-25 align-items-center">
+                                <div class="col-auto p-r-0">
+                                    <i data-feather="shopping-cart" class="bg-light-danger feed-icon p-2 wid-30 hei-30"></i>
+                                </div>
+                                <div class="col">
+                                    <a href="#!">
+                                        <h6 class="m-b-5">New order Done <span class="text-muted float-right f-14">Just Now</span></h6>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row m-b-25 align-items-center">
+                                <div class="col-auto p-r-0">
+                                    <i data-feather="file-text" class="bg-light-success feed-icon p-2 wid-30 hei-30"></i>
+                                </div>
+                                <div class="col">
+                                    <a href="#!">
+                                        <h6 class="m-b-5">You have 5 pending tasks. <span class="text-muted float-right f-14">5 hours ago</span></h6>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="row m-b-0 align-items-center">
+                                <div class="col-auto p-r-0">
+                                    <i data-feather="bell" class="bg-light-primary feed-icon p-2 wid-30 hei-30"></i>
+                                </div>
+                                <div class="col">
+                                    <a href="#!">
+                                        <h6 class="m-b-5">You have 4 tasks Done. <span class="text-muted float-right f-14">2 hours ago</span></h6>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- customer-section end -->
+        </div>
+        <!-- [ Main Content ] end -->
+    </div>
+</div>
 
-        var checkSection = function checkSection() {
-          $('.section').each(function () {
-            var
-            $this = $(this),
-            topEdge = $this.offset().top - 80,
-            bottomEdge = topEdge + $this.height(),
-            wScroll = $(window).scrollTop();
-            if (topEdge < wScroll && bottomEdge > wScroll) {
-              var
-              currentId = $this.data('section'),
-              reqLink = $('a').filter('[href*=\\#' + currentId + ']');
-              reqLink.closest('li').addClass('active').
-              siblings().removeClass('active');
-            }
-          });
-        };
-
-        $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
-          if($(e.target).hasClass('external')) {
-            return;
-          }
-          e.preventDefault();
-          $('#menu').removeClass('active');
-          showSection($(this).attr('href'), true);
-        });
-
-        $(window).scroll(function () {
-          checkSection();
-        });
+    <!-- Required Js -->
+    <script src="{% static 'assets/js/dashboard/vendor-all.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/plugins/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/plugins/feather.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/pcoded.min.js' %}"></script>
 
 
 
-        
-
-    </script>
+<!-- custom-chart js -->
+<script src="{% static 'assets/js/dashboard/pages/dashboard-sale.js' %}"></script>
 </body>
+
+</html>

@@ -1,160 +1,323 @@
 {% load static %}
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>EURIQA - Home Page</title>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <title>EURIQA - Home Page</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}">
-    
-    <!-- MultiForm CSS Files-->
-    <link rel="stylesheet" href="{% static 'assets/css/enrolleedetails.css' %}">
+  <!-- EURIQA Fonts -->
+  <link href="https://fonts.EURIQAapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-    <!-- FAVICON -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicon/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'assets/favicon/site.webmanifest' %}">
-  </head>
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-  
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/navbar.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/multistep.css' %}" rel="stylesheet">
+
+  <!-- Multi Modal Css Files -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+
+</head>
 
 <body>
 
-  <!--header-->
-  <header class="main-header clearfix" role="header">
-    <div class="logo">
-      <a href=""><em>EURIQA</em></a>
-    </div>
-    <a href="../enrollee/logout" class="external" style="color: #fff;  padding: 20px 20px 5px 0px; font-size: 14px;">Logout</a>
-  </header>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container d-flex align-items-center justify-content-between">
 
-  <br><br><br>
-    
-  <!-- Part 1 -->
-  <section class="section video1" data-section="section5">
+      <div class="logo">
+        <a href="index.html"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>
+      </div>
+
+      <!-- .navbar -->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <div class="logo">
+            <img src="{% static 'assets/img/citlogotype.png' %}" alt="" class="img-fluid">
+          </div>
+          <div class="logo">
+            <img src="{% static 'assets/img/citlogo.png' %}" alt="" class="img-fluid">
+          </div>
+        </ul>
+      </nav>
+      <!-- End navbar -->
+
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+
     <div class="container">
-      <div class="row">
-        <div class="col-md-12 ">
-          <div class="left-content">
-            <div id="svg_wrap"></div>
-              <center><h4>Before we <em>Proceed</em></h4></center>
-              <p>Double check the details below. If there’s something wrong, contact your enrollment officer.</p>
-              <section>
-                {% for enrollee in enrollees %}
-                <label>First name</label>
-                  <input name="firstname" type="text" value="{{user.first_name}}" readonly>
-                <label class="label">Middle name</label>
-                  <input name="middlename" type="text" value="{{enrollee.middle_name}}" readonly>
-                <label class="label">Last name</label>
-                  <input name="lastname" type="text" value="{{user.last_name}}" readonly>
-                <label class="label">Address
-                  <input name="address" type="text" value="{{enrollee.address}}" readonly>
-                <label class="label">Email</label>
-                  <input name="email" type="text" value="{{user.email}}" readonly>
-                {% endfor %}
-                <br><br>
-                <center><div class="button" name="btn-Proceed"><a  href="../enrollee/terms" style="color: white;">Proceed &rarr;</a></div></center>
-              </section>
-            </div>
-          </div>  
+      <div class="row justify-content-between">
+        <div class="col-lg-7 pt-5 pt-lg-3 order-2 order-lg-3 d-flex align-items-center">
+          <div data-aos="zoom-out">
+            <h1>Welcome <span style="color:#741E1E"> {{user.first_name}} {{user.last_name}}! </span></h1>
+            <h2>You are one step away from becoming an official student of CIT - University!</h2>
+
+          </div>
+        </div>
+        <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="100">
+          <img src="{% static 'assets/img/citstudents.jpg' %}" class="img-fluid" alt="" style="margin-bottom: 50px;">
         </div>
       </div>
     </div>
-</section>
 
+<!-- value="{{user.first_name}} value="{{user.last_name}} -->
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+     <!-- ======= Details Section ======= -->
+     <section id="details" class="details">
+      <div class="container">
+
+        <div class="row content">
+          <div class="col-md-4" data-aos="fade-right">
+            <img src="{% static 'assets/img/citstudents1.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-8 pt-4">
+            <h3>THE ADMISSION EXAM</h3>
+            <p class="fst-italic">
+              The examination, spearheaded by the CIT University Guidance Center, will be divided into three parts:
+            </p>
+            <p>
+              The admission exam will be administered only once you have processed the previous requirement.
+              If you're already ready to take the exam, click the button below <br><br>
+
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Get Started </button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Multi Step Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sign Up Your User Account</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    
+                  </div>
+                <div class="modal-body">
+                    <div id="smartwizard">
+                      <form id="msform">
+                        <!-- progressbar -->
+                        <ul id="progressbar">
+                            <li class="active" id="account"><strong>Terms and Conditions</strong></li>
+                            <li id="personal"><strong>Data Privacy Policy</strong></li>
+                            <li id="payment"><strong>Capture Images</strong></li>
+                            <li id="confirm"><strong>Instructions</strong></li>
+                        </ul>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div> <br> 
+    
+                        <!-- fieldsets -->
+                        <fieldset>
+                          <div class="form-card">
+                              <div class="row">
+                                <div class="col-7">
+                                  <h2 class="fs-title">Terms and Conditions</h2>
+                                </div>
+                              </div> 
+                              <div class="row">
+                                <div class="col-12">
+                                <br>
+                                  <p align="justify">The services offered by EURIQA under the Terms of Service include 
+                                    various products and services to help you sell goods and services to buyers, whether 
+                                    online (“Online Services”) by enabling you to create and build your own online store, 
+                                    in person (“POS Services”), or both. Any such services offered by EURIQA are referred 
+                                    to in these Terms of Services as the “Services”. Any new features or tools which are
+                                    added to the current Services shall be also subject to the Terms of Service. You can 
+                                    review the current version of the Terms of Service at any time. EURIQA reserves the 
+                                    right to update and change the Terms of Service by posting updates and changes to the 
+                                    EURIQA website. You are advised to check the Terms of Service from time to time for 
+                                    any updates or changes that may impact you. and if you do not accept such amendments, 
+                                    you must cease using the Services.
+                                   </p>
+                                   <p align="justify">You must read, agree with and accept all of the terms and conditions 
+                                     contained or expressly referenced in these Terms of Service, including EURIQA’s
+                                      Acceptable Use Policy (“AUP”) and Privacy Policy, and, if applicable, the Supplementary 
+                                      Terms of Service for E.U. Merchants ("EU Terms"), the EURIQA API License and Terms of 
+                                      Use (“API Terms”) and the EURIQA Data Processing Addendum (“DPA”) before you may sign 
+                                      up for a EURIQA Account or use any EURIQA Service. Additionally, if you offer goods 
+                                      or services in relation to COVID-19, you must read, acknowledge and agree to the Rules 
+                                      of Engagement for Sale of COVID-19 Related Products.
+                                   </p>
+                                   <p align="justify">Everyday language summaries are provided for convenience only and appear
+                                      in bold under each section, but these summaries are not legally binding. Please read the 
+                                      Terms of Service, including any document referred to in these Terms of Service, for the 
+                                      complete picture of your legal requirements. By using EURIQA or any EURIQA services, 
+                                      you are agreeing to these terms. Be sure to occasionally check back for updates.</p>
+                                </div>
+                              </div> 
+                          </div> 
+                          <input type="button" name="next" class="next action-button" value="Next" />
+                        </fieldset>
+                        <fieldset>
+                          <div class="form-card">
+                            <div class="row">
+                              <div class="col-7">
+                                <h2 class="fs-title">Data Privacy Policy</h2>
+                              </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                <br>
+                                  <p align="justify">We collect information to provide better services to all our users — from figuring out 
+                                    basic stuff like which language you speak, to more complex things like which ads you’ll find most useful, 
+                                    the people who matter most to you online, or which YouTube videos you might like. The information EURIQA 
+                                    collects, and how that information is used, depends on how you use our services and how you manage your 
+                                    privacy controls.<br><br>
+
+                                    When you’re not signed in to a EURIQA Account, we store the information we collect with unique 
+                                    identifiers tied to the browser, application, or device you’re using. This helps us do things 
+                                    like maintain your language preferences across browsing sessions.<br><br>
+                                    
+                                    When you’re signed in, we also collect information that we store with your EURIQA Account, 
+                                    which we treat as personal information.
+                                   </p>
+
+                                </div>
+                              </div> 
+                          </div> 
+                          <input type="button" name="next" class="next action-button" value="Next" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                        </fieldset>
+                        <fieldset>
+                          <div class="form-card">
+                            <div class="row">
+                              <div class="col-7">
+                                <h2 class="fs-title">Image Upload:</h2>
+                              </div>
+                              <div class="col-5">
+                                <h2 class="steps">Step 3 - 4</h2>
+                              </div>
+                            </div> 
+                            <label class="fieldlabels">Upload Your Photo:</label> <input type="file" name="pic" accept="image/*"> 
+                            <label class="fieldlabels">Upload E-Signature:</label> <input type="file" name="pic" accept="image/*">
+                          </div> 
+                          <input type="button" name="next" class="next action-button" value="Submit" /> <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                        </fieldset>
+                        <fieldset>
+                          <div class="form-card">
+                            <div class="row">
+                              <div class="col-7">
+                                <h2 class="fs-title">Instructions</h2>
+                              </div>
+    
+                            </div> <br>
+                            <h2 class="maroon-text bi-text-left"><strong>Part 1</strong></h2>
+                            <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Duis congue consequat massa, sit amet ultrices diam sollicitudin ut. Vivamus 
+                                at porttitor dui. Nunc luctus orci ut metus venenatis feugiat eu sit amet nibh.
+                                asellus at pharetra ante.</p>
+    
+                            <h2 class="maroon-text bi-text-left"><strong>Part 2</strong></h2>
+                            <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Duis congue consequat massa, sit amet ultrices diam sollicitudin ut. Vivamus 
+                                at porttitor dui. Nunc luctus orci ut metus venenatis feugiat eu sit amet nibh.
+                                asellus at pharetra ante..</p>
+    
+                            <h2 class="maroon-text bi-text-left"><strong>Part 3</strong></h2>
+                            <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Duis congue consequat massa, sit amet ultrices diam sollicitudin ut. Vivamus 
+                                at porttitor dui. Nunc luctus orci ut metus venenatis feugiat eu sit amet nibh.
+                                asellus at pharetra ante.Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Duis congue consequat massa, sit amet ultrices diam sollicitudin ut. Vivamus 
+                                at porttitor dui. Nunc luctus orci ut metus venenatis feugiat eu sit amet nibh.
+                                asellus at pharetra anteLorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                Duis congue consequat massa, sit amet ultrices diam sollicitudin ut. Vivamus 
+                                at porttitor dui. Nunc luctus orci ut metus venenatis feugiat eu sit amet nibh.
+                                asellus at pharetra ante.</p>
+                              <div class="row justify-content-center">
+                              <div class="col-7 text-center">
+                                
+                              </div>
+                            </div>
+                            <div class="row-10">
+                              <div class="row justify-content-center">
+                                <a href="../enrollee/exam"><button" name="Proceed" class="next action-button" value="Submit" >Proceed</a>
+                              </div>
+                              
+    
+                          </div>
+                           
+                        </fieldset>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
 
   
+    </section>    
+    <!-- End Details Section -->
 
 
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <p><i class="fa fa-copyright"></i> Copyright 2021 by EURIQA 
 
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-    <script src="{% static 'assets/js/isotope.min.js' %}"></script>
-    <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
-    <script src="{% static 'assets/js/lightbox.js' %}"></script>
-    <script src="{% static 'assets/js/tabs.js' %}"></script>
-    <script src="{% static 'assets/js/video.js' %}"></script>
-    <script src="{% static 'assets/js/slick-slider.js' %}"></script>
-    <script src="{% static 'assets/js/custom.js' %}"></script>
-
-    <script>
-        //according to loftblog 
-        $('.nav li:first').addClass('active');
-
-        var showSection = function showSection(section, isAnimate) {
-          var
-          direction = section.replace(/#/, ''),
-          reqSection = $('.section').filter('[data-section="' + direction + '"]'),
-          reqSectionPos = reqSection.offset().top - 0;
-
-          if (isAnimate) {
-            $('body, html').animate({
-              scrollTop: reqSectionPos },
-            800);
-          } else {
-            $('body, html').scrollTop(reqSectionPos);
-          }
-
-        };
-
-        var checkSection = function checkSection() {
-          $('.section').each(function () {
-            var
-            $this = $(this),
-            topEdge = $this.offset().top - 80,
-            bottomEdge = topEdge + $this.height(),
-            wScroll = $(window).scrollTop();
-            if (topEdge < wScroll && bottomEdge > wScroll) {
-              var
-              currentId = $this.data('section'),
-              reqLink = $('a').filter('[href*=\\#' + currentId + ']');
-              reqLink.closest('li').addClass('active').
-              siblings().removeClass('active');
-            }
-          });
-        };
-
-        $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
-          if($(e.target).hasClass('external')) {
-            return;
-          }
-          e.preventDefault();
-          $('#menu').removeClass('active');
-          showSection($(this).attr('href'), true);
-        });
-
-        $(window).scroll(function () {
-          checkSection();
-        });
 
     
-        
 
-    </script>
+  </main><!-- End #main -->
+
+ <!-- ======= Footer ======= -->
+ <footer id="footer">
+  <div class="footer-top">       
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>EURIQA</span></strong>. All Rights Reserved
+    </div>
+  </div>
+</footer><!-- End Footer -->
+
+
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'assets/js/multistep.js' %}"></script>
+  <script type="text/javascript">
+  
+    $(document).ready(function(){
+
+    $('#smartwizard').smartWizard({
+    selected: 0,
+    autoAdjustHeight:true,
+    transitionEffect:'fade',
+    showStepURLhash: false,
+    
+    });
+    
+    });
+
+  </script>
+
 </body>
+
 </html>
