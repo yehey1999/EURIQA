@@ -52,7 +52,7 @@
                     <ul class="collapse list-unstyled" id="examSubmenu">
                         <li><a href="../exam-management/mainexamtable">All Exams</a></li>
                         <li>
-                            <a href="../exam-management/create-questions">Create Exam</a>
+                            <a href="../exam-management/create-exam">Create Exam</a>
                         </li>
                     </ul>
                 </li>
@@ -128,7 +128,7 @@
                                     <label for="floatingExamTitle">Exam Title</label>
                                 </div>
                             </div>
-
+                            
                             <div class="col-4">
                                 <div class="form-floating">
                                     <select class="form-select" name="exam_takers" id="floatingExamTitle" placeholder="Exam Title" required>
@@ -146,18 +146,32 @@
                                     <input type="text" class="form-control" name="created_by" id="floatingExamTitle" placeholder="Exam Title" value="{{request.user.get_full_name}}" required readonly>
                                     <label for="floatingExamTitle">Created by</label>
                                 </div>
-                            </div>
+                            </div>         
                         </div>
                         <br>
-                        <!-- Exam Parts -->
+                        
+                        <h5>Generation Method</h5>
                         <div class="row">
-                        <h5>Add Exam Parts</h5>
-                        <div class="col-4">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" name="exam_title" id="floatingExamTitle" placeholder="Exam Title" required>
-                                <label for="floatingExamTitle">Part Name</label>
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                      Teacher Provided
+                                    </label>
+                                  </div>
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                      Linked Questionnaire
+                                    </label>
+                                  </div>
                             </div>
-                        </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="link" id="floatingLink" placeholder="Exam Link" required>
+                                    <label for="floatingLink">Exam Link</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

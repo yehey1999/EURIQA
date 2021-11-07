@@ -165,7 +165,7 @@ class AdminManageAccounts(View):
 
         return redirect("administrator:admin_accounts")
 
-class AdminAddQuestions(View):
+class AdminCreateExam(View):
     def get(self,request):
         qs_question = Question.objects.all()
         context = {
@@ -180,14 +180,45 @@ class AdminAddQuestions(View):
         if 'btnSaveExam' in request.POST:
             exam_title = request.POST.get("exam_title")
             exam_takers = request.POST.get("exam_takers")
+            link = request.POST.get("link")
             
             get_admin_id = Administrator.objects.get(user_id = request.user.id)
 
-            create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id)
+            create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link)
             create_exam.save()
             messages.success(request, "Exam created.")
 
-        elif 'btnSaveQuestion' in request.POST:
+        else:
+            messages.success(request, "Failed to create exam.")
+
+        return redirect("administrator:admin_create_exam")
+
+class AdminAddQuestion(View):
+    def get(self,request):
+        qs_exams = Exam.objects.all()
+        qs_parts = Question.objects.all()
+        context = {
+            'exams': qs_exams,
+            'parts': qs_parts,
+        }
+
+        if not request.user.is_authenticated:
+            return redirect("administrator:admin_login")
+        return render(request, 'administrator/examManagement/adminAddQuestion.html', context)
+
+    def post(self, request):
+        if 'btnSavePart' in request.POST:
+            part_name = request.POST.get("part_name")
+            ques_point = request.POST.get("ques_point")
+            instruction = request.POST.get("instruction")
+
+            add_part = Part(part_name = part_name, ques_points = ques_point, instructions = instruction)
+            add_part.save()
+
+        else:
+            messages.error(request, "Failed to save part.")
+
+        if 'btnSaveQuestion' in request.POST:
             # exam = request.POST.get("exam")
             # part = request.POST.get("part")
             question_no = request.POST.get("question_no")
@@ -198,9 +229,6 @@ class AdminAddQuestions(View):
             optionD = request.POST.get("optionD")
             answer = request.POST.get("answer")
             points = request.POST.get("points")
-            
-            # create_exam = Exam()
-            # create_exam.save()
 
             add_question = Question(question_no = question_no, question = question, optionA = optionA, optionB = optionB, optionC = optionC, optionD = optionD, answer = answer, points = points)
             add_question.save()
@@ -208,10 +236,9 @@ class AdminAddQuestions(View):
             messages.success(request, "Question saved.")
 
         else:
-            print(form.errors)
-            return HttpResponse('INVALID! Question not saved.')
-
-        return redirect("administrator:admin_create_qs")
+            messages.error(request, "Failed to save question.")
+  
+        return redirect("administrator:admin_exam_details")
 
 class AdminMainExamTableView(View):
     def get(self, request):
@@ -220,4 +247,3 @@ class AdminMainExamTableView(View):
 
     # def post
 
-        
