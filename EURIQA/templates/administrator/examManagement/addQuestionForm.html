@@ -1,0 +1,143 @@
+<form class="row g-3 needs-validation" novalidate method="POST"> 
+    {% csrf_token %}
+    <!-- Question -->
+    <div class="row" style="padding-top: 50px;">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="card">
+                <div class="card-header">
+                    Add question
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Part -->
+                        <div class="col-8">
+                            <div class="form-floating">
+                                <input type="text" list="parts" class="form-control" id="floatingPart" placeholder="No." required>
+                                <label for="floatingPart">Part</label>
+                                <datalist id="parts">
+                                    <option>Dummy</option>
+                                    <option>Dummy</option>
+                                    <option>Dummy</option>
+                                    <option>Dummy</option>
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <!-- Question No. -->
+                        <div class="col-2">
+                            <div class="form-floating">
+                                <input type="number" name="question_no" min=1 class="form-control" id="floatingNo" placeholder="No." style="width: 100px;" required>
+                                <label for="floatingNo">No.</label>
+                            </div>
+                        </div>
+
+                        <!-- Points -->
+                        <div class="col-2">
+                            <div class="form-floating">
+                                <input type="number" name="points" min=1 class="form-control" id="floatingPoints" placeholder="No." style="width: 100px;" required>
+                                <label for="floatingPoints">Points</label>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <br>
+
+                    <!-- Question -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" name="question" placeholder="Question" id="floatingQuestion" style="height: 100px;" required></textarea>
+                                <label for="floatingQuestion">Question</label>
+                                
+                                <div class="invalid-feedback">
+                                    Please add a question.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!-- Options -->
+                    <div class="row">
+                        <div class="input-group mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="option" id="radioOptionA">
+                                <label class="form-check-label" for="radioOptionA">
+                                  A. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </label>
+                            </div>
+                            <input type="text" class="form-control" name="optionA" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                            
+                            <div class="invalid-feedback">
+                                No option specified.
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="option" id="radioOptionB">
+                                <label class="form-check-label" for="radioOptionB">
+                                  B. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </label>
+                            </div>
+                            <input type="text" class="form-control" name="optionB" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                        
+                            <div class="invalid-feedback">
+                                No option specified.
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="option" id="radioOptionC">
+                                <label class="form-check-label" for="radioOptionC">
+                                  C. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </label>
+                            </div>
+                            <input type="text" class="form-control" name="optionC" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                        
+                            <div class="invalid-feedback">
+                                No option specified.
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="option" id="radioOptionD">
+                                <label class="form-check-label" for="radioOptionD">
+                                  D. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </label>
+                            </div>
+                            <input type="text" class="form-control" name="optionD" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                        
+                            <div class="invalid-feedback">
+                                No option specified.
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Correct Answer -->
+                    <div class="row">
+                        <div class="col">
+                        <h5>Correct Answer:</h5>
+                            <select class="form-select" name="answer" style="width: 150px;" required>
+                                <option value="optionA">Option A</option>
+                                <option value="optionB">Option B</option>
+                                <option value="optionC">Option C</option>
+                                <option value="optionD">Option D</option>
+                            </select>
+                            <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="Answer deatils here" readonly> 
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-secondary" name="btnSaveQuestion" style="background-color: maroon;">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div> 
+</form> 

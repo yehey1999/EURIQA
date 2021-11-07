@@ -107,225 +107,69 @@
         <br>
         <div class="container">
 
-        <!-- <form class="row g-3 needs-validation" novalidate method="POST"> 
-        {% csrf_token %} -->
-            <!-- Exam -->
-            <!-- <div class="row">
-                <div class="col-1"></div>
-                <div class="col-10">
-                    <div class="card">
-                        <div class="card-header">
-                          Exam Details
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" name="exam_title" id="floatingExamTitle" placeholder="Exam Title" required>
-                                        <label for="floatingExamTitle">Exam Title</label>
-                                    </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="form-floating">
-                                        <select class="form-select" name="exam_takers" id="floatingExamTitle" placeholder="Exam Title" required>
-                                            <option value="College">College</option> -->
-                                            <!-- <option value="">Senior High School</option>
-                                            <option value="">Junior High School</option>
-                                            <option value="">Elementary</option> -->
-                                        <!-- </select>
-                                        <label for="floatingExamTitle">Assigned to</label>
-                                    </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" name="created_by" id="floatingExamTitle" placeholder="Exam Title" value="{{request.user.get_full_name}}" required readonly>
-                                        <label for="floatingExamTitle">Created by</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-secondary" name="btnSaveExam" style="background-color: maroon;">Save</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-1"></div>
-            </div>
-        </form> -->
-
         <form class="row g-3 needs-validation" novalidate method="POST"> 
-            {% csrf_token %}
-            <!-- Question -->
-            <div class="row" style="padding-top: 50px;">
-                <div class="col-1"></div>
-                <div class="col-10">
-                    <div class="card">
-                        <div class="card-header">
-                            Add question
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <!-- Part -->
-                                <div class="col-8">
-                                    <div class="form-floating">
-                                        <input type="text" list="parts" class="form-control" id="floatingPart" placeholder="No." required>
-                                        <label for="floatingPart">Part</label>
-                                        <datalist id="parts">
-                                            <option>Dummy</option>
-                                            <option>Dummy</option>
-                                            <option>Dummy</option>
-                                            <option>Dummy</option>
-                                        </datalist>
-                                    </div>
-                                </div>
+        {% csrf_token %}
 
-                                <!-- Question No. -->
-                                <div class="col-2">
-                                    <div class="form-floating">
-                                        <input type="number" name="question_no" min=1 class="form-control" id="floatingNo" placeholder="No." style="width: 100px;" required>
-                                        <label for="floatingNo">No.</label>
-                                    </div>
-                                </div>
-
-                                <!-- Points -->
-                                <div class="col-2">
-                                    <div class="form-floating">
-                                        <input type="number" name="points" min=1 class="form-control" id="floatingPoints" placeholder="No." style="width: 100px;" required>
-                                        <label for="floatingPoints">Points</label>
-                                    </div>
-                                    
+        <!-- Exam -->
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div class="card">
+                    <div class="card-header">
+                        Create Exam
+                    </div>
+                    <div class="card-body">
+                        <!-- Exam Details -->
+                        <div class="row">
+                            <h5>Exam Details</h5>
+                            <div class="col-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="exam_title" id="floatingExamTitle" placeholder="Exam Title" required>
+                                    <label for="floatingExamTitle">Exam Title</label>
                                 </div>
                             </div>
-                            <br>
 
-                            <!-- Question -->
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" name="question" placeholder="Question" id="floatingQuestion" style="height: 100px;" required></textarea>
-                                        <label for="floatingQuestion">Question</label>
-                                        
-                                        <div class="invalid-feedback">
-                                            Please add a question.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-
-                            <!-- Options -->
-                            <div class="row">
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="option" id="radioOptionA">
-                                        <label class="form-check-label" for="radioOptionA">
-                                          A. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="optionA" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                    
-                                    <div class="invalid-feedback">
-                                        No option specified.
-                                    </div>
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="option" id="radioOptionB">
-                                        <label class="form-check-label" for="radioOptionB">
-                                          B. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="optionB" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                
-                                    <div class="invalid-feedback">
-                                        No option specified.
-                                    </div>
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="option" id="radioOptionC">
-                                        <label class="form-check-label" for="radioOptionC">
-                                          C. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="optionC" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                
-                                    <div class="invalid-feedback">
-                                        No option specified.
-                                    </div>
-                                </div>
-
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="option" id="radioOptionD">
-                                        <label class="form-check-label" for="radioOptionD">
-                                          D. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="optionD" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                
-                                    <div class="invalid-feedback">
-                                        No option specified.
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <!-- Correct Answer -->
-                            <div class="row">
-                                <div class="col">
-                                <h5>Correct Answer:</h5>
-                                    <select class="form-select" name="answer" style="width: 150px;" required>
-                                        <option value="optionA">Option A</option>
-                                        <option value="optionB">Option B</option>
-                                        <option value="optionC">Option C</option>
-                                        <option value="optionD">Option D</option>
+                            <div class="col-4">
+                                <div class="form-floating">
+                                    <select class="form-select" name="exam_takers" id="floatingExamTitle" placeholder="Exam Title" required>
+                                        <option value="College">College</option>
+                                        <option value="">Senior High School</option>
+                                        <option value="">Junior High School</option>
+                                        <option value="">Elementary</option>
                                     </select>
-                                    <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="Answer deatils here" readonly> 
+                                    <label for="floatingExamTitle">Assigned to</label>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="created_by" id="floatingExamTitle" placeholder="Exam Title" value="{{request.user.get_full_name}}" required readonly>
+                                    <label for="floatingExamTitle">Created by</label>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Save Button -->
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-secondary" name="btnSaveQuestion" style="background-color: maroon;">Save</button>
+                        <br>
+                        <!-- Exam Parts -->
+                        <div class="row">
+                        <h5>Add Exam Parts</h5>
+                        <div class="col-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" name="exam_title" id="floatingExamTitle" placeholder="Exam Title" required>
+                                <label for="floatingExamTitle">Part Name</label>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-1"></div>
-            </div> 
-        </form> 
-        </div>
 
-        <br><br>
-        <div class="container">
-            <table id="activeAccounts" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">Question No.</th>
-                        <th style="text-align: center;">Part</th>
-                        <th style="text-align: center;">Question</th>
-                        <th style="text-align: center;">Actions</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    {% for question in questions %}
-                    <tr style="text-align: center;">
-                        <td>{{question.question_no}}</td>
-                        <td>{{question.part}}</td>
-                        <td>{{question.question}}</td>
-                        <td>Edit Question</td>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-secondary" name="btnSaveExam" style="background-color: maroon;">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1"></div>
         </div>
-        
-    </div>
+    </form>
+        </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
