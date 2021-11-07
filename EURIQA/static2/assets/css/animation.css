@@ -1,0 +1,42 @@
+
+  /* waves */
+  .ocean {
+    color: #741E1E;
+
+    height: 120px; /* change the height of the waves here */
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+  }
+  
+  .wave {
+    background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' id='svg' viewBox='0 0 1440 700' xmlns='http://www.w3.org/2000/svg' class='transition duration-300 ease-in-out delay-150'%3E%3Cstyle%3E .path-0%7B animation:pathAnim-0 4s; animation-timing-function: linear; animation-iteration-count: infinite; %7D @keyframes pathAnim-0%7B 0%25%7B d: path('M 0,700 C 0,700 0,175 0,175 C 229,202.5 458,230 698,230 C 938,230 1189,202.5 1440,175 C 1440,175 1440,700 1440,700 Z'); %7D 25%25%7B d: path('M 0,700 C 0,700 0,175 0,175 C 244,172 488,169 728,169 C 968,169 1204,172 1440,175 C 1440,175 1440,700 1440,700 Z'); %7D 50%25%7B d: path('M 0,700 C 0,700 0,175 0,175 C 175.5,197 351,219 591,219 C 831,219 1135.5,197 1440,175 C 1440,175 1440,700 1440,700 Z'); %7D 75%25%7B d: path('M 0,700 C 0,700 0,175 0,175 C 242,150.5 484,126 724,126 C 964,126 1202,150.5 1440,175 C 1440,175 1440,700 1440,700 Z'); %7D 100%25%7B d: path('M 0,700 C 0,700 0,175 0,175 C 229,202.5 458,230 698,230 C 938,230 1189,202.5 1440,175 C 1440,175 1440,700 1440,700 Z'); %7D %7D%3C/style%3E%3Cpath d='M 0,700 C 0,700 0,175 0,175 C 229,202.5 458,230 698,230 C 938,230 1189,202.5 1440,175 C 1440,175 1440,700 1440,700 Z' stroke='none' stroke-width='0' fill='%23741e1e66' class='transition-all duration-300 ease-in-out delay-150 path-0'%3E%3C/path%3E%3Cstyle%3E .path-1%7B animation:pathAnim-1 4s; animation-timing-function: linear; animation-iteration-count: infinite; %7D @keyframes pathAnim-1%7B 0%25%7B d: path('M 0,700 C 0,700 0,350 0,350 C 193,341 386,332 626,332 C 866,332 1153,341 1440,350 C 1440,350 1440,700 1440,700 Z'); %7D 25%25%7B d: path('M 0,700 C 0,700 0,350 0,350 C 272.5,347 545,344 785,344 C 1025,344 1232.5,347 1440,350 C 1440,350 1440,700 1440,700 Z'); %7D 50%25%7B d: path('M 0,700 C 0,700 0,350 0,350 C 222,319.5 444,289 684,289 C 924,289 1182,319.5 1440,350 C 1440,350 1440,700 1440,700 Z'); %7D 75%25%7B d: path('M 0,700 C 0,700 0,350 0,350 C 269,351 538,352 778,352 C 1018,352 1229,351 1440,350 C 1440,350 1440,700 1440,700 Z'); %7D 100%25%7B d: path('M 0,700 C 0,700 0,350 0,350 C 193,341 386,332 626,332 C 866,332 1153,341 1440,350 C 1440,350 1440,700 1440,700 Z'); %7D %7D%3C/style%3E%3Cpath d='M 0,700 C 0,700 0,350 0,350 C 193,341 386,332 626,332 C 866,332 1153,341 1440,350 C 1440,350 1440,700 1440,700 Z' stroke='none' stroke-width='0' fill='%23741e1e88' class='transition-all duration-300 ease-in-out delay-150 path-1'%3E%3C/path%3E%3Cstyle%3E .path-2%7B animation:pathAnim-2 4s; animation-timing-function: linear; animation-iteration-count: infinite; %7D @keyframes pathAnim-2%7B 0%25%7B d: path('M 0,700 C 0,700 0,525 0,525 C 186,506 372,487 612,487 C 852,487 1146,506 1440,525 C 1440,525 1440,700 1440,700 Z'); %7D 25%25%7B d: path('M 0,700 C 0,700 0,525 0,525 C 248,535 496,545 736,545 C 976,545 1208,535 1440,525 C 1440,525 1440,700 1440,700 Z'); %7D 50%25%7B d: path('M 0,700 C 0,700 0,525 0,525 C 264.5,539.5 529,554 769,554 C 1009,554 1224.5,539.5 1440,525 C 1440,525 1440,700 1440,700 Z'); %7D 75%25%7B d: path('M 0,700 C 0,700 0,525 0,525 C 201,526 402,527 642,527 C 882,527 1161,526 1440,525 C 1440,525 1440,700 1440,700 Z'); %7D 100%25%7B d: path('M 0,700 C 0,700 0,525 0,525 C 186,506 372,487 612,487 C 852,487 1146,506 1440,525 C 1440,525 1440,700 1440,700 Z'); %7D %7D%3C/style%3E%3Cpath d='M 0,700 C 0,700 0,525 0,525 C 186,506 372,487 612,487 C 852,487 1146,506 1440,525 C 1440,525 1440,700 1440,700 Z' stroke='none' stroke-width='0' fill='%23741e1eff' class='transition-all duration-300 ease-in-out delay-150 path-2'%3E%3C/path%3E%3C/svg%3E");    
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    animation: wave 10s -3s linear infinite;
+    transform: translate3d(0, 0, 0);
+    opacity: 0.8;
+  }
+  
+  .wave:nth-of-type(2) {
+    bottom: 0;
+    animation: wave 18s linear reverse infinite;
+    opacity: 0.5;
+  }
+  
+  .wave:nth-of-type(3) {
+    bottom: 10;
+    animation: wave 20s -1s linear infinite;
+    opacity: 0.5;
+  }
+  
+  @keyframes wave {
+      0% {transform: translateX(0);}
+      50% {transform: translateX(-25%);}
+      100% {transform: translateX(-50%);}
+  }
+  
