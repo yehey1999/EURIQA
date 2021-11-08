@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Dashboard</title>
+    <title>Manage Accounts</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta content="" name="description">
@@ -221,9 +221,10 @@
                                                 <input name="exam_status" value="{{account.exam_status}}" hidden />
                                                 
                                                 <!-- Enables the deactivation confirmation modal when button is clicked-->
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deactivateAcc" style="border: none;">
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#deactivateAcc" style="border: none;">
                                                     <i class="fas fa-trash-alt" style="color: red;"></i>
-                                                </button>
+                                                </a>
+                                                
                                                 
                                                 <!-- Deactivation Confirmation Modal-->
                                                 <div class="modal fade" id="deactivateAcc" tabindex="-1" aria-labelledby="deactivateAccLabel" aria-hidden="true">
@@ -399,9 +400,9 @@
                                                 <input name="enrollee_id" value={{account.enrollee_id}} hidden />
 
                                                 <!-- Enables the reactivation confirmation modal when button is clicked-->
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#reactivateAcc" style="border: none;">
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#reactivateAcc" style="border: none;">
                                                     <i class="fas fa-plus-circle" style="color: green;"></i>
-                                                </button>
+                                                </a>
                                                 
                                                 <!-- Deactivation Confirmation Modal-->
                                                 <div class="modal fade" id="reactivateAcc" tabindex="-1" aria-labelledby="reactivateAccLabel" aria-hidden="true">

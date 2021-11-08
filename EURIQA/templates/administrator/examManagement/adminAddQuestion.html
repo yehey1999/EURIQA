@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Dashboard</title>
+    <title>Add Questions</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta content="" name="description">
@@ -179,35 +179,24 @@
                         </div>
                         {% endfor %}
                         
+                        <!-- Question and Part Form-->
                         <div class="container">
+                            {% for latest in latest_exam %}
+                                {% if forloop.last %} 
+                                    <h2>{{latest.title}}</h2>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            <h4>Add Questions</h4>
                             <form class="row g-3 needs-validation" novalidate method="POST"> 
                                 {% csrf_token %}
-                    
                                 <!-- Question -->
-                                <div class="row" style="padding-top: 50px; width: 75%; margin: auto;">
+                                <div class="row" style="padding-top: 50px;">
                                     <div class="col-1"></div>
                                     <div class="col-10">
                                         <div class="card">
-                                            <div class="card-header">
-                                                Add question
-                                            </div>
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <!-- Part -->
-                                                    <div class="col-6">
-                                                        <div class="form-floating">
-                                                            <select class="form-select" id="floatingPart" name="part" aria-label="Default select example">
-                                                                {% for part in parts %}
-                                                                <option value="{{part.id}}">{{part.part.part_name}}</option>
-                                                                {% endfor %} 
-                                                                </select>                                                                        
-                                                            <label for="floatingPart">Part</label>
-                                                        </div>
-                                                        
-                                                        <!-- Add Part Link-->
-                                                        <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#examPartModal">+ Add Exam Parts</a>
-                                                    </div>
-                    
                                                     <!-- Question No. -->
                                                     <div class="col-3"> 
                                                         <div class="form-floating">
@@ -215,7 +204,27 @@
                                                             <label for="floatingNo">Question No.</label>
                                                         </div>
                                                     </div>
-                            
+                                                    <!-- Part -->
+                                                    <div class="col-6">
+                                                        <div class="form-floating">
+                                                            <select class="form-select" id="floatingPart" name="part" aria-label="Default select example">
+                                                                {% for part in parts %}
+                                                                    <option value={{part.part_id}}>{{part.part_name}}</option>
+                                                                {% endfor %} 
+
+                                                                {% for latest in latest_exam %}
+                                                                    {% if forloop.last %} 
+                                                                        <input type="number" value={{latest.exam_id}} name="exam_id" hidden>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                                </select>                                                                        
+                                                            <label for="floatingPart">Part</label>
+                                                        </div>
+                                                        
+                                                        <!-- Add Part Link-->
+                                                        <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#examPartModal">+ Add Exam Parts</a>
+                                                    </div>
+
                                                     <!-- Points -->
                                                     <div class="col-3">
                                                         <div class="form-floating">
@@ -330,6 +339,12 @@
                             <!-- Add Part Modal -->
                             <form class="row g-3 needs-validation" novalidate method="POST"> 
                                 {% csrf_token %}
+                            
+                                {% for latest in latest_exam %}
+                                    {% if forloop.last %} 
+                                        <input type="number" value={{latest.exam_id}} name="exam_id" hidden>
+                                    {% endif %}
+                                {% endfor %}
                                 <div class="modal fade" id="examPartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <!-- Modal Header -->
                                     <div class="modal-dialog modal-dialog-scrollable">
@@ -396,6 +411,228 @@
                                 </div>
                             </form> 
                         </div>
+                        <br>
+                        <hr>
+                        
+                        <!-- Question Table -->
+                        <div class="container" style="padding-top: 50px;">
+                            <form class="row g-3 needs-validation" novalidate method="POST">
+                                {% csrf_token %}
+                            <h2>All Questions</h2>
+                            <table id="addedQuestions" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th style="text-align: center;">Question No.</th>
+                                        <th style="text-align: center;">Question</th>
+                                        <th style="text-align: center;">Part</th>
+                                        <th style="text-align: center;">Points</th>
+                                        <th style="text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody style="text-align: center;">
+                                    {% for ques in questions %}
+                                    <tr>
+                                        <td>{{ques.question_id}}</td>
+                                        <td>{{ques.question_no}}</td>
+                                        <td>{{ques.question}}</td>
+                                        <td>{{ques.part.part_name}}</td>
+                                        <td>{{ques.points}}</td>
+                                        <td>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editQuestion-{{ques.question_id}}">
+                                                <i class="material-icons-two-tone" style="background-color:gold;">edit</i>
+                                            </a>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteQuestion-{{ques.question_id}}">
+                                                <i class="material-icons-two-tone" style="background-color: maroon;">delete</i>
+                                            </a>
+
+                                            <!-- EDIT QUESTION MODAL -->
+                                            <div class="modal fade" id="editQuestion-{{ques.question_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Question</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">                                                    
+                                                    <!-- Edit Question -->
+                                                    <div class="row" style="padding-top: 50px;">
+                                                        <div class="col-1"></div>
+                                                        <div class="col-10">
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <!-- Question No. -->
+                                                                        <div class="col-3"> 
+                                                                            <div class="form-floating">
+                                                                                <input type="number" name="ques_id" value="{{ques.question_id}}" hidden>
+                                                                                <input type="number" name="edit_question_no" min=1 value="{{ques.question_no}}" class="form-control" id="floatingNo" placeholder="No." required>
+                                                                                <label for="floatingNo">Question No.</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Part -->
+                                                                        <div class="col-6">
+                                                                            <div class="form-floating">
+                                                                                <select class="form-select" id="floatingPart" name="edit_part" aria-label="Default select example">
+                                                                                    {% for part in parts %}
+                                                                                        <option value={{part.part_id}}>{{part.part_name}}</option>
+                                                                                    {% endfor %} 
+                    
+                                                                                    {% for latest in latest_exam %}
+                                                                                        {% if forloop.last %} 
+                                                                                            <input type="number" value="{{latest.exam_id}}" name="exam_id" hidden>
+                                                                                        {% endif %}
+                                                                                    {% endfor %}
+                                                                                    </select>                                                                        
+                                                                                <label for="floatingPart">Part</label>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                    
+                                                                        <!-- Points -->
+                                                                        <div class="col-3">
+                                                                            <div class="form-floating">
+                                                                                <input type="number" name="edit_points" value="{{ques.points}}" min=1 class="form-control" id="floatingPoints" placeholder="No." required>
+                                                                                <label for="floatingPoints">Points</label>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                
+                                                                    <!-- Question -->
+                                                                    <div class="row">
+                                                                        <div class="col">
+                                                                            <div class="form-floating">
+                                                                                <textarea class="form-control" name="edit_question" placeholder="Question" id="floatingQuestion" style="height: 100px;" required>{{ques.question}}</textarea>
+                                                                                
+                                                                                <label for="floatingQuestion">Question</label>
+                                                                                
+                                                                                <div class="invalid-feedback">
+                                                                                    Please add a question.
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                
+                                                                    <!-- Options -->
+                                                                    <div class="row">
+                                                                        <div class="input-group mb-3">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="radio" name="option" id="radioOptionA">
+                                                                                <label class="form-check-label" for="radioOptionA">
+                                                                                    A. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                </label>
+                                                                            </div>
+                                                                            <input type="text" class="form-control" name="edit_optionA" value="{{ques.optionA}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                            
+                                                                            <div class="invalid-feedback">
+                                                                                No option specified.
+                                                                            </div>
+                                                                        </div>
+                                                
+                                                                        <div class="input-group mb-3">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="radio" name="option" id="radioOptionB">
+                                                                                <label class="form-check-label" for="radioOptionB">
+                                                                                    B. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                </label>
+                                                                            </div>
+                                                                            <input type="text" class="form-control" name="edit_optionB" value="{{ques.optionB}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                        
+                                                                            <div class="invalid-feedback">
+                                                                                No option specified.
+                                                                            </div>
+                                                                        </div>
+                                                
+                                                                        <div class="input-group mb-3">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="radio" name="option" id="radioOptionC">
+                                                                                <label class="form-check-label" for="radioOptionC">
+                                                                                    C. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                </label>
+                                                                            </div>
+                                                                            <input type="text" class="form-control" name="edit_optionC" value="{{ques.optionC}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                        
+                                                                            <div class="invalid-feedback">
+                                                                                No option specified.
+                                                                            </div>
+                                                                        </div>
+                                                
+                                                                        <div class="input-group mb-3">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input" type="radio" name="option" id="radioOptionD">
+                                                                                <label class="form-check-label" for="radioOptionD">
+                                                                                    D. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                </label>
+                                                                            </div>
+                                                                            <input type="text" class="form-control" name="edit_optionD" value="{{ques.optionD}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                        
+                                                                            <div class="invalid-feedback">
+                                                                                No option specified.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                    <!-- Correct Answer -->
+                                                                    <div class="row">
+                                                                        <div class="col">
+                                                                        <h5>Correct Answer:</h5>
+                                                                            <select id="answer" class="form-select" name="edit_answer" value={{ques.answer}} style="width: 150px;" required>
+                                                                                <option value="optionA">Option A</option>
+                                                                                <option value="optionB">Option B</option>
+                                                                                <option value="optionC">Option C</option>
+                                                                                <option value="optionD">Option D</option>
+                                                                            </select>
+                                                                            <br>
+                                                                            <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="Answer deatils here" readonly> 
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1"></div>
+                                                    </div> 
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-secondary" name="btnSaveEdited" style="background-color: maroon;">Save Changes</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
+
+                                            <!-- DELETE QUESTION MODAL -->
+                                            <div class="modal fade" id="deleteQuestion-{{ques.question_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Confirm Question Deletion</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <div class="modal-body" style="text-align: left;">
+                                                        Are you sure you want to delete question?
+                                                        <input type="text" name="exam_to_delete" value={{ques.question_id}} hidden>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" name="btnDelQues" class="btn btn-secondary" style="background-color: maroon;">Yes</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -427,11 +664,11 @@
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
     <!-- JS for Datatables-->
-    <!-- <script>
+    <script>
         $(document).ready(function() {
-            $('#allExams').DataTable();
+            $('#addedQuestions').DataTable();
         } );
-    </script> -->
+    </script>
     </script>
 </footer>
 

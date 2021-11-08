@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Dashboard</title>
+    <title>Create Exam</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta content="" name="description">
@@ -207,9 +207,9 @@
                                                 <div class="form-floating">
                                                     <select class="form-select" name="exam_takers" id="floatingExamTitle" placeholder="Exam Title" required>
                                                         <option value="College">College</option>
-                                                        <option value="">Senior High School</option>
-                                                        <option value="">Junior High School</option>
-                                                        <option value="">Elementary</option>
+                                                        <option value="Senior High School">Senior High School</option>
+                                                        <option value="Junior High School">Junior High School</option>
+                                                        <option value="Elementary">Elementary</option>
                                                     </select>
                                                     <label for="floatingExamTitle">Assigned to</label>
                                                 </div>
@@ -228,21 +228,21 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                                                    <input class="form-check-input" type="radio" name="method" id="teacherProvided" required>
                                                     <label class="form-check-label" for="flexRadioDefault1">
                                                         Teacher Provided
                                                     </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="method" id="linkProvided" required>
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         Linked Questionnaire
                                                     </label>
-                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-floating">
-                                                    <input type="text" class="form-control" name="link" id="floatingLink" placeholder="Exam Link" required>
+                                                    <input type="text" class="form-control" name="link" id="link" placeholder="Exam Link" required>
                                                     <label for="floatingLink">Exam Link</label>
                                                 </div>
                                             </div>
@@ -287,14 +287,17 @@
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
-    <!-- JS for Datatables-->
-    <!-- <script>
-        $(document).ready(function() {
-            $('#allExams').DataTable();
-        } );
-    </script> -->
-
-
+    <!-- Input Script -->
+    <script>
+        $("input[name='method']").click(function () {
+            if ($("#teacherProvided").is(":checked")) {
+                $("#link").prop('disabled', true);
+                
+            } else {
+                $("#link").removeAttr("disabled");
+                $("#link").focus();
+            }
+        });
     </script>
 </footer>
 

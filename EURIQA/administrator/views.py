@@ -6,6 +6,8 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from administrator.models import *
 from enrollee.models import *
+from django.db import connection
+from django.db.models import Sum
 # from .forms import EnrolleeRegistrationForm
 # from .forms import QuestionForm
 
@@ -173,14 +175,9 @@ class AdminManageAccounts(View):
 
 class AdminCreateExam(View):
     def get(self,request):
-        qs_question = Question.objects.all()
-        context = {
-            'questions': qs_question,
-        }
-
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
-        return render(request, 'administrator/examManagement/adminCreateExam.html', context)
+        return render(request, 'administrator/examManagement/adminCreateExam.html')
 
     def post(self, request):
         if 'btnSaveExam' in request.POST:
@@ -189,7 +186,7 @@ class AdminCreateExam(View):
             link = request.POST.get("link")
             
             get_admin_id = Administrator.objects.get(user_id = request.user.id)
-
+            
             create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link)
             create_exam.save()
             messages.success(request, "Exam created.")
@@ -197,36 +194,54 @@ class AdminCreateExam(View):
         else:
             messages.success(request, "Failed to create exam.")
 
-        return redirect("administrator:admin_create_exam")
+        if link is None:
+            return redirect("administrator:admin_exam_details")
+        else:
+            return redirect("administrator:admin_create_exam")
 
 class AdminAddQuestion(View):
     def get(self,request):
-        qs_exams = Exam.objects.all()
-        qs_parts = Question.objects.all()
+        latest_exam = Exam.objects.last()
+
+        qs_exam = Exam.objects.all()
+        qs_parts = Part.objects.filter(exam_id = latest_exam)
+        qs_questions = Question.objects.filter(exam = latest_exam)
+
         context = {
-            'exams': qs_exams,
+            'latest_exam': qs_exam,
             'parts': qs_parts,
+            'questions': qs_questions,
         }
 
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
-        return render(request, 'administrator/examManagement/adminAddQuestion.html', context)
+        
+        if latest_exam: 
+            return render(request, 'administrator/examManagement/adminAddQuestion.html', context)
+        
+        else:
+            messages.error(request, "No exam found in database")
+            return redirect("administrator:admin_create_exam")
 
     def post(self, request):
+        # Method to create exam parts
         if 'btnSavePart' in request.POST:
             part_name = request.POST.get("part_name")
-            ques_point = request.POST.get("ques_point")
             instruction = request.POST.get("instruction")
+            exam_id = request.POST.get("exam_id")
 
-            add_part = Part(part_name = part_name, ques_points = ques_point, instructions = instruction)
+            get_exam_id = Exam.objects.get(exam_id = exam_id)
+            print(get_exam_id)
+            
+            add_part = Part(part_name = part_name, instructions = instruction, exam = get_exam_id)
             add_part.save()
 
-        else:
-            messages.error(request, "Failed to save part.")
+            messages.success(request, "Part saved.")
 
-        if 'btnSaveQuestion' in request.POST:
-            # exam = request.POST.get("exam")
-            # part = request.POST.get("part")
+        # Method to create exam questions
+        elif 'btnSaveQuestion' in request.POST:
+            exam_id = request.POST.get("exam_id")
+            part = request.POST.get("part")
             question_no = request.POST.get("question_no")
             question = request.POST.get("question")
             optionA = request.POST.get("optionA")
@@ -236,20 +251,73 @@ class AdminAddQuestion(View):
             answer = request.POST.get("answer")
             points = request.POST.get("points")
 
-            add_question = Question(question_no = question_no, question = question, optionA = optionA, optionB = optionB, optionC = optionC, optionD = optionD, answer = answer, points = points)
+            get_exam_id = Exam.objects.get(exam_id = exam_id)
+            get_part_id = Part.objects.get(part_id = part)
+
+            add_question = Question(question_no = question_no, exam = get_exam_id, part = get_part_id, question = question, optionA = optionA, optionB = optionB, 
+                optionC = optionC, optionD = optionD, answer = answer, points = points)
             add_question.save()
 
-            messages.success(request, "Question saved.")
+            # Update total exam items and overall points of Exam
+            total_items = Question.objects.filter(exam = get_exam_id).count()
+            total_points = Question.objects.filter(exam = get_exam_id).aggregate(Sum('points')).get('points__sum')
+            
+            print(total_points)
+            update_total_items = Exam.objects.filter(exam_id = exam_id).update(total_items = total_items)
+            update_total_points = Exam.objects.filter(exam_id = exam_id).update(overall_points = total_points)
 
+            messages.success(request, "Question saved.")
+        
+        # Method to delete question
+        elif 'btnDelQues' in request.POST:
+            exam_to_delete = request.POST.get("exam_to_delete")
+
+            del_ques = Question.objects.filter(question_id = exam_to_delete).delete()
+            messages.success(request, "Successfully deleted question.")
+
+        # Not working yet (Method to update question)  
+        elif 'btnSaveEdited' in request.POST:
+            ques_id = request.POST.get("ques_id")
+            part = request.POST.get("edit_part")
+            question_no = request.POST.get("edit_question_no")
+            question = request.POST.get("edit_question")
+            optionA = request.POST.get("edit_optionA")
+            optionB = request.POST.get("edit_optionB")
+            optionC = request.POST.get("edit_optionC")
+            optionD = request.POST.get("edit_optionD")
+            answer = request.POST.get("edit_answer")
+            points = request.POST.get("edit_points")
+
+            print(points)
+            get_part_id = Part.objects.get(part_id = part)
+
+            edit_question = Question.objects.filter(question_id = ques_id).update(question_no = question_no, part = get_part_id, question = question, optionA = optionA, optionB = optionB, 
+                optionC = optionC, optionD = optionD, answer = answer, points = points)
+
+            messages.success(request, "Question edited successfully.")
         else:
-            messages.error(request, "Failed to save question.")
+            messages.error(request, "Failed to process query.")
   
         return redirect("administrator:admin_exam_details")
 
 class AdminMainExamTableView(View):
     def get(self, request):
-        print("ok")
-        return render(request, 'administrator/examManagement/adminManageMainExam.html')
+        qs_exam = Exam.objects.all()
 
-    # def post
+        context = {
+            'exams': qs_exam,
+        }
 
+        if not request.user.is_authenticated:
+            return redirect("administrator:admin_login")
+        return render(request, 'administrator/examManagement/adminAllExams.html', context)
+
+    def post(self, request):
+        if request.method == "POST":
+            if 'btnDelExam' in request.POST:
+                exam_to_delete = request.POST.get("exam_to_delete")
+
+                del_ques = Exam.objects.filter(exam_id = exam_to_delete).delete()
+                messages.success(request, "Successfully deleted question.")
+
+        return redirect("administrator:mainexam_table")

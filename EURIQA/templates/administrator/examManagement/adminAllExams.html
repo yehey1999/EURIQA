@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Dashboard</title>
+    <title>All Exams</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta content="" name="description">
@@ -183,27 +183,72 @@
                         <br>
 
                         <!-- Exam Table -->
-                        <table id="allExams" class="table table-striped" style="width:100%;">
-                            <thead>
-                                <tr>
-                                    <th style="text-align: center;">Name</th>
-                                    <th style="text-align: center;">Questions</th>
-                                    <th style="text-align: center;">Overall Points</th>
-                                    <th style="text-align: center;">AAs</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-                                <tr style="text-align: center;">
-                                    <td style="text-align: center;"></td>
-                                    <td>
-                                        <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#">
-                                        </a>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                            </tbody>
-                        </table>
+                        <form class="row g-3 needs-validation" novalidate method="POST">
+                        {% csrf_token %}
+                            <table id="allExams" class="table table-striped" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <td>ID</td>
+                                        <th style="text-align: center;">Exam Name</th>
+                                        <th style="text-align: center;">Assigned To</th>
+                                        <th style="text-align: center;">Total Items</th>
+                                        <th style="text-align: center;">Overall Points</th>
+                                        <th style="text-align: center;">Link</th>
+                                        <th style="text-align: center;">Created by</th>
+                                        <th style="text-align: center;">Actions</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    {% for exam in exams %}
+                                    <tr style="text-align: center;">
+                                        <td>{{exam.exam_id}}</td>
+                                        <td>{{exam.title}}</td>
+                                        <td>{{exam.takers}}</td>
+                                        <td>{{exam.total_items}}</td>
+                                        <td>{{exam.overall_points}}</td>
+
+                                    {% if exam.link != None %}
+                                        <td><a href={{exam.link}}>Click here</a></td>
+                                    {% else %}
+                                        <td>None</td>
+                                    {% endif %}
+                                        <td>{{exam.created_by.user.get_full_name}}</td> 
+                                        <td>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#viewExam-{{exam.exam_id}}">
+                                                <i class="material-icons-two-tone" style="background-color:green;">view_list</i>
+                                            </a>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteExam-{{exam.exam_id}}">
+                                                <i class="material-icons-two-tone" style="background-color: maroon;">delete</i>
+                                            </a>
+
+                                            <!-- DELETE QUESTION MODAL -->
+                                            <div class="modal fade" id="deleteExam-{{exam.exam_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Confirm Exam Deletion</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+
+                                                    <div class="modal-body" style="text-align: left;">
+                                                        Are you sure you want to delete exam?
+                                                        <input type="text" name="exam_to_delete" value={{exam.exam_id}} hidden>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" name="btnDelExam" class="btn btn-secondary" style="background-color: maroon;">Yes</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                 </div>
             </div>
