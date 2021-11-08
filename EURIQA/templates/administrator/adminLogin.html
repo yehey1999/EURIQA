@@ -1,190 +1,152 @@
 {% load static %}
-<html>
-  <head>
-    <!-- <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content=""> -->
-    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet"> -->
-    <!-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet"> -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    
-    <!-- Bootstrap CSS CDN (BOOTSTRAP 5)-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <!-- Login form Style-->
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>EURIQA - Admin Login Page</title>
-    
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"> -->
+  <title>EURIQA - Admin Login Page</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    <!-- Additional CSS Files -->
-    <!-- <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}"> -->
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'assets/img/favicon.png' %}" type="image/x-icon">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-    <!-- Main Banner -->
-    <link rel="stylesheet" href="{% static 'assets/css/templatemo-grad-school.css' %}">
-    
-    <!-- <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}"> -->
-    <!-- <link rel="stylesheet" href="{% static 'assets/css/lightbox.css' %}"> -->
-    
-    <!-- FAVICON (NOT FINAL YET) -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicon/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'assets/favicon/site.webmanifest' %}">
-  </head>
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-  <!-- HEADER -->
-  <header class="main-header clearfix" role="header">
-    <div class="logo">
-      <img style="padding-top: 0" width="180" height="70" src="{% static 'assets/images/logo-02.png' %}">
-    </div>
-    <div class="logo1">
-      <img style="float: right; margin-right: 50px; margin-top: 7px; " width="60" height="60" src="{% static 'assets/images/logo1.png' %}">
-    </div>
-    <div class="logo2">
-      <img style="float: right; margin-right: 30px; padding-right: 10px; margin-top: 10px; " width="240" height="50" src="{% static 'assets/images/citlogotype.png' %}">
-    </div>
-  </header>
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/navbar.css' %}" rel="stylesheet">
+  
+</head>
 
+<body>
 
-  <!-- BODY -->
-  <body>
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 text-center mb-5"></div>
-			</div>
-			<div class="row justify-content-center">
-				<div class="col-md-12 col-lg-10">
-					<div class="wrap d-md-flex">
-						<div class="img" style="background-image: url({% static 'assets/images/citbldg.jpg' %}); background-position:fixed; background-size: cover;"></div>
-						<div class="login-wrap p-4 p-md-5">
-                <div class="d-flex">
-                  <div class="w-100">
-                    <h3 class="mb-4">Log in</h3>
-                  </div>
-                </div>
-                <!-- LOGIN FORM -->
-                <form class="signin-form" method="POST">
-                  {% csrf_token %}
-                    <div class="form-group mb-3">
-                      <label class="label" for="name">ID Number</label>
-                      <input type="text" class="form-control" placeholder="ID Number" name="username" required>
-                    </div>
-                    <div class="form-group mb-3">
-                      <label class="label" for="password">Password</label>
-                      <input type="password" class="form-control" placeholder="Password" name="password" required>
-                    </div>
-                    <div class="form-group">
-                      <button type="submit" class="form-control btn btn-primary rounded submit px-3">Log In</button>
-                    </div>
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+    <div class="container d-flex align-items-center justify-content-between">
 
-                    <!-- Message Loader -->
-                    {% for message in messages %}
-                      <div class="alert {{message.tags}}" role="alert">
-                      {{ message }}
-                      </div>
-                    {% endfor %}   
-
-		            </form>
-
-		            <p><br>* Login details are to be provided by your school. If you don’t have an account, contact your enrollment officer.</p>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
+      <div class="logo">
+        <a href="homePage.html"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>
       </div>
+
+      <!-- .navbar -->
+      <nav id="navbar" class="navbar">
+        <ul>
+          <div class="logo">
+            <img src="{% static 'assets/img/citlogotype.png' %}" alt="" class="img-fluid">
+          </div>
+          <div class="logo">
+            <img src="{% static 'assets/img/citlogo.png' %}" alt="" class="img-fluid">
+          </div>
+        </ul>
+      </nav>
+      <!-- End navbar -->
+
     </div>
-	</section>
+  </header><!-- End Header -->
 
-	</body>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <p><i class="fa fa-copyright"></i> Copyright 2021 by EURIQA 
+  <main id="main">
 
+    <section class="vh-30" style="background-color: white;">
+      <div class="container py-5 h-75">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col col-xl-10">
+            <div class="card" style="border-radius: 1rem;">
+              <div class="row g-0">
+                <div class="col-md-6 col-lg-5 d-none d-md-block">
+                  <img
+                    src="{% static 'assets/img/citbldg1.jpg' %}"
+                    alt="login form"
+                    class="img-fluid" style="border-radius: 1rem 0 0 1rem;"
+                  />
+                </div>
+                <div class="col-md-6 col-lg-7 d-flex align-items-center" style="background-color: #FACA10;">
+                  <div class="card-body p-4 p-lg-5 text-black">
+    
+                    <form class="signin-form" method="POST">
+                      {% csrf_token %}
+    
+                      <div class="text-center">
+                        <a href="index.html"><img src="{% static 'assets/img/citlogo.png' %}" alt="" style="height: 150px; align-content: right;"></a><br><br>
+                        <h5 class="fw-normal mb-3 pb-3" style=" font-weight: 300;">ENTER ACCOUNT CREDENTIALS</h5>
+                      </div>
+    
+    
+                      <div class="form-outline mb-xl-3">
+                        <label class="label" for="name">ID Number</label>
+                        <input type="text" class="form-control" placeholder="" name="username" required />
+                      </div>
+    
+                      <div class="form-outline mb-xl-3">
+                        <label class="label" for="password">Password</label>
+                        <input type="password" class="form-control" placeholder="" name="password" required  />
+
+                      <!-- Message Loader -->
+                            {% for message in messages %}
+                              <div class="alert {{message.tags}}" role="alert">
+                              {{ message }}
+                              </div>
+                            {% endfor %}
+                      
+                        
+                        
+                      </div>
+                      <a class="small text-muted">* Login details are to be provided by your school. If you don’t have an account, contact your enrollment officer.</a><br><br>
+                      <div class="form-group">
+                          <button type="submit" class="btn-primary">Log In</button>
+                      </div>
+    
+                     
+                    
+                    </form>
+    
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <br>
+  
+<!-- ======= Footer ======= -->
+<footer id="footer">     
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>EURIQA</span></strong>. All Rights Reserved
     </div>
+  </div>
 
-  <!-- SCRIPTS -->
-  <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'assets/js/isotope.min.js' %}"></script>
-  <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
-  <script src="{% static 'assets/js/lightbox.js' %}"></script>
-  <script src="{% static 'assets/js/tabs.js' %}"></script>
-  <script src="{% static 'assets/js/video.js' %}"></script>
-  <script src="{% static 'assets/js/slick-slider.js' %}"></script>
-  <script src="{% static 'assets/js/custom.js' %}"></script>
-  <script src="{% static 'assests/js/jquery.min.js' %}"></script>
-  <script src="{% static 'assestsjs/popper.js' %}"></script>
-  <script src="{% static 'assestsjs/bootstrap.min.js' %}"></script>
-  <script src="{% static 'assestsjs/main.js' %}"></script>
+  <!-- Scripts -->
+    <!-- Vendor JS Files -->
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'assets/vendor/purecounter/purecounter.js' %}"></script>
+    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
 
-  <script>
-      //according to loftblog tut
-      $('.nav li:first').addClass('active');
+    <!--Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</footer>
+<!-- End Footer -->
 
-      var showSection = function showSection(section, isAnimate) {
-        var
-        direction = section.replace(/#/, ''),
-        reqSection = $('.section').filter('[data-section="' + direction + '"]'),
-        reqSectionPos = reqSection.offset().top - 0;
-
-        if (isAnimate) {
-          $('body, html').animate({
-            scrollTop: reqSectionPos },
-          800);
-        } else {
-          $('body, html').scrollTop(reqSectionPos);
-        }
-
-      };
-
-      var checkSection = function checkSection() {
-        $('.section').each(function () {
-          var
-          $this = $(this),
-          topEdge = $this.offset().top - 80,
-          bottomEdge = topEdge + $this.height(),
-          wScroll = $(window).scrollTop();
-          if (topEdge < wScroll && bottomEdge > wScroll) {
-            var
-            currentId = $this.data('section'),
-            reqLink = $('a').filter('[href*=\\#' + currentId + ']');
-            reqLink.closest('li').addClass('active').
-            siblings().removeClass('active');
-          }
-        });
-      };
-
-      $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
-        if($(e.target).hasClass('external')) {
-          return;
-        }
-        e.preventDefault();
-        $('#menu').removeClass('active');
-        showSection($(this).attr('href'), true);
-      });
-
-      $(window).scroll(function () {
-        checkSection();
-      });
-  </script>
-
-   <!-- Popper.JS -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    
-   <!-- Bootstrap JS -->
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-  </footer>
+</body>
 
 </html>

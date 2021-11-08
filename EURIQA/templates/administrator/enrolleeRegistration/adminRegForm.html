@@ -1,308 +1,371 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>EURIQA Admin</title>
+    <title>Admin Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
     <!-- Bootstrap CSS CDN (BOOTSTRAP 5)-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
-    <!-- SIDEBAR -->
-    <link rel="stylesheet" href="{% static 'assets/css/sidebar.css' %}">
 
-    <!-- MENU ICON -->
-    <link rel="stylesheet" href="{% static 'assets/css/menuicon.css' %}">
+    <!-- Favicon icon -->
+    <link rel="icon" href="{% static 'assets/img/favicon.png' %}" type="image/x-icon">
 
-    <!-- Font Awesome JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <!-- font css -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/material.css' %}">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="{% static 'assets/css/dashboard/style.css' %}" id="main-style-link">
+
 </head>
 
-<body>
-    <!-- SIDEBAR -->
-    <div class="wrapper">
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <img style="float: right; margin-right: 50px; margin-top: 5px; " width="150" height="50" src="{% static 'assets/images/logo-02.png' %}">
-            </div>
+<body class="">
+    <!-- [ Pre-loader ] start -->
+	<div class="loader-bg">
+		<div class="loader-track">
+			<div class="loader-fill"></div>
+		</div>
+	</div>
+	<!-- [ Pre-loader ] End -->
+	<!-- [ Mobile header ] start -->
+	<div class="pc-mob-header pc-header">
+		<div class="pcm-logo">
+			<img src="{% static 'assets/images/logo.png' %}" alt="" class="logo logo-lg">
+		</div>
+		<div class="pcm-toolbar">
+			<a href="#!" class="pc-head-link" id="mobile-collapse">
+				<div class="hamburger hamburger--arrowturn">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+			</a>
+			<a href="#!" class="pc-head-link" id="header-collapse">
+				<i data-feather="more-vertical"></i>
+			</a>
+		</div>
+	</div>
+	<!-- [ Mobile header ] End -->
 
-            <ul class="list-unstyled components">
-                <br>
-                <p>Welcome, {{user.first_name}}!</p>
-                <li>
-                    <a href="../home">Home</a>
-                </li>
-                <li>
-                    <a href="../dashboard">Dashboard</a>
-                </li>
-                <li class="active">
-                    <a href="#regSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Enrollee Registration</a>
-                    <ul class="collapse list-unstyled" id="regSubmenu">
-                        <li>
-                            <a href="../enrollee-management/regform">Account Registration </a>
-                        </li>
-                        <li>
-                            <a href="../enrollee-management/accounts">Manage Accounts</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#examSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Exam Management</a>
-                    <ul class="collapse list-unstyled" id="examSubmenu">
-                        <li><a href="../exam-management/mainexamtable">All Exams</a></li>
-                        <li>
-                            <a href="../exam-management/create-exam">Create Exam</a>
-                        </li>
-                    </ul>
-                </li>
+	<!-- [ navigation menu ] start -->
+	<nav class="pc-sidebar ">
+		<div class="navbar-wrapper">
+			<div class="m-header">
+				<a href="index.html" class="b-brand">
+					<img src="{% static 'assets/img/logotype with favicon.png' %}" alt="" class="logo logo-sm">
+				</a>
+			</div>
+			<div class="navbar-content">    
+                <br><br>
+				<ul class="pc-navbar">
+					<li class="pc-item pc-caption">
+						<label>Navigation</label>
+					</li>
+					<li class="pc-item">
+						<a href="../home" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">home</i></span><span class="pc-mtext">Home</span></a>
+					</li>
 
-                <li>
-                    <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
-                    <ul class="collapse list-unstyled" id="accountSubmenu">
-                        <li>
-                            <a href="../profile">Profile</a>
-                        </li>
-                        <li>
-                            <a href="../logout">Logout</a>
-                        </li>
-                    </ul>
-                </li>
-                
-            </ul>
-            
-            <br><br><br><br><br>
-            <center>
-                <img width="70" height="70" src="{% static 'assets/images/logo1.png' %}">
-            </center>
-        </nav>
-    </div>
+					<li class="pc-item">
+						<a href="../dashboard" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">analytics</i></span><span class="pc-mtext">Dashboard</span></a>
+					</li>
+					<li class="pc-item pc-caption">
+						<label>Enrollee Management</label>
+						<span>Enrollee Management Settings</span>
+					</li>
+					<li class="pc-item active">
+						<a href="../enrollee-management/regform" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">person_add</i></span><span class="pc-mtext">Account Registration</span></a>
+					</li>
+					<li class="pc-item">
+						<a href="../enrollee-management/accounts" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">account_tree</i></span><span class="pc-mtext">Manage Accounts</span></a>
+					</li>
+					<li class="pc-item pc-caption">
+						<label>Exam Management</label>
+						<span>Exam Management Settings</span>
+					</li>
+                    <li class="pc-item">
+						<a href="../exam-management/mainexamtable" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">assignment</i></span><span class="pc-mtext">All Exams</span></a>
+					</li>
+                    <li class="pc-item">
+						<a href="../exam-management/create-exam" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">post_add</i></span><span class="pc-mtext">Create Exam</span></a>
+					</li>
+                    
+					<!-- <li class="pc-item pc-hasmenu">
+						<a href="#!" class="pc-link"><span class="pc-micon"><i class="material-icons-two-tone">https</i></span><span class="pc-mtext">Registration</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+						<ul class="pc-submenu">
+							<li class="pc-item"><a class="pc-link" href="auth-signup.html" target="_blank">Add Enrollee</a></li>
+							<li class="pc-item"><a class="pc-link" href="auth-signin.html" target="_blank">Manage Enrollee</a></li>
+						</ul>
+					</li> -->
 
-     <!-- Content -->
-    <div id="content">
-        <div class="row">
-            <div class="col-auto">
-                <div id="sidebarCollapse">
-                    <div id="nav-icon4">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- [ navigation menu ] end -->
+
+	<!-- [ Header ] start -->
+	<header class="pc-header">
+		<div class="header-wrapper">
+			<div class="ml-auto">
+				<ul class="list-unstyled">
+					<li class="dropdown pc-h-item">
+						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+							<img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="user-image" class="user-avtar">
+							<span>
+								<span class="user-name">{{user.get_full_name}}</span>
+								<span class="user-desc">Administrator</span>
+							</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
+                            <a href="#!" class="dropdown-item">
+								<i class="material-icons-two-tone">account_circle</i> <!-- MODAL THIS -->
+								<span>Profile</span>
+							</a>
+							<a href="../logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+								<span>Logout</span>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<!-- [ Header ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Account Registration</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item">Account Registration</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- [ breadcrumb ] end -->
+            
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="row g-3 needs-validation" novalidate method="POST">
+                            {% csrf_token %}
+                        
+                            <!-- Message loader -->
+                            {% for message in messages %}
+                                <div class="alert {{message.tags}}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}  
                 
-                </nav>
-            </div>
-          </div>
-
-        <!-- Input Account Details -->
-        <form class="row g-3 needs-validation" novalidate method="POST">
-            {% csrf_token %}
-        
-            <!-- Message loader -->
-            {% for message in messages %}
-                <div class="alert {{message.tags}}" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}  
-
-            <h2>Account Details</h2>
-            <hr>
-
-            <!-- Username input field -->
-            <div class="col-md-4">
-                <label for="inputUname" class="form-label">Username</label>
-                <input type="text" class="form-control" id="inputUname" placeholder="ID Number" name="username" required>
+                            <h2>Account Details</h2>
+                            <hr>
                 
-                <div class="invalid-feedback">
-                    This field is required.
+                            <!-- Username input field -->
+                            <div class="col-md-4">
+                                <label for="inputUname" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="inputUname" placeholder="ID Number" name="username" required>
+                                
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                
+                            </div>
+                
+                            <!-- Password input field -->
+                            <div class="col-md-4">
+                                <label for="inputPass" class="form-label">Password</label>
+                                <input type="text" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" readonly required>
+                
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                
+                            <!-- Email input field -->
+                            <div class="col-md-4">
+                                <label for="inputEmail" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" id="inputEmail" required>
+                
+                                <div class="invalid-feedback">
+                                    Input a valid email address.
+                                </div>
+                            </div>
+                
+                            <!-- Type input field -->
+                            <div class="col-md-3 div_type">
+                                <label for="user_type" class="form-label" >Type</label>
+                                <select class="form-select type" name="user_type" required>
+                                    <option value="enrollee" selected>Enrollee</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                
+                            <!-- Enrolled as input field -->
+                            <div class="col-md-3 div_enrolled_as">
+                                <label for="enrolled_as" class="form-label" >Enrolled as</label>
+                                <select class="form-select enrolled_as" name="enrolled_as" required>
+                                    <option value="freshman" selected>Freshman</option>
+                                    <option value="transferee">Transferee</option>
+                                </select>
+                            </div>
+                
+                            <!-- School level input field -->
+                            <div class="col-md-3 div_level">
+                                <label for="inputLevel" class="form-label" >School Level</label>
+                                <select id="inputLevel" class="form-select level" name="level" required>
+                                    <option value ="college" selected>College</option>
+                                    <option value="shs">Senior High School</option>
+                                    <option value="jhs">Junior High School</option>
+                                    <option value="elem">Elementary</option>
+                                </select>
+                            </div>
+                
+                            <!-- Program input field -->
+                            <div class="col-md-3 div_program">
+                                <label for="inputProgram" class="form-label" >Enrolled Program</label>
+                                <select id="inputProgram" class="form-select program" name="program" required>
+                                    {% for program in programs %}
+                                        <option value={{program.program_id}}>{{program.program_name}}</option> 
+                                    {% endfor %}
+                                </select>
+                            </div>
+                
+                            <!-- Strand input field -->
+                            <div class="col-md-3 div_strand">
+                                <label for="inputStrand" class="form-label" >Enrolled Strand</label>
+                                <select id="inputStrand" class="form-select program" name="strand" required>
+                                    {% for strand in strands %}
+                                        <option value={{strand.strand_id}}>{{strand.strand_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                
+                            <!-- Position  input field -->
+                            <div class="col-md-3 div_pos">
+                                <label for="inputPos" class="form-label" >Position</label>
+                                <select id="inputPos" class="form-select position" name="position" required>
+                                    <option value="guidance" selected>Guidance Center Personnel</option>
+                                    <option value="college">College Faculty</option>
+                                    <option value="shs">SHS Faculty</option>
+                                    <option value="jhs">JHS Faculty</option>
+                                </select>
+                            </div>
+                
+                            <!-- Input Enrollee Information-->
+                            <br><br><br><br><br><br>
+                
+                            <h2>Enrollee Information</h2>
+                            <hr>
+                
+                            <!-- First name input field -->
+                            <div class="col-md-4">
+                                <label for="inputFname" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="inputFname" name="first_name" required>
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                
+                            <!-- Middle name input field -->
+                            <div class="col-md-4">
+                                <label for="inputMname" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" id="inputMname" name="middle_name">
+                            </div>
+                
+                            <!-- Last name input field -->
+                            <div class="col-md-4">
+                                <label for="inputLname" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="inputLname" name="last_name" required>
+                
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                            
+                            <!-- Address input fields -->
+                            <div class="col-md-12">
+                                <label for="inputAddress" class="form-label">House No., Street, Baranggay</label>
+                                <input type="text" class="form-control" id="inputAddress" name ="street" required>
+                            
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="inputCity" class="form-label">City</label>
+                                <input type="text" class="form-control" id="inputCity" name="city" required>
+                
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                
+                            <div class="col-md-4">
+                                <label for="inputProvince" class="form-label">Province</label>
+                                <input type="text" class="form-control" id="inputProvince" name="province" required>
+                
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                
+                            <div class="col-md-4">
+                                <label for="inputZip" class="form-label">Zip</label>
+                                <input type="number" class="form-control" id="inputZip" name="zip" required>
+                
+                                <div class="invalid-feedback">
+                                    This field is required.
+                                </div>
+                            </div>
+                            
+                            <!-- Register button -->
+                            <br><br><br><br><br>
+                                <center>
+                                    <button type="submit" class="btn btn-warning" name="btnSubmit">Register</button>
+                                </center>
+                        </form>
+                    </div>
                 </div>
-
             </div>
-
-            <!-- Password input field -->
-            <div class="col-md-4">
-                <label for="inputPass" class="form-label">Password</label>
-                <input type="text" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" readonly required>
-
-                <div class="invalid-feedback">
-                    This field is required.
-                </div>
-            </div>
-
-            <!-- Email input field -->
-            <div class="col-md-4">
-                <label for="inputEmail" class="form-label">Email Address</label>
-                <input type="email" class="form-control" name="email" id="inputEmail" required>
-
-                <div class="invalid-feedback">
-                    Input a valid email address.
-                </div>
-            </div>
-
-            <!-- Type input field -->
-            <div class="col-md-3 div_type">
-                <label for="user_type" class="form-label" >Type</label>
-                <select class="form-select type" name="user_type" required>
-                    <option value="enrollee" selected>Enrollee</option>
-                    <option value="admin">Admin</option>
-                </select>
-            </div>
-
-            <!-- Enrolled as input field -->
-            <div class="col-md-3 div_enrolled_as">
-                <label for="enrolled_as" class="form-label" >Enrolled as</label>
-                <select class="form-select enrolled_as" name="enrolled_as" required>
-                    <option value="freshman" selected>Freshman</option>
-                    <option value="transferee">Transferee</option>
-                </select>
-            </div>
-
-            <!-- School level input field -->
-            <div class="col-md-3 div_level">
-                <label for="inputLevel" class="form-label" >School Level</label>
-                <select id="inputLevel" class="form-select level" name="level" required>
-                    <option value ="college" selected>College</option>
-                    <option value="shs">Senior High School</option>
-                    <option value="jhs">Junior High School</option>
-                    <option value="elem">Elementary</option>
-                </select>
-            </div>
-
-            <!-- Program input field -->
-            <div class="col-md-3 div_program">
-                <label for="inputProgram" class="form-label" >Enrolled Program</label>
-                <select id="inputProgram" class="form-select program" name="program" required>
-                    {% for program in programs %}
-                        <option value={{program.program_id}}>{{program.program_name}}</option> 
-                    {% endfor %}
-                </select>
-            </div>
-
-            <!-- Strand input field -->
-            <div class="col-md-3 div_strand">
-                <label for="inputStrand" class="form-label" >Enrolled Strand</label>
-                <select id="inputStrand" class="form-select program" name="strand" required>
-                    {% for strand in strands %}
-                        <option value={{strand.strand_id}}>{{strand.strand_name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <!-- Position  input field -->
-            <div class="col-md-3 div_pos">
-                <label for="inputPos" class="form-label" >Position</label>
-                <select id="inputPos" class="form-select position" name="position" required>
-                    <option value="guidance" selected>Guidance Center Personnel</option>
-                    <option value="college">College Faculty</option>
-                    <option value="shs">SHS Faculty</option>
-                    <option value="jhs">JHS Faculty</option>
-                </select>
-            </div>
-
-            <!-- Input Enrollee Information-->
-            <br><br><br><br><br><br>
-
-            <h2>Enrollee Information</h2>
-            <hr>
-
-            <!-- First name input field -->
-            <div class="col-md-4">
-                <label for="inputFname" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="inputFname" name="first_name" required>
-                <div class="invalid-feedback">
-                    This field is required.
-                </div>
-            </div>
-
-            <!-- Middle name input field -->
-            <div class="col-md-4">
-                <label for="inputMname" class="form-label">Middle Name</label>
-                <input type="text" class="form-control" id="inputMname" name="middle_name">
-            </div>
-
-            <!-- Last name input field -->
-            <div class="col-md-4">
-                <label for="inputLname" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="inputLname" name="last_name" required>
-
-                <div class="invalid-feedback">
-                    This field is required.
-                </div>
-            </div>
-            
-            <!-- Address input fields -->
-            <div class="col-md-12">
-                <label for="inputAddress" class="form-label">House No., Street, Baranggay</label>
-                <input type="text" class="form-control" id="inputAddress" name ="street" required>
-            
-                <div class="invalid-feedback">
-                    This field is required.
-                </div>
-            </div>
-            
-            <div class="col-md-4">
-                <label for="inputCity" class="form-label">City</label>
-                <input type="text" class="form-control" id="inputCity" name="city" required>
-
-                <div class="invalid-feedback">
-                    This field is required.
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <label for="inputProvince" class="form-label">Province</label>
-                <input type="text" class="form-control" id="inputProvince" name="province" required>
-
-                <div class="invalid-feedback">
-                    This field is required.
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <label for="inputZip" class="form-label">Zip</label>
-                <input type="number" class="form-control" id="inputZip" name="zip" required>
-
-                <div class="invalid-feedback">
-                    This field is required.
-                </div>
-            </div>
-            
-            <!-- Register button -->
-            <br><br><br><br><br>
-                <center>
-                    <button type="submit" class="btn btn-warning" name="btnSubmit">Register</button>
-                </center>
-        </form>
+            <!-- [ Main Content ] end -->
+        </div>
     </div>
 </body>
 
-<!-- Scripts -->
-<footer>
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-    
-    <!-- SIDEBAR -->
-    <script src="{% static 'assets/js/sidebar.js' %}"></script>
+<!-- Scripts  -->
+<footer> 
+    <!-- Required Js -->
+    <script src="{% static 'assets/js/dashboard/vendor-all.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/plugins/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/plugins/feather.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/pcoded.min.js' %}"></script>
 
+    <!-- custom-chart js -->
+    <script src="{% static 'assets/js/dashboard/pages/dashboard-sale.js' %}"></script>
+    
+   <!-- Bootstrap Bundle JS -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
     <!-- BOOTSTRAP FORM VALIDATION -->
     <script src="{% static 'assets/js/formvalidation.js' %}"></script>
-
-    <!-- MENU ICON -->
-    <script src="{% static 'assets/js/menuicon.js' %}"></script>
 
     <!-- INPUT SCRIPTS -->
     <script>
@@ -363,4 +426,4 @@
     </script>
 </footer>
 
-</html> 
+</html>

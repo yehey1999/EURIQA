@@ -1,21 +1,27 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>EURIQA Admin</title>
+    <title>Admin Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
     <!-- Bootstrap CSS CDN (BOOTSTRAP 5)-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
-    <!-- SIDEBAR -->
-    <link rel="stylesheet" href="{% static 'assets/css/sidebar.css' %}">
 
-    <!-- MENU ICON -->
-    <link rel="stylesheet" href="{% static 'assets/css/menuicon.css' %}">
+    <!-- Favicon icon -->
+    <link rel="icon" href="{% static 'assets/img/favicon.png' %}" type="image/x-icon">
 
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <!-- font css -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/material.css' %}">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="{% static 'assets/css/dashboard/style.css' %}" id="main-style-link">
 
     <!-- DATA TABLES -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-html5-2.0.1/fh-3.2.0/r-2.2.9/sl-1.3.3/datatables.min.css"/>
@@ -24,356 +30,409 @@
     <link href="https://cdn.datatables.net/select/1.3.3/css/select.bootstrap5.min.css">
     <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
     <link href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.bootstrap5.min.css">
-    
+
 </head>
 
-<body>
-    <!-- SIDEBAR -->
-    <div class="wrapper">
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <img style="float: right; margin-right: 50px; margin-top: 5px; " width="150" height="50" src="{% static 'assets/images/logo-02.png' %}">
-            </div>
+<body class="">
+    <!-- [ Pre-loader ] start -->
+	<div class="loader-bg">
+		<div class="loader-track">
+			<div class="loader-fill"></div>
+		</div>
+	</div>
+	<!-- [ Pre-loader ] End -->
+	<!-- [ Mobile header ] start -->
+	<div class="pc-mob-header pc-header">
+		<div class="pcm-logo">
+			<img src="{% static 'assets/images/logo.png' %}" alt="" class="logo logo-lg">
+		</div>
+		<div class="pcm-toolbar">
+			<a href="#!" class="pc-head-link" id="mobile-collapse">
+				<div class="hamburger hamburger--arrowturn">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+			</a>
+			<a href="#!" class="pc-head-link" id="header-collapse">
+				<i data-feather="more-vertical"></i>
+			</a>
+		</div>
+	</div>
+	<!-- [ Mobile header ] End -->
 
-            <ul class="list-unstyled components">
-                <br>
-                <p>Welcome, {{user.first_name}}!</p>
-                <li><a href="../home">Home</a></li>
-                <li><a href="../dashboard">Dashboard</a></li>
-                <li>
-                    <a href="#regSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Enrollee Registration</a>
-                    <ul class="collapse list-unstyled" id="regSubmenu">
-                        <li><a href="../enrollee-management/regform">Account Registration </a></li>
-                        <li><a href="../enrollee-management/accounts">Manage Accounts</a></li>
-                    </ul>
-                </li>
-                <li class="active">
-                    <a href="#examSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Exam Management</a>
-                    <ul class="collapse list-unstyled" id="examSubmenu">
-                        <li><a href="../exam-management/mainexamtable">All Exams</a></li>
-                        <li>
-                            <a href="../exam-management/create-exam">Create Exam</a>
-                        </li>
-                    </ul>
-                </li>
+	<!-- [ navigation menu ] start -->
+	<nav class="pc-sidebar ">
+		<div class="navbar-wrapper">
+			<div class="m-header">
+				<a href="index.html" class="b-brand">
+					<img src="{% static 'assets/img/logotype with favicon.png' %}" alt="" class="logo logo-sm">
+				</a>
+			</div>
+			<div class="navbar-content">    
+                <br><br>
+				<ul class="pc-navbar">
+					<li class="pc-item pc-caption">
+						<label>Navigation</label>
+					</li>
+					<li class="pc-item">
+						<a href="../home" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">home</i></span><span class="pc-mtext">Home</span></a>
+					</li>
 
-                <li>
-                    <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
-                    <ul class="collapse list-unstyled" id="accountSubmenu">
-                        <li>
-                            <a href="../profile">Profile</a>
-                        </li>
-                        <li>
-                            <a href="../logout">Logout</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <br><br><br><br><br>
+					<li class="pc-item">
+						<a href="../dashboard" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">analytics</i></span><span class="pc-mtext">Dashboard</span></a>
+					</li>
+					<li class="pc-item pc-caption">
+						<label>Enrollee Management</label>
+						<span>Enrollee Management Settings</span>
+					</li>
+					<li class="pc-item">
+						<a href="../enrollee-management/regform" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">person_add</i></span><span class="pc-mtext">Account Registration</span></a>
+					</li>
+					<li class="pc-item">
+						<a href="../enrollee-management/accounts" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">account_tree</i></span><span class="pc-mtext">Manage Accounts</span></a>
+					</li>
+					<li class="pc-item pc-caption">
+						<label>Exam Management</label>
+						<span>Exam Management Settings</span>
+					</li>
+                    <li class="pc-item">
+						<a href="../exam-management/mainexamtable" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">assignment</i></span><span class="pc-mtext">All Exams</span></a>
+					</li>
+                    <li class="pc-item active">
+						<a href="../exam-management/create-exam" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">post_add</i></span><span class="pc-mtext">Create Exam</span></a>
+					</li>
+                    
+					<!-- <li class="pc-item pc-hasmenu">
+						<a href="#!" class="pc-link"><span class="pc-micon"><i class="material-icons-two-tone">https</i></span><span class="pc-mtext">Registration</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+						<ul class="pc-submenu">
+							<li class="pc-item"><a class="pc-link" href="auth-signup.html" target="_blank">Add Enrollee</a></li>
+							<li class="pc-item"><a class="pc-link" href="auth-signin.html" target="_blank">Manage Enrollee</a></li>
+						</ul>
+					</li> -->
 
-            <center>
-                <img width="70" height="70" src="{% static 'assets/images/logo1.png' %}">
-            </center>
-        </nav>
-    </div>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- [ navigation menu ] end -->
 
-    <!-- Content -->
-    <div id="content">
-        <div class="row">
-            <div class="col-auto">
-                <div id="sidebarCollapse">
-                    <div id="nav-icon4">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+	<!-- [ Header ] start -->
+	<header class="pc-header">
+		<div class="header-wrapper">
+			<div class="ml-auto">
+				<ul class="list-unstyled">
+					<li class="dropdown pc-h-item">
+						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+							<img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="user-image" class="user-avtar">
+							<span>
+								<span class="user-name">{{user.get_full_name}}</span>
+								<span class="user-desc">Administrator</span>
+							</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
+                            <a href="#!" class="dropdown-item">
+								<i class="material-icons-two-tone">account_circle</i> <!-- MODAL THIS -->
+								<span>Profile</span>
+							</a>
+							<a href="../logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+								<span>Logout</span>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<!-- [ Header ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Create Exam</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item">Account Registration</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
-            </div>
-          </div>
-
-        <!-- Message Loader -->
-        {% for message in messages %}
-            <div class="alert {{message.tags}}" role="alert">
-            {{ message }}
-            </div>
-        {% endfor %}  
-
-        <!-- Add Questions -->
-        <h2>Add Questions to</h2>
-        <br>
-        <div class="container">
-        <form class="row g-3 needs-validation" novalidate method="POST"> 
-            {% csrf_token %}
-
-            <!-- Question -->
-            <div class="row" style="padding-top: 50px; width: 75%; margin: auto;">
-                <div class="col-1"></div>
-                <div class="col-10">
-                    <div class="card">
-                        <div class="card-header">
-                            Add question
+            <!-- [ breadcrumb ] end -->
+            
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Message Loader -->
+                        {% for message in messages %}
+                        <div class="alert {{message.tags}}" role="alert">
+                        {{ message }}
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <!-- Part -->
-                                <div class="col-6">
-                                    <div class="form-floating">
-                                        <select class="form-select" id="floatingPart" name="part" aria-label="Default select example">
-                                            {% for part in parts %}
-                                            <option value="{{part.id}}">{{part.part.part_name}}</option>
-                                            {% endfor %} 
-                                          </select>                                                                        
-                                        <label for="floatingPart">Part</label>
-                                    </div>
-                                    
-                                    <!-- Add Part Link-->
-                                    <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#examPartModal">+ Add Exam Parts</a>
-                                </div>
-
-                                <!-- Question No. -->
-                                <div class="col-3"> 
-                                    <div class="form-floating">
-                                        <input type="number" name="question_no" min=1 class="form-control" id="floatingNo" placeholder="No." required>
-                                        <label for="floatingNo">Question No.</label>
-                                    </div>
-                                </div>
-        
-                                <!-- Points -->
-                                <div class="col-3">
-                                    <div class="form-floating">
-                                        <input type="number" name="points" min=1 class="form-control" id="floatingPoints" placeholder="No." required>
-                                        <label for="floatingPoints">Points</label>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <br>
-        
-                            <!-- Question -->
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" name="question" placeholder="Question" id="floatingQuestion" style="height: 100px;" required></textarea>
-                                        <label for="floatingQuestion">Question</label>
-                                        
-                                        <div class="invalid-feedback">
-                                            Please add a question.
+                        {% endfor %}
+                        
+                        <div class="container">
+                            <form class="row g-3 needs-validation" novalidate method="POST"> 
+                                {% csrf_token %}
+                    
+                                <!-- Question -->
+                                <div class="row" style="padding-top: 50px; width: 75%; margin: auto;">
+                                    <div class="col-1"></div>
+                                    <div class="col-10">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                Add question
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <!-- Part -->
+                                                    <div class="col-6">
+                                                        <div class="form-floating">
+                                                            <select class="form-select" id="floatingPart" name="part" aria-label="Default select example">
+                                                                {% for part in parts %}
+                                                                <option value="{{part.id}}">{{part.part.part_name}}</option>
+                                                                {% endfor %} 
+                                                                </select>                                                                        
+                                                            <label for="floatingPart">Part</label>
+                                                        </div>
+                                                        
+                                                        <!-- Add Part Link-->
+                                                        <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#examPartModal">+ Add Exam Parts</a>
+                                                    </div>
+                    
+                                                    <!-- Question No. -->
+                                                    <div class="col-3"> 
+                                                        <div class="form-floating">
+                                                            <input type="number" name="question_no" min=1 class="form-control" id="floatingNo" placeholder="No." required>
+                                                            <label for="floatingNo">Question No.</label>
+                                                        </div>
+                                                    </div>
+                            
+                                                    <!-- Points -->
+                                                    <div class="col-3">
+                                                        <div class="form-floating">
+                                                            <input type="number" name="points" min=1 class="form-control" id="floatingPoints" placeholder="No." required>
+                                                            <label for="floatingPoints">Points</label>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                <br>
+                            
+                                                <!-- Question -->
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-floating">
+                                                            <textarea class="form-control" name="question" placeholder="Question" id="floatingQuestion" style="height: 100px;" required></textarea>
+                                                            <label for="floatingQuestion">Question</label>
+                                                            
+                                                            <div class="invalid-feedback">
+                                                                Please add a question.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                            
+                                                <!-- Options -->
+                                                <div class="row">
+                                                    <div class="input-group mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="option" id="radioOptionA">
+                                                            <label class="form-check-label" for="radioOptionA">
+                                                                A. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </label>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="optionA" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                        
+                                                        <div class="invalid-feedback">
+                                                            No option specified.
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="input-group mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="option" id="radioOptionB">
+                                                            <label class="form-check-label" for="radioOptionB">
+                                                                B. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </label>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="optionB" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                    
+                                                        <div class="invalid-feedback">
+                                                            No option specified.
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="input-group mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="option" id="radioOptionC">
+                                                            <label class="form-check-label" for="radioOptionC">
+                                                                C. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </label>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="optionC" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                    
+                                                        <div class="invalid-feedback">
+                                                            No option specified.
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="input-group mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="option" id="radioOptionD">
+                                                            <label class="form-check-label" for="radioOptionD">
+                                                                D. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </label>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="optionD" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                    
+                                                        <div class="invalid-feedback">
+                                                            No option specified.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <!-- Correct Answer -->
+                                                <div class="row">
+                                                    <div class="col">
+                                                    <h5>Correct Answer:</h5>
+                                                        <select class="form-select" name="answer" style="width: 150px;" required>
+                                                            <option value="optionA">Option A</option>
+                                                            <option value="optionB">Option B</option>
+                                                            <option value="optionC">Option C</option>
+                                                            <option value="optionD">Option D</option>
+                                                        </select>
+                                                        <br>
+                                                        <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="Answer deatils here" readonly> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                            
+                                            <!-- Save Button -->
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-secondary" name="btnSaveQuestion" style="background-color: maroon;">Save</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <br>
-        
-                            <!-- Options -->
-                            <div class="row">
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="option" id="radioOptionA">
-                                        <label class="form-check-label" for="radioOptionA">
-                                            A. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="optionA" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                    
-                                    <div class="invalid-feedback">
-                                        No option specified.
-                                    </div>
-                                </div>
-        
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="option" id="radioOptionB">
-                                        <label class="form-check-label" for="radioOptionB">
-                                            B. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="optionB" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                
-                                    <div class="invalid-feedback">
-                                        No option specified.
-                                    </div>
-                                </div>
-        
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="option" id="radioOptionC">
-                                        <label class="form-check-label" for="radioOptionC">
-                                            C. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="optionC" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                
-                                    <div class="invalid-feedback">
-                                        No option specified.
-                                    </div>
-                                </div>
-        
-                                <div class="input-group mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="option" id="radioOptionD">
-                                        <label class="form-check-label" for="radioOptionD">
-                                            D. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        </label>
-                                    </div>
-                                    <input type="text" class="form-control" name="optionD" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                
-                                    <div class="invalid-feedback">
-                                        No option specified.
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <!-- Correct Answer -->
-                            <div class="row">
-                                <div class="col">
-                                <h5>Correct Answer:</h5>
-                                    <select class="form-select" name="answer" style="width: 150px;" required>
-                                        <option value="optionA">Option A</option>
-                                        <option value="optionB">Option B</option>
-                                        <option value="optionC">Option C</option>
-                                        <option value="optionD">Option D</option>
-                                    </select>
-                                    <br>
-                                    <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="Answer deatils here" readonly> 
-                                </div>
-                            </div>
-                        </div>
-        
-                        <!-- Save Button -->
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-secondary" name="btnSaveQuestion" style="background-color: maroon;">Save</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-1"></div>
-            </div> 
-        </form> 
-
-        <!-- Add Part Modal -->
-        <form class="row g-3 needs-validation" novalidate method="POST"> 
-            {% csrf_token %}
-            <div class="modal fade" id="examPartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <!-- Modal Header -->
-                <div class="modal-dialog modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add Part</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                    <!-- Modal Body -->    
-                    <div class="modal-body">
-                        <!-- Exam Parts -->
-                        <div class="row">
-                            <h5>Add Exam Parts</h5>
-                            <!-- Part Name -->
-                            <div class="col-7">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" name="part_name" id="floatingPartName" placeholder="Part Name" required>
-                                    <label for="floatingPartName">Part Name</label>
-    
-                                    <div class="invalid-feedback">
-                                        Specify part name.
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <!-- Points per Question -->
-                            <div class="col-5">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" name="ques_point" id="floatingQuestPoint" placeholder="Points per Question" required>
-                                    <label for="floatingQuestPoint">Points per Question</label>
-    
-                                    <div class="invalid-feedback">
-                                        Provide points per question.
-                                    </div>
-                                </div>    
-                            </div>
-                        </div>
-                        <br>    
-                        <!-- Instructions -->
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-floating">
-                                    <textarea class="form-control" name="instruction" placeholder="Instruction" id="floatingInstruction" style="height: 100px;" required></textarea>
-                                    <label for="floatingInstruction">Instruction</label>
-                                    
-                                    <div class="invalid-feedback">
-                                        Instructions can't be blank.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal Footer-->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+                                    <div class="col-1"></div>
+                                </div> 
+                            </form> 
                         
-                        <!-- Save Button -->
-                        <button type="submit" class="btn btn-secondary" name="btnSavePart" style="background-color: maroon;">Save</button>
+                            <!-- Add Part Modal -->
+                            <form class="row g-3 needs-validation" novalidate method="POST"> 
+                                {% csrf_token %}
+                                <div class="modal fade" id="examPartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <!-- Modal Header -->
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Add Part</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                    
+                                        <!-- Modal Body -->    
+                                        <div class="modal-body">
+                                            <!-- Exam Parts -->
+                                            <div class="row">
+                                                <h5>Add Exam Parts</h5>
+                                                <!-- Part Name -->
+                                                <div class="col-7">
+                                                    <div class="form-floating">
+                                                        <input type="text" class="form-control" name="part_name" id="floatingPartName" placeholder="Part Name" required>
+                                                        <label for="floatingPartName">Part Name</label>
+                        
+                                                        <div class="invalid-feedback">
+                                                            Specify part name.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                        
+                                                <!-- Points per Question -->
+                                                <div class="col-5">
+                                                    <div class="form-floating">
+                                                        <input type="text" class="form-control" name="ques_point" id="floatingQuestPoint" placeholder="Points per Question" required>
+                                                        <label for="floatingQuestPoint">Points per Question</label>
+                        
+                                                        <div class="invalid-feedback">
+                                                            Provide points per question.
+                                                        </div>
+                                                    </div>    
+                                                </div>
+                                            </div>
+                                            <br>    
+                                            <!-- Instructions -->
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-floating">
+                                                        <textarea class="form-control" name="instruction" placeholder="Instruction" id="floatingInstruction" style="height: 100px;" required></textarea>
+                                                        <label for="floatingInstruction">Instruction</label>
+                                                        
+                                                        <div class="invalid-feedback">
+                                                            Instructions can't be blank.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                    
+                                        <!-- Modal Footer-->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+                                            
+                                            <!-- Save Button -->
+                                            <button type="submit" class="btn btn-secondary" name="btnSavePart" style="background-color: maroon;">Save</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </form> 
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
-        </form>
-        
+            <!-- [ Main Content ] end -->
         </div>
+    </div>
+</body>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <!-- ootstrap 5 JS-->
+<!-- Scripts  -->
+<footer> 
+    <!-- Required Js -->
+    <script src="{% static 'assets/js/dashboard/vendor-all.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/plugins/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/plugins/feather.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/pcoded.min.js' %}"></script>
+
+    <!-- custom-chart js -->
+    <script src="{% static 'assets/js/dashboard/pages/dashboard-sale.js' %}"></script>
+
+    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-    <!-- jQuery Custom Scroller CDN -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> -->
-    
-    <!-- SIDEBAR -->
-    <script src="{% static 'assets/js/sidebar.js' %}"></script>
 
     <!-- BOOTSTRAP FORM VALIDATION -->
     <script src="{% static 'assets/js/formvalidation.js' %}"></script>
- 
-    <!-- MENU ICON -->
-    <script src="{% static 'assets/js/menuicon.js' %}"></script>
 
     <!-- DATATABLE -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $('#activeAccounts').DataTable();
-            $('#deactivatedAccounts').DataTable();
-        } );
-    </script>
-
-    <!-- Switch between activated and deactivated accounts table -->
+    <!-- JS for Datatables-->
     <!-- <script>
-        $(".switchDeactivated").click(function(){
-            $(".deactivatedAccounts").show();
-            $(".activatedAccounts").hide();
-            $(".deactivatedAccounts").removeAttr("hidden")
-        });
-
-        $(".switchActivated").click(function(){
-            
-            $(".deactivatedAccounts").hide();
-            $(".activatedAccounts").show();
-        });
-
+        $(document).ready(function() {
+            $('#allExams').DataTable();
+        } );
     </script> -->
-</body>
+    </script>
+</footer>
 
 </html>

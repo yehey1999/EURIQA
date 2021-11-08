@@ -1,21 +1,27 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>EURIQA Admin</title>
+    <title>Admin Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
     <!-- Bootstrap CSS CDN (BOOTSTRAP 5)-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    
-    <!-- SIDEBAR -->
-    <link rel="stylesheet" href="{% static 'assets/css/sidebar.css' %}">
 
-    <!-- MENU ICON -->
-    <link rel="stylesheet" href="{% static 'assets/css/menuicon.css' %}">
+    <!-- Favicon icon -->
+    <link rel="icon" href="{% static 'assets/img/favicon.png' %}" type="image/x-icon">
 
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <!-- font css -->
+    <link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/material.css' %}">
+
+    <!-- vendor css -->
+    <link rel="stylesheet" href="{% static 'assets/css/dashboard/style.css' %}" id="main-style-link">
 
     <!-- DATA TABLES -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.11.3/b-2.0.1/b-html5-2.0.1/fh-3.2.0/r-2.2.9/sl-1.3.3/datatables.min.css"/>
@@ -24,473 +30,541 @@
     <link href="https://cdn.datatables.net/select/1.3.3/css/select.bootstrap5.min.css">
     <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css">
     <link href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.bootstrap5.min.css">
-    
+
 </head>
 
-<body>
-    <!-- SIDEBAR -->
-    <div class="wrapper">
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <img style="float: right; margin-right: 50px; margin-top: 5px; " width="150" height="50" src="{% static 'assets/images/logo-02.png' %}">
-            </div>
+<body class="">
+    <!-- [ Pre-loader ] start -->
+	<div class="loader-bg">
+		<div class="loader-track">
+			<div class="loader-fill"></div>
+		</div>
+	</div>
+	<!-- [ Pre-loader ] End -->
+	<!-- [ Mobile header ] start -->
+	<div class="pc-mob-header pc-header">
+		<div class="pcm-logo">
+			<img src="{% static 'assets/images/logo.png' %}" alt="" class="logo logo-lg">
+		</div>
+		<div class="pcm-toolbar">
+			<a href="#!" class="pc-head-link" id="mobile-collapse">
+				<div class="hamburger hamburger--arrowturn">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+			</a>
+			<a href="#!" class="pc-head-link" id="header-collapse">
+				<i data-feather="more-vertical"></i>
+			</a>
+		</div>
+	</div>
+	<!-- [ Mobile header ] End -->
 
-            <ul class="list-unstyled components">
-                <br>
-                <p>Welcome, {{user.first_name}}!</p>
-                <li><a href="../home">Home</a></li>
-                <li><a href="../dashboard">Dashboard</a></li>
-                <li class="active">
-                    <a href="#regSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Enrollee Registration</a>
-                    <ul class="collapse list-unstyled" id="regSubmenu">
-                        <li><a href="../enrollee-management/regform">Account Registration </a></li>
-                        <li><a href="../enrollee-management/accounts">Manage Accounts</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#examSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Exam Management</a>
-                    <ul class="collapse list-unstyled" id="examSubmenu">
-                        <li><a href="../exam-management/mainexamtable">All Exams</a></li>
-                        <li>
-                            <a href="../exam-management/create-exam">Create Exam</a>
-                        </li>
-                    </ul>
-                </li>
+	<!-- [ navigation menu ] start -->
+	<nav class="pc-sidebar ">
+		<div class="navbar-wrapper">
+			<div class="m-header">
+				<a href="index.html" class="b-brand">
+					<img src="{% static 'assets/img/logotype with favicon.png' %}" alt="" class="logo logo-sm">
+				</a>
+			</div>
+			<div class="navbar-content">    
+                <br><br>
+				<ul class="pc-navbar">
+					<li class="pc-item pc-caption">
+						<label>Navigation</label>
+					</li>
+					<li class="pc-item">
+						<a href="../home" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">home</i></span><span class="pc-mtext">Home</span></a>
+					</li>
 
-                <li>
-                    <a href="#accountSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Account</a>
-                    <ul class="collapse list-unstyled" id="accountSubmenu">
-                        <li>
-                            <a href="../profile">Profile</a>
-                        </li>
-                        <li>
-                            <a href="../logout">Logout</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <br><br><br><br><br>
+					<li class="pc-item">
+						<a href="../dashboard" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">analytics</i></span><span class="pc-mtext">Dashboard</span></a>
+					</li>
+					<li class="pc-item pc-caption">
+						<label>Enrollee Management</label>
+						<span>Enrollee Management Settings</span>
+					</li>
+					<li class="pc-item">
+						<a href="../enrollee-management/regform" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">person_add</i></span><span class="pc-mtext">Account Registration</span></a>
+					</li>
+					<li class="pc-item active">
+						<a href="../enrollee-management/accounts" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">account_tree</i></span><span class="pc-mtext">Manage Accounts</span></a>
+					</li>
+					<li class="pc-item pc-caption">
+						<label>Exam Management</label>
+						<span>Exam Management Settings</span>
+					</li>
+                    <li class="pc-item">
+						<a href="../exam-management/mainexamtable" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">assignment</i></span><span class="pc-mtext">All Exams</span></a>
+					</li>
+                    <li class="pc-item">
+						<a href="../exam-management/create-exam" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">post_add</i></span><span class="pc-mtext">Create Exam</span></a>
+					</li>
+                    
+					<!-- <li class="pc-item pc-hasmenu">
+						<a href="#!" class="pc-link"><span class="pc-micon"><i class="material-icons-two-tone">https</i></span><span class="pc-mtext">Registration</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+						<ul class="pc-submenu">
+							<li class="pc-item"><a class="pc-link" href="auth-signup.html" target="_blank">Add Enrollee</a></li>
+							<li class="pc-item"><a class="pc-link" href="auth-signin.html" target="_blank">Manage Enrollee</a></li>
+						</ul>
+					</li> -->
 
-            <center>
-                <img width="70" height="70" src="{% static 'assets/images/logo1.png' %}">
-            </center>
-        </nav>
-    </div>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- [ navigation menu ] end -->
 
-    <!-- Content -->
-    <div id="content">
-        <div class="row">
-            <div class="col-auto">
-                <div id="sidebarCollapse">
-                    <div id="nav-icon4">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+	<!-- [ Header ] start -->
+	<header class="pc-header">
+		<div class="header-wrapper">
+			<div class="ml-auto">
+				<ul class="list-unstyled">
+					<li class="dropdown pc-h-item">
+						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+							<img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="user-image" class="user-avtar">
+							<span>
+								<span class="user-name">{{user.get_full_name}}</span>
+								<span class="user-desc">Administrator</span>
+							</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
+                            <a href="#!" class="dropdown-item">
+								<i class="material-icons-two-tone">account_circle</i> <!-- MODAL THIS -->
+								<span>Profile</span>
+							</a>
+							<a href="../logout" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i>
+								<span>Logout</span>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</header>
+	<!-- [ Header ] end -->
+
+    <!-- [ Main Content ] start -->
+    <div class="pc-container">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Manage Accounts</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-item">Account Registration</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- [ breadcrumb ] end -->
+            
+            <!-- [ Main Content ] start -->
+            <div class="row">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Message Loader -->
+                        {% for message in messages %}
+                        <div class="alert {{message.tags}}" role="alert">
+                        {{ message }}
+                        </div>
+                        {% endfor %}  
 
-            <div class="col">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
-            </div>
-          </div>
+                        <!-- Activated Accounts Table-->
+                        <div class="activatedAccounts">
+                            <h2>Activated Accounts:</h2>
+                            <!-- Switch the table to deactivated accounts -->
+                            <a href="#deactivated" style="color:maroon;" class="switchDeactivated">See deactivated accounts</a><br><br>
+                            <table id="activeAccounts" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">ID</th>
+                                        <th style="text-align: center;">Name</th>
+                                        <th style="text-align: center;">Email</th>
+                                        <th style="text-align: center;">Level</th>
+                                        <th style="text-align: center;">Exam Status</th>
+                                        <th style="text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    {% for account in accounts %}
+                                    
+                                    <!-- Show only accounts that are not deactivated -->
+                                    {% if account.user.is_active == 1 %}
+                                    <tr style="text-align: center;">
+                                        <td style="text-align: center;">{{account.enrollee_id}}</td>
+                                        <td>
+                                            <!-- Enable enrollee information modal by clicking the name -->
+                                            <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#enrolleInfoModal-{{account.enrollee_id}}">
+                                                {{account.user.get_full_name}}
+                                            </a>
+                                        </td>
+                                        <td>{{account.user.email}}</td>
+                                        <td>{{account.level}}</td>
+                                        <td>{{account.exam_status}}</td>
+                                        <td style="text-align:center;">
+                                            <!-- Account deactivation function-->
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <!-- Gets the id and exam status of the user-->
+                                                <input name="user_id" value={{account.user.id}} hidden />
+                                                <input name="exam_status" value="{{account.exam_status}}" hidden />
+                                                
+                                                <!-- Enables the deactivation confirmation modal when button is clicked-->
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#deactivateAcc" style="border: none;">
+                                                    <i class="fas fa-trash-alt" style="color: red;"></i>
+                                                </button>
+                                                
+                                                <!-- Deactivation Confirmation Modal-->
+                                                <div class="modal fade" id="deactivateAcc" tabindex="-1" aria-labelledby="deactivateAccLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="deactivateAccLabel">Confirm deactivation</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
 
-        <br><br>
-        
-                <!-- Message Loader -->
-                {% for message in messages %}
-                    <div class="alert {{message.tags}}" role="alert">
-                    {{ message }}
+                                                        <div class="modal-body" style="text-align: left;">
+                                                            Are you sure you want to deactivate account?
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" name="btn_deact" class="btn btn-secondary" style="background-color: maroon;">Yes</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </td>
+                                        {% endif %}
+                                    </tr>  
+                                    
+                                        <!-- Enrolle Info  Modal -->
+                                        <div class="modal fade" id="enrolleInfoModal-{{account.enrollee_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            
+                                            <!-- Modal Header -->
+                                            <div class="modal-dialog modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Enrollee Information</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                <!-- Modal Body -->    
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <!-- Image -->
+                                                        <div class="col-12 col-sm-auto mb-3">
+                                                            <div style="width: 140px;">
+                                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                                        image here
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- Summary of Information -->
+                                                        <div class="col-sm d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                                            <div class="text-sm-left mb-2 mb-sm-0">
+                                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{account.user.get_full_name}}</h4>
+                                                                <p class="mb-0"><small>{{account.user.username}}</small></p>
+                                                                <div class="text-muted">
+                                                                    {% if account.level == 'college' %}
+                                                                    <small>College</small><br>
+                                                                    <small>{{account.program.program_name}}</small>
+
+                                                                    {% elif account.level == 'shs' %}
+                                                                    <small>Senior High School</small><br>
+                                                                    <small>{{account.strand.strand_name}}</small>
+
+                                                                    {% elif account.level == 'jhs' %}
+                                                                    <small>Junior High School</small>
+
+                                                                    {% elif account.level == 'elem' %}
+                                                                    <small>Elementary</small>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <!-- Personal Information -->
+                                                        <div class="col">
+                                                            <div class="card border-light mb-3">
+                                                                <div class="card-header">
+                                                                    <b>Personal Information</b>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <dl class="row">
+                                                                        <dt class="col-sm-4">Full Name</dt>
+                                                                        <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
+                                        
+                                                                        <dt class="col-sm-4">Email</dt>
+                                                                        <dd class="col-sm-8">{{account.user.email}}</dd>
+                                        
+                                                                        <dt class="col-sm-4">Address</dt>
+                                                                        <dd class="col-sm-8">{{account.address}}</dd>
+                                                                    
+                                                                        <dt class="col-sm-4">Account Created</dt>
+                                                                        <dd class="col-sm-8">{{account.user.date_joined|date:"F d, Y"}}</dd>
+                                                                    </dl>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- Enrolle Performance-->
+                                                        <!-- <div class="col">
+                                                            <div class="card border-light mb-3">
+                                                                <div class="card-header">
+                                                                    <b>Personal Information</b>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <dl class="row">
+                                                                        <dt class="col-sm-4">Full Name</dt>
+                                                                        <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
+                                        
+                                                                        <dt class="col-sm-4">Email</dt>
+                                                                        <dd class="col-sm-8">{{account.user.email}}</dd>
+                                        
+                                                                        <dt class="col-sm-4">Address</dt>
+                                                                        <dd class="col-sm-8">{{account.address}}</dd>
+                                                                    
+                                                                        <dt class="col-sm-4">Account Created</dt>
+                                                                        <dd class="col-sm-8">{{account.user.date_joined}}</dd>
+                                                                    </dl>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <!-- Modal Footer-->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" style="background-color: maroon; " data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Deactivated Accounts Table-->
+                        <div class="deactivatedAccounts" hidden>
+                            <h2>Deactivated Accounts:</h2>
+                            <!-- Switches the table back to activated accounts -->
+                            <a href="#activated" style="color:maroon;" class="switchActivated">See activated accounts</a><br><br>
+                            <table id="deactivatedAccounts" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">ID</th>
+                                        <th style="text-align: center;">Name</th>
+                                        <th style="text-align: center;">Email</th>
+                                        <th style="text-align: center;">Level</th>
+                                        <th style="text-align: center;">Exam Status</th>
+                                        <th style="text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    {% for account in accounts %}
+                                    
+                                    <!-- Show only accounts that are deactivated -->
+                                    {% if account.user.is_active == 0 %}
+                                    <tr style="text-align: center;">
+                                        <td style="text-align: center;">{{account.enrollee_id}}</td>
+                                        <td>
+                                            <!-- Enable enrollee information modal by clicking the name -->
+                                            <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#enrolleInfoModal-{{account.enrollee_id}}-deact">
+                                                {{account.user.get_full_name}}
+                                            </a>
+                                        </td>
+                                        <td>{{account.user.email}}</td>
+                                        <td>{{account.level}}</td>
+                                        <td>{{account.exam_status}}</td>
+                                        <td style="text-align:center;">
+                                            <!-- Account reactivation function-->
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <!-- Gets the id of the deactivated user-->
+                                                <input name="deact-user_id" value={{account.user.id}} hidden />
+                                                <input name="enrollee_id" value={{account.enrollee_id}} hidden />
+
+                                                <!-- Enables the reactivation confirmation modal when button is clicked-->
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#reactivateAcc" style="border: none;">
+                                                    <i class="fas fa-plus-circle" style="color: green;"></i>
+                                                </button>
+                                                
+                                                <!-- Deactivation Confirmation Modal-->
+                                                <div class="modal fade" id="reactivateAcc" tabindex="-1" aria-labelledby="reactivateAccLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="reactivateAccLabel">Confirm reactivation</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+
+                                                        <div class="modal-body" style="text-align: left;">
+                                                            Are you sure you want to reactivate account?
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" name="btn_react" class="btn btn-secondary" style="background-color: maroon;">Yes</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </td>
+                                        {% endif %}
+                                    </tr>  
+                                    
+                                        <!-- Enrolle Info  Modal -->
+                                        <div class="modal fade" id="enrolleInfoModal-{{account.enrollee_id}}-deact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <!-- Modal Header -->
+                                            <div class="modal-dialog modal-dialog-scrollable">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Enrollee Information</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                <!-- Modal Body -->    
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <!-- Image -->
+                                                        <div class="col-12 col-sm-auto mb-3">
+                                                            <div style="width: 140px;">
+                                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                                        image here
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- Summary of Information -->
+                                                        <div class="col-sm d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                                            <div class="text-sm-left mb-2 mb-sm-0">
+                                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{account.user.get_full_name}}</h4>
+                                                                <p class="mb-0"><small>{{account.user.username}}</small></p>
+                                                                <div class="text-muted">
+                                                                    {% if account.level == 'college' %}
+                                                                    <small>College</small><br>
+                                                                    <small>{{account.program.program_name}}</small>
+
+                                                                    {% elif account.level == 'shs' %}
+                                                                    <small>Senior High School</small><br>
+                                                                    <small>{{account.strand.strand_name}}</small>
+
+                                                                    {% elif account.level == 'jhs' %}
+                                                                    <small>Junior High School</small>
+
+                                                                    {% elif account.level == 'elem' %}
+                                                                    <small>Elementary</small>
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <!-- Personal Information -->
+                                                        <div class="col">
+                                                            <div class="card border-light mb-3">
+                                                                <div class="card-header">
+                                                                    <b>Personal Information</b>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <dl class="row">
+                                                                        <dt class="col-sm-4">Full Name</dt>
+                                                                        <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
+                                        
+                                                                        <dt class="col-sm-4">Email</dt>
+                                                                        <dd class="col-sm-8">{{account.user.email}}</dd>
+                                        
+                                                                        <dt class="col-sm-4">Address</dt>
+                                                                        <dd class="col-sm-8">{{account.address}}</dd>
+                                                                    
+                                                                        <dt class="col-sm-4">Account Created</dt>
+                                                                        <dd class="col-sm-8">{{account.user.date_joined|date:"F d, Y"}}</dd>
+                                                                    </dl>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- Enrolle Performance-->
+                                                        <!-- <div class="col">
+                                                            <div class="card border-light mb-3">
+                                                                <div class="card-header">
+                                                                    <b>Personal Information</b>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <dl class="row">
+                                                                        <dt class="col-sm-4">Full Name</dt>
+                                                                        <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
+                                        
+                                                                        <dt class="col-sm-4">Email</dt>
+                                                                        <dd class="col-sm-8">{{account.user.email}}</dd>
+                                        
+                                                                        <dt class="col-sm-4">Address</dt>
+                                                                        <dd class="col-sm-8">{{account.address}}</dd>
+                                                                    
+                                                                        <dt class="col-sm-4">Account Created</dt>
+                                                                        <dd class="col-sm-8">{{account.user.date_joined}}</dd>
+                                                                    </dl>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                                <!-- Modal Footer-->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" style="background-color: maroon; " data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                {% endfor %}  
-
-        <!-- Activated Accounts Table-->
-        <div class="activatedAccounts">
-            <h2>Activated Accounts:</h2>
-            <!-- Switch the table to deactivated accounts -->
-            <a href="#deactivated" style="color:maroon;" class="switchDeactivated">See deactivated accounts</a><br><br>
-            <table id="activeAccounts" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">ID</th>
-                        <th style="text-align: center;">Name</th>
-                        <th style="text-align: center;">Email</th>
-                        <th style="text-align: center;">Level</th>
-                        <th style="text-align: center;">Exam Status</th>
-                        <th style="text-align: center;">Action</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    {% for account in accounts %}
-                    
-                    <!-- Show only accounts that are not deactivated -->
-                    {% if account.user.is_active == 1 %}
-                    <tr style="text-align: center;">
-                        <td style="text-align: center;">{{account.enrollee_id}}</td>
-                        <td>
-                            <!-- Enable enrollee information modal by clicking the name -->
-                            <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#enrolleInfoModal-{{account.enrollee_id}}">
-                                {{account.user.get_full_name}}
-                            </a>
-                        </td>
-                        <td>{{account.user.email}}</td>
-                        <td>{{account.level}}</td>
-                        <td>{{account.exam_status}}</td>
-                        <td style="text-align:center;">
-                            <!-- Account deactivation function-->
-                            <form method="POST">
-                                {% csrf_token %}
-                                <!-- Gets the id and exam status of the user-->
-                                <input name="user_id" value={{account.user.id}} hidden />
-                                <input name="exam_status" value="{{account.exam_status}}" hidden />
-                                
-                                <!-- Enables the deactivation confirmation modal when button is clicked-->
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#deactivateAcc" style="border: none;">
-                                    <i class="fas fa-trash-alt" style="color: red;"></i>
-                                </button>
-                                
-                                <!-- Deactivation Confirmation Modal-->
-                                <div class="modal fade" id="deactivateAcc" tabindex="-1" aria-labelledby="deactivateAccLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deactivateAccLabel">Confirm deactivation</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-
-                                        <div class="modal-body" style="text-align: left;">
-                                            Are you sure you want to deactivate account?
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" name="btn_deact" class="btn btn-secondary" style="background-color: maroon;">Yes</button>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </td>
-                        {% endif %}
-                    </tr>  
-                    
-                        <!-- Enrolle Info  Modal -->
-                        <div class="modal fade" id="enrolleInfoModal-{{account.enrollee_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            
-                            <!-- Modal Header -->
-                            <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Enrollee Information</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                <!-- Modal Body -->    
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <!-- Image -->
-                                        <div class="col-12 col-sm-auto mb-3">
-                                            <div style="width: 140px;">
-                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                        image here
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Summary of Information -->
-                                        <div class="col-sm d-flex flex-column flex-sm-row justify-content-between mb-3">
-                                            <div class="text-sm-left mb-2 mb-sm-0">
-                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{account.user.get_full_name}}</h4>
-                                                <p class="mb-0"><small>{{account.user.username}}</small></p>
-                                                <div class="text-muted">
-                                                    {% if account.level == 'college' %}
-                                                    <small>College</small><br>
-                                                    <small>{{account.program.program_name}}</small>
-
-                                                    {% elif account.level == 'shs' %}
-                                                    <small>Senior High School</small><br>
-                                                    <small>{{account.strand.strand_name}}</small>
-
-                                                    {% elif account.level == 'jhs' %}
-                                                    <small>Junior High School</small>
-
-                                                    {% elif account.level == 'elem' %}
-                                                    <small>Elementary</small>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <!-- Personal Information -->
-                                        <div class="col">
-                                            <div class="card border-light mb-3">
-                                                <div class="card-header">
-                                                    <b>Personal Information</b>
-                                                </div>
-                                                <div class="card-body">
-                                                    <dl class="row">
-                                                        <dt class="col-sm-4">Full Name</dt>
-                                                        <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
-                        
-                                                        <dt class="col-sm-4">Email</dt>
-                                                        <dd class="col-sm-8">{{account.user.email}}</dd>
-                        
-                                                        <dt class="col-sm-4">Address</dt>
-                                                        <dd class="col-sm-8">{{account.address}}</dd>
-                                                    
-                                                        <dt class="col-sm-4">Account Created</dt>
-                                                        <dd class="col-sm-8">{{account.user.date_joined|date:"F d, Y"}}</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Enrolle Performance-->
-                                        <!-- <div class="col">
-                                            <div class="card border-light mb-3">
-                                                <div class="card-header">
-                                                    <b>Personal Information</b>
-                                                </div>
-                                                <div class="card-body">
-                                                    <dl class="row">
-                                                        <dt class="col-sm-4">Full Name</dt>
-                                                        <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
-                        
-                                                        <dt class="col-sm-4">Email</dt>
-                                                        <dd class="col-sm-8">{{account.user.email}}</dd>
-                        
-                                                        <dt class="col-sm-4">Address</dt>
-                                                        <dd class="col-sm-8">{{account.address}}</dd>
-                                                    
-                                                        <dt class="col-sm-4">Account Created</dt>
-                                                        <dd class="col-sm-8">{{account.user.date_joined}}</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
-                                <!-- Modal Footer-->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" style="background-color: maroon; " data-bs-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </tbody>
-            </table>
+                </div>
+            </div>
+            <!-- [ Main Content ] end -->
         </div>
-
-        <!-- Deactivated Accounts Table-->
-        <div class="deactivatedAccounts" hidden>
-            <h2>Deactivated Accounts:</h2>
-            <!-- Switches the table back to activated accounts -->
-            <a href="#activated" style="color:maroon;" class="switchActivated">See activated accounts</a><br><br>
-            <table id="deactivatedAccounts" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">ID</th>
-                        <th style="text-align: center;">Name</th>
-                        <th style="text-align: center;">Email</th>
-                        <th style="text-align: center;">Level</th>
-                        <th style="text-align: center;">Exam Status</th>
-                        <th style="text-align: center;">Action</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    {% for account in accounts %}
-                    
-                    <!-- Show only accounts that are deactivated -->
-                    {% if account.user.is_active == 0 %}
-                    <tr style="text-align: center;">
-                        <td style="text-align: center;">{{account.enrollee_id}}</td>
-                        <td>
-                            <!-- Enable enrollee information modal by clicking the name -->
-                            <a href="#" style="color: maroon;" data-bs-toggle="modal" data-bs-target="#enrolleInfoModal-{{account.enrollee_id}}-deact">
-                                {{account.user.get_full_name}}
-                            </a>
-                        </td>
-                        <td>{{account.user.email}}</td>
-                        <td>{{account.level}}</td>
-                        <td>{{account.exam_status}}</td>
-                        <td style="text-align:center;">
-                            <!-- Account reactivation function-->
-                            <form method="POST">
-                                {% csrf_token %}
-                                <!-- Gets the id of the deactivated user-->
-                                <input name="deact-user_id" value={{account.user.id}} hidden />
-                                <input name="enrollee_id" value={{account.enrollee_id}} hidden />
-
-                                <!-- Enables the reactivation confirmation modal when button is clicked-->
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#reactivateAcc" style="border: none;">
-                                    <i class="fas fa-plus-circle" style="color: green;"></i>
-                                </button>
-                                
-                                <!-- Deactivation Confirmation Modal-->
-                                <div class="modal fade" id="reactivateAcc" tabindex="-1" aria-labelledby="reactivateAccLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="reactivateAccLabel">Confirm reactivation</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-
-                                        <div class="modal-body" style="text-align: left;">
-                                            Are you sure you want to reactivate account?
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" name="btn_react" class="btn btn-secondary" style="background-color: maroon;">Yes</button>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </td>
-                        {% endif %}
-                    </tr>  
-                    
-                        <!-- Enrolle Info  Modal -->
-                        <div class="modal fade" id="enrolleInfoModal-{{account.enrollee_id}}-deact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <!-- Modal Header -->
-                            <div class="modal-dialog modal-dialog-scrollable">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Enrollee Information</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                <!-- Modal Body -->    
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <!-- Image -->
-                                        <div class="col-12 col-sm-auto mb-3">
-                                            <div style="width: 140px;">
-                                                <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                        image here
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Summary of Information -->
-                                        <div class="col-sm d-flex flex-column flex-sm-row justify-content-between mb-3">
-                                            <div class="text-sm-left mb-2 mb-sm-0">
-                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{account.user.get_full_name}}</h4>
-                                                <p class="mb-0"><small>{{account.user.username}}</small></p>
-                                                <div class="text-muted">
-                                                    {% if account.level == 'college' %}
-                                                    <small>College</small><br>
-                                                    <small>{{account.program.program_name}}</small>
-
-                                                    {% elif account.level == 'shs' %}
-                                                    <small>Senior High School</small><br>
-                                                    <small>{{account.strand.strand_name}}</small>
-
-                                                    {% elif account.level == 'jhs' %}
-                                                    <small>Junior High School</small>
-
-                                                    {% elif account.level == 'elem' %}
-                                                    <small>Elementary</small>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <!-- Personal Information -->
-                                        <div class="col">
-                                            <div class="card border-light mb-3">
-                                                <div class="card-header">
-                                                    <b>Personal Information</b>
-                                                </div>
-                                                <div class="card-body">
-                                                    <dl class="row">
-                                                        <dt class="col-sm-4">Full Name</dt>
-                                                        <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
-                        
-                                                        <dt class="col-sm-4">Email</dt>
-                                                        <dd class="col-sm-8">{{account.user.email}}</dd>
-                        
-                                                        <dt class="col-sm-4">Address</dt>
-                                                        <dd class="col-sm-8">{{account.address}}</dd>
-                                                    
-                                                        <dt class="col-sm-4">Account Created</dt>
-                                                        <dd class="col-sm-8">{{account.user.date_joined|date:"F d, Y"}}</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Enrolle Performance-->
-                                        <!-- <div class="col">
-                                            <div class="card border-light mb-3">
-                                                <div class="card-header">
-                                                    <b>Personal Information</b>
-                                                </div>
-                                                <div class="card-body">
-                                                    <dl class="row">
-                                                        <dt class="col-sm-4">Full Name</dt>
-                                                        <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
-                        
-                                                        <dt class="col-sm-4">Email</dt>
-                                                        <dd class="col-sm-8">{{account.user.email}}</dd>
-                        
-                                                        <dt class="col-sm-4">Address</dt>
-                                                        <dd class="col-sm-8">{{account.address}}</dd>
-                                                    
-                                                        <dt class="col-sm-4">Account Created</dt>
-                                                        <dd class="col-sm-8">{{account.user.date_joined}}</dd>
-                                                    </dl>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
-                                <!-- Modal Footer-->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" style="background-color: maroon; " data-bs-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        
     </div>
+</body>
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <!-- ootstrap 5 JS-->
+<!-- Scripts  -->
+<footer> 
+    <!-- Required Js -->
+    <script src="{% static 'assets/js/dashboard/vendor-all.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/plugins/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/plugins/feather.min.js' %}"></script>
+    <script src="{% static 'assets/js/dashboard/pcoded.min.js' %}"></script>
+
+    <!-- custom-chart js -->
+    <script src="{% static 'assets/js/dashboard/pages/dashboard-sale.js' %}"></script>
+
+    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-    <!-- jQuery Custom Scroller CDN -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script> -->
-    
-    <!-- SIDEBAR -->
-    <script src="{% static 'assets/js/sidebar.js' %}"></script>
 
     <!-- BOOTSTRAP FORM VALIDATION -->
     <script src="{% static 'assets/js/formvalidation.js' %}"></script>
- 
-    <!-- MENU ICON -->
-    <script src="{% static 'assets/js/menuicon.js' %}"></script>
 
     <!-- DATATABLE -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
+    <!-- JS for Datatables-->
     <script>
         $(document).ready(function() {
             $('#activeAccounts').DataTable();
@@ -513,6 +587,6 @@
         });
 
     </script>
-</body>
+</footer>
 
 </html>

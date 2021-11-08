@@ -46,9 +46,14 @@ class AdminLogoutView(View):
 
 class AdminHomeView(View):
     def get(self,request):
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        context = {
+            'admin_details': qs_admin,
+        }
+
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
-        return render(request, 'administrator/adminHome.html')
+        return render(request, 'administrator/adminHome.html', context)
 
 class AdminDashboard(View):
     def get(self,request):
@@ -93,6 +98,7 @@ class AdminAccountRegistrationView(View):
                 level = request.POST.get('level')
                 set_program = request.POST.get('program')
                 set_strand = request.POST.get('strand')
+                enrolled_as = request.POST.get('enrolled_as')
 
                 if set_program is None:
                     program = None
@@ -119,7 +125,7 @@ class AdminAccountRegistrationView(View):
                 
             if user_type == 'enrollee':
                 user_id_latest_added=User.objects.all().last()
-                register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level, program = program, strand = strand)
+                register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level, program = program, strand = strand, enrolled_as = enrolled_as)
                 register_enrollee.save()
 
             else:
