@@ -36,7 +36,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <a href="homePage.html"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>
+        <a href="../enrollee/home"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>
       </div>
 
       <!-- .navbar -->
@@ -60,15 +60,15 @@
 
     <section class="vh-30" style="background-color: white;">
       <div class="container py-5 h-75">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col col-xl-10">
+        <div class="row d-flex justify-content-center align-items-center h-500">
+          <div class="col col-xl-9">
             <div class="card" style="border-radius: 1rem;">
               <div class="row g-0">
                 <div class="col-md-6 col-lg-5 d-none d-md-block">
                   <img
                     src="{% static 'assets/img/citbldg1.jpg' %}"
                     alt="login form"
-                    class="img-fluid" style="border-radius: 1rem 0 0 1rem;"
+                    class="img-fluid" style="border-radius: 0 0 0 0;"
                   />
                 </div>
                 <div class="col-md-6 col-lg-7 d-flex align-items-center" style="background-color: #FACA10;">
@@ -78,8 +78,8 @@
                       {% csrf_token %}
     
                       <div class="text-center">
-                        <a href="index.html"><img src="{% static 'assets/img/citlogo.png' %}" alt="" style="height: 150px; align-content: right;"></a><br><br>
-                        <h5 class="fw-normal mb-3 pb-3" style=" font-weight: 300;">ENTER ACCOUNT CREDENTIALS</h5>
+                        <a href="index.html"><img src="{% static 'assets/img/citlogo.png' %}" alt="" style="height: 100px; align-content: right; margin: 0; padding: 0;"></a><br><br>
+                        <h5 class="fw-normal mb-2 pb-1" style=" font-weight: 300;">ENTER ACCOUNT CREDENTIALS</h5>
                       </div>
     
     
