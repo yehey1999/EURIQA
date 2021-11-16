@@ -24,6 +24,7 @@
   <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
   <link href="{% static 'assets/css/navbar.css' %}" rel="stylesheet">
   <link href="{% static 'assets/css/multistep.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/enrolleedetails.css' %}" rel="stylesheet">
 
   <!-- Multi Modal Css Files -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
@@ -83,6 +84,36 @@
   </section><!-- End Hero -->
 
   <main id="main">
+
+    <!-- ======= Form Section ======= -->
+    <section class="section-enrollee">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="left-content">
+                <center><h2>Before we Proceed</h2></center>
+                <p>Double check the details below. If there’s something wrong, contact your enrollment officer.</p>
+                <section class="sec">
+                  <label>First name</label>
+                    <input name="firstname" type="text" value="{{user.first_name}}" readonly>
+                  <label class="label">Middle name</label>
+                    <input name="middlename" type="text" value="{{user.middle_name}}" readonly>
+                  <label class="label">Last name</label>
+                    <input name="lastname" type="text" value="{{user.last_name}}" readonly>
+                  <label class="label">Address</label>
+                    <input name="address" type="text" value="" readonly>
+                  <label class="label">Email</label>
+                    <input name="email" type="text" value="{{user.email}}" readonly>
+                  <!-- <center>
+                    <button class="button" name="btn-Proceed">Confirm Details</button></center> -->
+                </section>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Contact Section -->
 
      <!-- ======= Details Section ======= -->
      <section id="details" class="details">
