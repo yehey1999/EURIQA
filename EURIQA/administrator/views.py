@@ -192,7 +192,7 @@ class AdminCreateExam(View):
             messages.success(request, "Exam created.")
 
         else:
-            messages.success(request, "Failed to create exam.")
+            messages.error(request, "Failed to create exam.")
 
         if link is None:
             return redirect("administrator:admin_exam_details")
@@ -248,8 +248,9 @@ class AdminAddQuestion(View):
             optionB = request.POST.get("optionB")
             optionC = request.POST.get("optionC")
             optionD = request.POST.get("optionD")
-            answer = request.POST.get("answer")
             points = request.POST.get("points")
+            answer = request.POST.get("option")
+
 
             get_exam_id = Exam.objects.get(exam_id = exam_id)
             get_part_id = Part.objects.get(part_id = part)
@@ -308,11 +309,14 @@ class AdminAddQuestion(View):
             answer = request.POST.get("edit_answer")
             points = request.POST.get("edit_points")
 
-            print(points)
             get_part_id = Part.objects.get(part_id = part)
 
             edit_question = Question.objects.filter(question_id = ques_id).update(question_no = question_no, part = get_part_id, question = question, optionA = optionA, optionB = optionB, 
                 optionC = optionC, optionD = optionD, answer = answer, points = points)
+            
+            part_overall_pts = Question.objects.filter(part = get_part_id).aggregate(Sum('points')).get('points__sum')
+
+            update_part_overall_pts = Part.objects.filter(part_id = part).update(overall_points = part_overall_pts)
 
             messages.success(request, "Question edited successfully.")
         else:
