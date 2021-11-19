@@ -216,8 +216,17 @@ class AdminAddQuestion(View):
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
         
-        if latest_exam: 
-            return render(request, 'administrator/examManagement/adminAddQuestion.html', context)
+        if latest_exam:
+            latest_exam_id = latest_exam.pk
+            get_exam = Exam.objects.filter(exam_id = latest_exam_id)
+
+            print(get_exam.filter(link__isnull=True))
+
+            if get_exam.filter(link__isnull=True): 
+                return render(request, 'administrator/examManagement/adminAddQuestion.html', context)
+            else:
+                 messages.error(request, "Can't add questions to a linked exam.")
+                 return redirect("administrator:admin_create_exam")
         
         else:
             messages.error(request, "No exam found in database")
