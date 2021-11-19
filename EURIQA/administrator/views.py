@@ -333,7 +333,7 @@ class AdminAddQuestion(View):
   
         return redirect("administrator:admin_exam_details")
 
-class AdminMainExamTableView(View):
+class AdminViewAllExamsTable(View):
     def get(self, request):
         qs_exam = Exam.objects.all()
 
@@ -353,4 +353,4 @@ class AdminMainExamTableView(View):
                 del_ques = Exam.objects.filter(exam_id = exam_to_delete).delete()
                 messages.success(request, "Successfully deleted question.")
 
-        return redirect("administrator:mainexam_table")
+        return redirect("administrator:all-exams")

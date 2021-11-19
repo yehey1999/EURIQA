@@ -13,5 +13,5 @@ urlpatterns = [
     path('enrollee-management/accounts', views.AdminManageAccounts.as_view(), name='admin_accounts'),
     path('exam-management/create-exam', views.AdminCreateExam.as_view(), name='admin_create_exam'),
     path('exam-management/exam-details', views.AdminAddQuestion.as_view(), name='admin_exam_details'),
-    path('exam-management/mainexamtable', views.AdminMainExamTableView.as_view(), name='mainexam_table'),
+    path('exam-management/all-exams', views.AdminViewAllExamsTable.as_view(), name='all-exams'),
 ]
