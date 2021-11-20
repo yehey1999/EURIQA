@@ -4893,11 +4893,13 @@ textarea.form-control-lg {
 .page-link {
     position: relative;
     display: block;
-    color: #7267EF;
+    color: #741E1E;
     background-color: #ffffff;
     border: 1px solid #dee2e6;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color  0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+
 
 @media (prefers-reduced-motion: reduce) {
     .page-link {
@@ -4907,9 +4909,9 @@ textarea.form-control-lg {
 
 .page-link:hover {
     z-index: 2;
-    color: #7267EF;
+    color: #000;
     text-decoration: none;
-    background-color: #f0f2f8;
+    background-color: #FADE11;
     border-color: #dee2e6;
 }
 
