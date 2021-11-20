@@ -54,7 +54,7 @@
 	<nav class="pc-sidebar ">
 		<div class="navbar-wrapper">
 			<div class="m-header">
-				<a href="index.html" class="b-brand">
+				<a href="../administrator/home" class="b-brand">
 					<img src="{% static 'assets/img/logotype with favicon.png' %}" alt="" class="logo logo-sm">
 				</a>
 			</div>
@@ -75,6 +75,7 @@
 						<label>Enrollee Management</label>
 						<span>Enrollee Management Settings</span>
 					</li>
+					
 					<li class="pc-item">
 						<a href="../administrator/enrollee-management/regform" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">person_add</i></span><span class="pc-mtext">Account Registration</span></a>
 					</li>
@@ -86,7 +87,7 @@
 						<span>Exam Management Settings</span>
 					</li>
                     <li class="pc-item">
-						<a href="../administrator/exam-management/all-exams" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">assignment</i></span><span class="pc-mtext">All Exams</span></a>
+						<a href="../administrator/exam-management/all-exams" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">assignment</i></span><span class="pc-mtext">Manage Exams</span></a>
 					</li>
                     <li class="pc-item">
 						<a href="../administrator/exam-management/create-exam" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">post_add</i></span><span class="pc-mtext">Create Exam</span></a>
@@ -136,34 +137,386 @@
 	</header>
 	<!-- [ Header ] end -->
 
-<!-- [ Main Content ] start -->
-<div class="pc-container">
-    <div class="pcoded-content">
-        <!-- [ breadcrumb ] start -->
-        <div class="page-header">
-            <div class="page-block">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <div class="page-header-title">
-                            <h5 class="m-b-10">Dashboard</h5>
-                        </div>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item">Dashboard</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- [ breadcrumb ] end -->
-        
-        <!-- [ Main Content ] start -->
-        <div class="row">
-            <!-- support-section start -->
-        </div>
-        <!-- [ Main Content ] end -->
-    </div>
-</div>
+	<!-- [ Main Content ] start -->
+	<div class="pc-container">
+		<div class="pcoded-content">
+			<!-- [ breadcrumb ] start -->
+			<div class="page-header">
+				<div class="page-block">
+					<div class="row align-items-center">
+						<div class="col-md-6">
+							<div class="page-header-title">
+								<h5 class="m-b-10">Dashboard</h5>
+							</div>
+							<ul class="breadcrumb">
+								<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+								<li class="breadcrumb-item">Dashboard</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- [ breadcrumb ] end -->
+			
+			<!-- [ Main Content ] start -->
+			<div class="row">
+				<!-- support-section start -->
+				<div class="col-xl-6 col-md-12">
+					<div class="card flat-card">
+						<div class="row-table">
+							<div class="col-sm-6 card-body br">
+								<div class="row">
+									<div class="col-sm-4">
+										<i class="material-icons-two-tone text-primary mb-1">group</i>
+									</div>
+									<div class="col-sm-8 text-md-center">
+										<h5>2589</h5>
+										<span>Students</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 d-none d-md-table-cell d-lg-table-cell d-xl-table-cell card-body br">
+								<div class="row">
+									<div class="col-sm-4">
+										<i class="material-icons-two-tone text-primary mb-1">language</i>
+									</div>
+									<div class="col-sm-8 text-md-center">
+										<h5>1252</h5>
+										<span>Exam Takers</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 card-body">
+								<div class="row">
+									<div class="col-sm-4">
+										<i class="material-icons-two-tone text-primary mb-1">unarchive</i>
+									</div>
+									<div class="col-sm-8 text-md-center">
+										<h5>45%</h5>
+										<span>Growth</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="card support-bar overflow-hidden">
+								<div class="card-body pb-0">
+									<h2 class="m-0">53.94%</h2>
+									<span class="text-primary">Takers Growth Rate</span>
+									<p class="mb-3 mt-3">Number of takers Growth Per Year. </p>
+								</div>
+								<div id="support-chart"></div>
+								<div class="card-footer border-0 bg-primary text-white background-pattern-white">
+									<div class="row text-centers">
+										<div class="col">
+											<h4 class="m-0 text-white">10</h4>
+											<span>2021</span>
+										</div>
+										<div class="col">
+											<h4 class="m-0 text-white">15</h4>
+											<span>2020</span>
+										</div>
+										<div class="col">
+											<h4 class="m-0 text-white">13</h4>
+											<span>2019</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="card support-bar overflow-hidden">
+								<div class="card-body pb-0">
+									<h2 class="m-0">2589</h2>
+									<span class="text-primary">Students</span>
+									<p class="mb-3 mt-3">Total number of takers per department.</p>
+								</div>
+								<div class="card-footer border-0">
+									<div class="row text-center">
+										<div class="col">
+											<h4 class="m-0">1420</h4>
+											<span>College</span>
+										</div>
+										<div class="col">
+											<h4 class="m-0">1100</h4>
+											<span>Senior</span>
+										</div>
+										<div class="col">
+											<h4 class="m-0 ">755</h4>
+											<span>Junior</span>
+										</div>
+									</div>
+								</div>
+								<div id="support-chart1"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xl-6 col-md-12">
+					<div class="card feed-card">
+						<div class="card-header">
+							<h5>Notification Feed</h5>
+						</div>
+						<div class="feed-scroll" style="height:300px;position:relative;">
+							<div class="card-body">
+								<div class="row m-b-25 align-items-center">
+									<div class="col-auto p-r-0">
+										<i data-feather="bell" class="bg-light-primary feed-icon p-2 wid-30 hei-30"></i>
+									</div>
+									<div class="col">
+										<a href="#!">
+											<h6 class="m-b-5">You have 3 new Pending Account Requests. <span class="text-muted float-right f-14">Just Now</span></h6>
+										</a>
+									</div>
+								</div>
+								<div class="row m-b-25 align-items-center">
+									<div class="col-auto p-r-0">
+										<i data-feather="shopping-cart" class="bg-light-danger feed-icon p-2 wid-30 hei-30"></i>
+									</div>
+									<div class="col">
+										<a href="#!">
+											<h6 class="m-b-5">New Data Graph released <span class="text-muted float-right f-14">Just Now</span></h6>
+										</a>
+									</div>
+								</div>
+								<div class="row m-b-25 align-items-center">
+									<div class="col-auto p-r-0">
+										<i data-feather="file-text" class="bg-light-success feed-icon p-2 wid-30 hei-30"></i>
+									</div>
+									<div class="col">
+										<a href="#!">
+											<h6 class="m-b-5">You have 10 Pending Account Requests. <span class="text-muted float-right f-14">10 Minutes ago</span></h6>
+										</a>
+									</div>
+								</div>
+								<div class="row m-b-25 align-items-center">
+									<div class="col-auto p-r-0">
+										<i data-feather="bell" class="bg-light-primary feed-icon p-2 wid-30 hei-30"></i>
+									</div>
+									<div class="col">
+										<a href="#!">
+											<h6 class="m-b-5">You have 4 tasks Done. <span class="text-muted float-right f-14">30 Minutes ago</span></h6>
+										</a>
+									</div>
+								</div>
+								<div class="row m-b-25 align-items-center">
+									<div class="col-auto p-r-0">
+										<i data-feather="file-text" class="bg-light-success feed-icon p-2 wid-30 hei-30"></i>
+									</div>
+									<div class="col">
+										<a href="#!">
+											<h6 class="m-b-5">You have 2 pending tasks. <span class="text-muted float-right f-14">An hour ago</span></h6>
+										</a>
+									</div>
+								</div>
+								<div class="row m-b-25 align-items-center">
+									<div class="col-auto p-r-0">
+										<i data-feather="shopping-cart" class="bg-light-danger feed-icon p-2 wid-30 hei-30"></i>
+									</div>
+									<div class="col">
+										<a href="#!">
+											<h6 class="m-b-5">New order received <span class="text-muted float-right f-14">2 hours ago</span></h6>
+										</a>
+									</div>
+								</div>
+								<div class="row m-b-25 align-items-center">
+									<div class="col-auto p-r-0">
+										<i data-feather="shopping-cart" class="bg-light-danger feed-icon p-2 wid-30 hei-30"></i>
+									</div>
+									<div class="col">
+										<a href="#!">
+											<h6 class="m-b-5">New order Done <span class="text-muted float-right f-14">3 hours ago</span></h6>
+										</a>
+									</div>
+								</div>
+								<div class="row m-b-25 align-items-center">
+									<div class="col-auto p-r-0">
+										<i data-feather="file-text" class="bg-light-success feed-icon p-2 wid-30 hei-30"></i>
+									</div>
+									<div class="col">
+										<a href="#!">
+											<h6 class="m-b-5">You have 5 pending tasks. <span class="text-muted float-right f-14">5 hours ago</span></h6>
+										</a>
+									</div>
+								</div>
+								<div class="row m-b-0 align-items-center">
+									<div class="col-auto p-r-0">
+										<i data-feather="bell" class="bg-light-primary feed-icon p-2 wid-30 hei-30"></i>
+									</div>
+									<div class="col">
+										<a href="#!">
+											<h6 class="m-b-5">You have 4 tasks Done. <span class="text-muted float-right f-14">7 hours ago</span></h6>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				<!-- support-section end -->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-header">
+								<h5>Quick Add</h5>
+							</div>
+							<div class="card-body">
+								<form>
+									<div class="row mb-3">
+										<label for="inputEmail3" class="col-sm-3 col-form-label">ID Number</label>
+										<div class="col-sm-9">
+											<input type="email" class="form-control" id="inputEmail3">
+										</div>
+									</div>
+									<div class="row mb-3">
+										<label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+										<div class="col-sm-9">
+											<input type="password" class="form-control" id="inputPassword3">
+										</div>
+									</div>
+									<fieldset>
+										<div class="row mb-3">
+											<legend class="col-form-label col-sm-3 pt-0">Level</legend>
+											<div class="col-sm-9">
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+													<label class="form-check-label" for="gridRadios1">
+														College
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+													<label class="form-check-label" for="gridRadios2">
+														Senior High School
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+													<label class="form-check-label" for="gridRadios2">
+														Junior  High School
+													</label>
+												</div>
+												<div class="form-check">
+													<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+													<label class="form-check-label" for="gridRadios2">
+														Elementary
+													</label>
+												</div>
+											</div>
+										</div>
+									</fieldset>
+							<div class="card-footer">
+								<button class="btn btn-primary mr-2">Submit</button>
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+					<!-- customer-section start -->
+					<div class="col-xl-6 col-md-12">
+					
+					<div class="card table-card">
+						<div class="card-header">
+							<h5>Accounts</h5>
+						</div>
+						<div class="pro-scroll" style="height:368px;position:relative;">
+							<div class="card-body p-0">
+								<div class="table-responsive">
+									<table class="table table-hover m-b-0">
+										<thead>
+											<tr>
+												<th>Product Name</th>
+												<th>Status</th>
+												<th>Year Level</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>John Paul Alferez</td>
+												<td>
+													<div><label class="badge bg-light-warning">Pending</label></div>
+												</td>
+												<td>College</td>
+												<td><a href="#!"><i class="icon feather icon-edit f-16  text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+											</tr>
+											<tr>
+												<td>Vince Dominique Carusca</td>
+												<td>
+													<div><label class="badge bg-light-danger">Cancelled</label></div>
+												</td>
+												<td>Junior</td>
+												<td><a href="#!"><i class="icon feather icon-edit f-16  text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+											</tr>
+											<tr>
+												<td>Riza Marie Mayormita</td>
+												<td>
+													<div><label class="badge bg-light-success">Success</label></div>
+												</td>
+												<td>Senior</td>
+												<td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+											</tr>
+											<tr>
+												<td>Vince Dominique Carusca</td>
+												<td>
+													<div><label class="badge bg-light-danger">Cancelled</label></div>
+												</td>
+												<td>Senior</td>
+												<td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+											</tr>
+											<tr>
+												<td>John Paul Alferez</td>
+												<td>
+													<div><label class="badge bg-light-success">Success</label></div>
+												</td>
+												<td>College</td>
+												<td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+											</tr>
+											<tr>
+												<td>Riza Marie Mayormita</td>
+												<td>
+													<div><label class="badge bg-light-warning">Pending</label></div>
+												</td>
+												<td>College</td>
+												<td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+											</tr>
+											<tr>
+												<td>John Paul Alferez</td>
+												<td>
+													<div><label class="badge bg-light-danger">Cancel</label></div>
+												</td>
+												<td>College</td>
+												<td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+											</tr>
+											<tr>
+												<td>Vince Dominique Carusca</td>
+												<td>
+													<div><label class="badge bg-light-danger">Cancel</label></div>
+												</td>
+												<td>College</td>
+												<td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+				
+					
+				</div>
+				<!-- section end -->
+				
+				
+			</div>
+			<!-- [ Main Content ] end -->
+		</div>
 </body>
 
 <!-- Scripts  -->
