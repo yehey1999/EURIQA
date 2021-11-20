@@ -286,11 +286,28 @@ class AdminAddQuestion(View):
         # Method to delete question
         elif 'btnDelQues' in request.POST:
             ques_to_delete = request.POST.get("ques_to_delete")
-            # part = request.POST.get("part")
+            part = request.POST.get("part")
 
             # get_exam_id = Exam.objects.get(exam_id = ques_to_delete)
             # get_part_id = Part.objects.get(part_id = part)
             del_ques = Question.objects.filter(question_id = ques_to_delete).delete()
+
+            
+            # update_ques_no = Question.objects.exclude(question_id = ques_to_delete)
+            # for i in range(count_ques_no):
+            #     get = update_ques_no.filter(part = part).update(question_no = i+1)
+
+            # Update question number after deleting of question
+            count_ques_no = Question.objects.filter(part = part).count() #Counts all the questions in the selected part
+            get_ques = Question.objects.filter(part = part) #Gets all questions saved in the part selected from the template
+
+            #Loops over the questions saved under the part selected based on the primary key and
+            #stores the index increased by 1 as the updated question number
+            for ques_no, question in enumerate(get_ques): 
+                update_ques_no = get_ques.filter(question_id = question.pk).update(question_no = ques_no+1)
+
+            
+            
             
             # # Update total exam items and overall points of Exam after deleting
             # total_items = Question.objects.filter(exam = get_exam_id).count()
