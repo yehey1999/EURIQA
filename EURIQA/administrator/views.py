@@ -395,6 +395,6 @@ class AdminViewAllExamsTable(View):
                 exam_to_delete = request.POST.get("exam_to_delete")
 
                 del_ques = Exam.objects.filter(exam_id = exam_to_delete).delete()
-                messages.success(request, "Successfully deleted question.")
+                messages.success(request, "Successfully deleted exam.")
 
         return redirect("administrator:all-exams")
