@@ -169,98 +169,90 @@
             <!-- [ breadcrumb ] end -->
             
             <!-- [ Main Content ] start -->
+            <!-- Create Exam -->
             <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <!-- Message Loader -->
-                        {% for message in messages %}
-                        <div class="alert {{message.tags}}" role="alert">
-                        {{ message }}
+                <div class="col-md-12">
+                    <!-- Message Loader -->
+                    {% for message in messages %}
+                    <div class="alert {{message.tags}}" role="alert">
+                    {{ message }}
+                    </div>
+                    {% endfor %}
+
+                    <!-- Exam -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Create Exam</h4>
                         </div>
-                        {% endfor %}
-                        
-                        <h2>Create Exam</h2>
-                        <br>
-                        
                         <form class="row g-3 needs-validation" novalidate method="POST"> 
-                            {% csrf_token %}
-                            <!-- Exam -->
-                        <div class="row">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="card">
-                                    <div class="card-header">
-                                        Create Exam
-                                    </div>
-                                    <div class="card-body">
-                                        <!-- Exam Details -->
-                                        <div class="row">
-                                            <h5>Exam Details</h5>
-                                            <div class="col-4">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" name="exam_title" id="floatingExamTitle" placeholder="Exam Title" required>
-                                                    <label for="floatingExamTitle">Exam Title</label>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-4">
-                                                <div class="form-floating">
-                                                    <select class="form-select" name="exam_takers" id="floatingExamTitle" placeholder="Exam Title" required>
-                                                        <option value="College">College</option>
-                                                        <option value="Senior High School">Senior High School</option>
-                                                        <option value="Junior High School">Junior High School</option>
-                                                        <option value="Elementary">Elementary</option>
-                                                    </select>
-                                                    <label for="floatingExamTitle">Assigned to</label>
-                                                </div>
-                                            </div>
-                
-                                            <div class="col-4">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" name="created_by" id="floatingExamTitle" placeholder="Exam Title" value="{{request.user.get_full_name}}" required readonly>
-                                                    <label for="floatingExamTitle">Created by</label>
-                                                </div>
-                                            </div>         
-                                        </div>
-                                        <br>
-                                        
-                                        <h5>Generation Method</h5>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="method" id="teacherProvided" required>
-                                                    <label class="form-check-label" for="flexRadioDefault1">
-                                                        Teacher Provided
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="method" id="linkProvided" required>
-                                                    <label class="form-check-label" for="flexRadioDefault2">
-                                                        Linked Questionnaire
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" name="link" id="link" placeholder="Exam Link" required>
-                                                    <label for="floatingLink">Exam Link</label>
-                                                </div>
-                                            </div>
+                        {% csrf_token %}
+                            <div class="card-body">
+                                <!-- Exam Details -->
+                                <div class="row">
+                                    <h5>Exam Details</h5>
+                                    <div class="col-4">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="exam_title" id="floatingExamTitle" placeholder="Exam Title" required>
+                                            <label for="floatingExamTitle">Exam Title</label>
                                         </div>
                                     </div>
-                
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-secondary" name="btnSaveExam" style="background-color: maroon;">Save</button>
+                                    
+                                    <div class="col-4">
+                                        <div class="form-floating">
+                                            <select class="form-select" name="exam_takers" id="floatingExamTitle" placeholder="Exam Title" required>
+                                                <option value="College">College</option>
+                                                <option value="Senior High School">Senior High School</option>
+                                                <option value="Junior High School">Junior High School</option>
+                                                <option value="Elementary">Elementary</option>
+                                            </select>
+                                            <label for="floatingExamTitle">Assigned to</label>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-4">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="created_by" id="floatingExamTitle" placeholder="Exam Title" value="{{request.user.get_full_name}}" required readonly>
+                                            <label for="floatingExamTitle">Created by</label>
+                                        </div>
+                                    </div>         
+                                </div>
+                                <br>
+                                
+                                <h5>Generation Method</h5>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="method" id="teacherProvided" required>
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Teacher Provided
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="method" id="linkProvided" required>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                Linked Questionnaire
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" name="link" id="link" placeholder="Exam Link" required>
+                                            <label for="floatingLink">Exam Link</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-1"></div>
-                        </div>
+        
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-secondary" name="btnSaveExam" style="background-color: maroon;">Save</button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
+            
             <!-- [ Main Content ] end -->
+            </div>
         </div>
     </div>
 </body>

@@ -162,186 +162,191 @@
             
             <!-- [ Main Content ] start -->
             <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <form class="row g-3 needs-validation" novalidate method="POST">
-                            {% csrf_token %}
-                        
-                            <!-- Message loader -->
-                            {% for message in messages %}
-                                <div class="alert {{message.tags}}" role="alert">
-                                    {{ message }}
+                <div class="col-md-12">
+                    <!-- Message loader -->
+                    {% for message in messages %}
+                    <div class="alert {{message.tags}}" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+
+                    <!-- Account Registration -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Account Registration</h5>
+                        </div>
+                        <div class="card-body">
+                            <form class="row g-3 needs-validation" novalidate method="POST">
+                                {% csrf_token %}       
+                                <h2>Account Details</h2>
+                                <hr>
+                    
+                                <!-- Username input field -->
+                                <div class="col-md-4">
+                                    <label for="inputUname" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="inputUname" placeholder="ID Number" name="username" required>
+                                    
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
+                    
                                 </div>
-                            {% endfor %}  
-                
-                            <h2>Account Details</h2>
-                            <hr>
-                
-                            <!-- Username input field -->
-                            <div class="col-md-4">
-                                <label for="inputUname" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="inputUname" placeholder="ID Number" name="username" required>
+                    
+                                <!-- Password input field -->
+                                <div class="col-md-4">
+                                    <label for="inputPass" class="form-label">Password</label>
+                                    <input type="text" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" readonly required>
+                    
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
+                                </div>
+                    
+                                <!-- Email input field -->
+                                <div class="col-md-4">
+                                    <label for="inputEmail" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" name="email" id="inputEmail" required>
+                    
+                                    <div class="invalid-feedback">
+                                        Input a valid email address.
+                                    </div>
+                                </div>
+                    
+                                <!-- Type input field -->
+                                <div class="col-md-3 div_type">
+                                    <label for="user_type" class="form-label" >Type</label>
+                                    <select class="form-select type" name="user_type" required>
+                                        <option value="enrollee" selected>Enrollee</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </div>
+                    
+                                <!-- Enrolled as input field -->
+                                <div class="col-md-3 div_enrolled_as">
+                                    <label for="enrolled_as" class="form-label" >Enrolled as</label>
+                                    <select class="form-select enrolled_as" name="enrolled_as" required>
+                                        <option value="freshman" selected>Freshman</option>
+                                        <option value="transferee">Transferee</option>
+                                    </select>
+                                </div>
+                    
+                                <!-- School level input field -->
+                                <div class="col-md-3 div_level">
+                                    <label for="inputLevel" class="form-label" >School Level</label>
+                                    <select id="inputLevel" class="form-select level" name="level" required>
+                                        <option value ="college" selected>College</option>
+                                        <option value="shs">Senior High School</option>
+                                        <option value="jhs">Junior High School</option>
+                                        <option value="elem">Elementary</option>
+                                    </select>
+                                </div>
+                    
+                                <!-- Program input field -->
+                                <div class="col-md-3 div_program">
+                                    <label for="inputProgram" class="form-label" >Enrolled Program</label>
+                                    <select id="inputProgram" class="form-select program" name="program" required>
+                                        {% for program in programs %}
+                                            <option value={{program.program_id}}>{{program.program_name}}</option> 
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                    
+                                <!-- Strand input field -->
+                                <div class="col-md-3 div_strand">
+                                    <label for="inputStrand" class="form-label" >Enrolled Strand</label>
+                                    <select id="inputStrand" class="form-select program" name="strand" required>
+                                        {% for strand in strands %}
+                                            <option value={{strand.strand_id}}>{{strand.strand_name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                    
+                                <!-- Position  input field -->
+                                <div class="col-md-3 div_pos">
+                                    <label for="inputPos" class="form-label" >Position</label>
+                                    <select id="inputPos" class="form-select position" name="position" required>
+                                        <option value="guidance" selected>Guidance Center Personnel</option>
+                                        <option value="college">College Faculty</option>
+                                        <option value="shs">SHS Faculty</option>
+                                        <option value="jhs">JHS Faculty</option>
+                                    </select>
+                                </div>
+                    
+                                <!-- Input Enrollee Information-->
+                                <br><br><br><br><br><br>
+                    
+                                <h2>Enrollee Information</h2>
+                                <hr>
+                    
+                                <!-- First name input field -->
+                                <div class="col-md-4">
+                                    <label for="inputFname" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="inputFname" name="first_name" required>
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
+                                </div>
+                    
+                                <!-- Middle name input field -->
+                                <div class="col-md-4">
+                                    <label for="inputMname" class="form-label">Middle Name</label>
+                                    <input type="text" class="form-control" id="inputMname" name="middle_name">
+                                </div>
+                    
+                                <!-- Last name input field -->
+                                <div class="col-md-4">
+                                    <label for="inputLname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="inputLname" name="last_name" required>
+                    
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
+                                </div>
                                 
-                                <div class="invalid-feedback">
-                                    This field is required.
+                                <!-- Address input fields -->
+                                <div class="col-md-12">
+                                    <label for="inputAddress" class="form-label">House No., Street, Baranggay</label>
+                                    <input type="text" class="form-control" id="inputAddress" name ="street" required>
+                                
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
                                 </div>
-                
-                            </div>
-                
-                            <!-- Password input field -->
-                            <div class="col-md-4">
-                                <label for="inputPass" class="form-label">Password</label>
-                                <input type="text" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" readonly required>
-                
-                                <div class="invalid-feedback">
-                                    This field is required.
+                                
+                                <div class="col-md-4">
+                                    <label for="inputCity" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="inputCity" name="city" required>
+                    
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
                                 </div>
-                            </div>
-                
-                            <!-- Email input field -->
-                            <div class="col-md-4">
-                                <label for="inputEmail" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" name="email" id="inputEmail" required>
-                
-                                <div class="invalid-feedback">
-                                    Input a valid email address.
+                    
+                                <div class="col-md-4">
+                                    <label for="inputProvince" class="form-label">Province</label>
+                                    <input type="text" class="form-control" id="inputProvince" name="province" required>
+                    
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
                                 </div>
-                            </div>
-                
-                            <!-- Type input field -->
-                            <div class="col-md-3 div_type">
-                                <label for="user_type" class="form-label" >Type</label>
-                                <select class="form-select type" name="user_type" required>
-                                    <option value="enrollee" selected>Enrollee</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </div>
-                
-                            <!-- Enrolled as input field -->
-                            <div class="col-md-3 div_enrolled_as">
-                                <label for="enrolled_as" class="form-label" >Enrolled as</label>
-                                <select class="form-select enrolled_as" name="enrolled_as" required>
-                                    <option value="freshman" selected>Freshman</option>
-                                    <option value="transferee">Transferee</option>
-                                </select>
-                            </div>
-                
-                            <!-- School level input field -->
-                            <div class="col-md-3 div_level">
-                                <label for="inputLevel" class="form-label" >School Level</label>
-                                <select id="inputLevel" class="form-select level" name="level" required>
-                                    <option value ="college" selected>College</option>
-                                    <option value="shs">Senior High School</option>
-                                    <option value="jhs">Junior High School</option>
-                                    <option value="elem">Elementary</option>
-                                </select>
-                            </div>
-                
-                            <!-- Program input field -->
-                            <div class="col-md-3 div_program">
-                                <label for="inputProgram" class="form-label" >Enrolled Program</label>
-                                <select id="inputProgram" class="form-select program" name="program" required>
-                                    {% for program in programs %}
-                                        <option value={{program.program_id}}>{{program.program_name}}</option> 
-                                    {% endfor %}
-                                </select>
-                            </div>
-                
-                            <!-- Strand input field -->
-                            <div class="col-md-3 div_strand">
-                                <label for="inputStrand" class="form-label" >Enrolled Strand</label>
-                                <select id="inputStrand" class="form-select program" name="strand" required>
-                                    {% for strand in strands %}
-                                        <option value={{strand.strand_id}}>{{strand.strand_name}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                
-                            <!-- Position  input field -->
-                            <div class="col-md-3 div_pos">
-                                <label for="inputPos" class="form-label" >Position</label>
-                                <select id="inputPos" class="form-select position" name="position" required>
-                                    <option value="guidance" selected>Guidance Center Personnel</option>
-                                    <option value="college">College Faculty</option>
-                                    <option value="shs">SHS Faculty</option>
-                                    <option value="jhs">JHS Faculty</option>
-                                </select>
-                            </div>
-                
-                            <!-- Input Enrollee Information-->
-                            <br><br><br><br><br><br>
-                
-                            <h2>Enrollee Information</h2>
-                            <hr>
-                
-                            <!-- First name input field -->
-                            <div class="col-md-4">
-                                <label for="inputFname" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="inputFname" name="first_name" required>
-                                <div class="invalid-feedback">
-                                    This field is required.
+                    
+                                <div class="col-md-4">
+                                    <label for="inputZip" class="form-label">Zip</label>
+                                    <input type="number" class="form-control" id="inputZip" name="zip" required>
+                    
+                                    <div class="invalid-feedback">
+                                        This field is required.
+                                    </div>
                                 </div>
-                            </div>
-                
-                            <!-- Middle name input field -->
-                            <div class="col-md-4">
-                                <label for="inputMname" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control" id="inputMname" name="middle_name">
-                            </div>
-                
-                            <!-- Last name input field -->
-                            <div class="col-md-4">
-                                <label for="inputLname" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="inputLname" name="last_name" required>
-                
-                                <div class="invalid-feedback">
-                                    This field is required.
-                                </div>
-                            </div>
-                            
-                            <!-- Address input fields -->
-                            <div class="col-md-12">
-                                <label for="inputAddress" class="form-label">House No., Street, Baranggay</label>
-                                <input type="text" class="form-control" id="inputAddress" name ="street" required>
-                            
-                                <div class="invalid-feedback">
-                                    This field is required.
-                                </div>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <label for="inputCity" class="form-label">City</label>
-                                <input type="text" class="form-control" id="inputCity" name="city" required>
-                
-                                <div class="invalid-feedback">
-                                    This field is required.
-                                </div>
-                            </div>
-                
-                            <div class="col-md-4">
-                                <label for="inputProvince" class="form-label">Province</label>
-                                <input type="text" class="form-control" id="inputProvince" name="province" required>
-                
-                                <div class="invalid-feedback">
-                                    This field is required.
-                                </div>
-                            </div>
-                
-                            <div class="col-md-4">
-                                <label for="inputZip" class="form-label">Zip</label>
-                                <input type="number" class="form-control" id="inputZip" name="zip" required>
-                
-                                <div class="invalid-feedback">
-                                    This field is required.
-                                </div>
-                            </div>
-                            
-                            <!-- Register button -->
-                            <br><br><br><br><br>
-                                <center>
-                                    <button type="submit" class="btn btn-warning" name="btnSubmit">Register</button>
-                                </center>
-                        </form>
+                                
+                                <!-- Register button -->
+                                <br><br><br><br><br>
+                                    <center>
+                                        <button type="submit" class="btn btn-warning" name="btnSubmit">Register</button>
+                                    </center>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
