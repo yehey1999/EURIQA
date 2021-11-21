@@ -160,7 +160,7 @@ class AdminManageAccounts(View):
                     deactivate_acc = User.objects.filter(id = user_id).update(is_active=0)
                     messages.success(request, 'Account deactivated')
                 else:
-                    messages.error(request, 'Cannot deactivate account.')
+                    messages.error(request, 'Cannot deactivate account. Enrollee has not taken the exam yet.')
 
             # Reactivate accounts that are deactivated
             if 'btn_react' in request.POST:
@@ -287,15 +287,9 @@ class AdminAddQuestion(View):
         elif 'btnDelQues' in request.POST:
             ques_to_delete = request.POST.get("ques_to_delete")
             part = request.POST.get("part")
-
-            # get_exam_id = Exam.objects.get(exam_id = ques_to_delete)
+            
             # get_part_id = Part.objects.get(part_id = part)
             del_ques = Question.objects.filter(question_id = ques_to_delete).delete()
-
-            
-            # update_ques_no = Question.objects.exclude(question_id = ques_to_delete)
-            # for i in range(count_ques_no):
-            #     get = update_ques_no.filter(part = part).update(question_no = i+1)
 
             # Update question number after deleting of question
             count_ques_no = Question.objects.filter(part = part).count() #Counts all the questions in the selected part
@@ -307,13 +301,21 @@ class AdminAddQuestion(View):
                 update_ques_no = get_ques.filter(question_id = question.pk).update(question_no = ques_no+1)
 
             
+            # Update total exam items in Exam after deleting
+            get_exam_id = Exam.objects.get(exam_id = ques_to_delete)
+            total_items = Question.objects.filter(exam = get_exam_id).count()
+            update_total_items = Exam.objects.filter(exam_id = ques_to_delete).update(total_items = total_items)
+
+            # Update overall points (Exam) of the selected part after deleting
+            overall_points = Question.objects.filter()
+
+            # Update overall points (Part) of the selected part after deleting
+
             
-            
-            # # Update total exam items and overall points of Exam after deleting
-            # total_items = Question.objects.filter(exam = get_exam_id).count()
+
+
             # total_points = Question.objects.filter(exam = get_exam_id).aggregate(Sum('points')).get('points__sum')
 
-            # update_total_items = Exam.objects.filter(exam_id = ques_to_delete).update(total_items = total_items)
             # update_total_points = Exam.objects.filter(exam_id = ques_to_delete).update(overall_points = total_points)
             
             # # Update overall points of the particular Exam Part
@@ -333,7 +335,7 @@ class AdminAddQuestion(View):
             optionB = request.POST.get("edit_optionB")
             optionC = request.POST.get("edit_optionC")
             optionD = request.POST.get("edit_optionD")
-            answer = request.POST.get("edit_answer")
+            answer = request.POST.get("edit_option")
             points = request.POST.get("edit_points")
 
             get_part_id = Part.objects.get(part_id = part)

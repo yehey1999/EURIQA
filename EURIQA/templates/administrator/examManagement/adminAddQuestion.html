@@ -252,7 +252,7 @@
                                                 <h6>Select the radio button containing the correct answer.</h6>
                                                 <div class="input-group mb-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="option" value="optionA" id="radioOptionA" required>
+                                                        <input class="form-check-input" type="radio" name="option" value="A" id="radioOptionA" required>
                                                         <label class="form-check-label" for="radioOptionA">
                                                             A. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         </label>
@@ -266,7 +266,7 @@
                         
                                                 <div class="input-group mb-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="option" value="optionB" id="radioOptionB" required>
+                                                        <input class="form-check-input" type="radio" name="option" value="B" id="radioOptionB" required>
                                                         <label class="form-check-label" for="radioOptionB">
                                                             B. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         </label>
@@ -280,7 +280,7 @@
                         
                                                 <div class="input-group mb-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="option" value="optionC" id="radioOptionC" required>
+                                                        <input class="form-check-input" type="radio" name="option" value="C" id="radioOptionC" required>
                                                         <label class="form-check-label" for="radioOptionC">
                                                             C. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         </label>
@@ -294,7 +294,7 @@
                         
                                                 <div class="input-group mb-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="option" value="optionD" id="radioOptionD" required>
+                                                        <input class="form-check-input" type="radio" name="option" value="D" id="radioOptionD" required>
                                                         <label class="form-check-label" for="radioOptionD">
                                                             D. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         </label>
@@ -333,46 +333,46 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                         
-                                            <!-- Modal Body -->    
-                                            <div class="modal-body">
-                                                <!-- Exam Parts -->
-                                                <div class="row">
-                                                    <!-- Part Name -->
-                                                    <div class="col">
-                                                        <div class="form-floating">
-                                                            <input type="text" class="form-control" name="part_name" id="floatingPartName" placeholder="Part Name" required>
-                                                            <label for="floatingPartName">Part Name</label>
+                                                <!-- Modal Body -->    
+                                                <div class="modal-body">
+                                                    <!-- Exam Parts -->
+                                                    <div class="row">
+                                                        <!-- Part Name -->
+                                                        <div class="col">
+                                                            <div class="form-floating">
+                                                                <input type="text" class="form-control" name="part_name" id="floatingPartName" placeholder="Part Name" required>
+                                                                <label for="floatingPartName">Part Name</label>
+                                
+                                                                <div class="invalid-feedback">
+                                                                    Specify part name.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>    
+                                                    <!-- Instructions -->
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-floating">
+                                                                <textarea class="form-control" name="instruction" placeholder="Instruction" id="floatingInstruction" style="height: 100px;" required></textarea>
+                                                                <label for="floatingInstruction">Instruction</label>
+                                                                
+                                                                <div class="invalid-feedback">
+                                                                    Instructions can't be blank.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                             
-                                                            <div class="invalid-feedback">
-                                                                Specify part name.
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>    
-                                                <!-- Instructions -->
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="form-floating">
-                                                            <textarea class="form-control" name="instruction" placeholder="Instruction" id="floatingInstruction" style="height: 100px;" required></textarea>
-                                                            <label for="floatingInstruction">Instruction</label>
-                                                            
-                                                            <div class="invalid-feedback">
-                                                                Instructions can't be blank.
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <!-- Modal Footer-->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+                                                    
+                                                    <!-- Save Button -->
+                                                    <button type="submit" class="btn btn-secondary" name="btnSavePart" style="background-color: maroon;">Save</button>
                                                 </div>
                                             </div>
-                        
-                                            <!-- Modal Footer-->
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
-                                                
-                                                <!-- Save Button -->
-                                                <button type="submit" class="btn btn-secondary" name="btnSavePart" style="background-color: maroon;">Save</button>
-                                            </div>
-                                        </div>
                                         </div>
                                     </div>
                                 </form>
@@ -501,136 +501,136 @@
                                                                 <div class="row" style="padding-top: 50px;">
                                                                     <div class="col-1"></div>
                                                                     <div class="col-10">
-                                                                        <div class="card">
-                                                                            <div class="card-body">
-                                                                                <div class="row">
-                                                                                    <!-- Question No. -->
-                                                                                    <div class="col-3"> 
-                                                                                        <div class="form-floating">
-                                                                                            <input type="number" name="ques_id" value="{{ques.question_id}}" hidden>
-                                                                                            <input type="number" name="edit_question_no" min=1 value="{{ques.question_no}}" class="form-control" id="floatingNo" placeholder="No." required>
-                                                                                            <label for="floatingNo">Question No.</label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <!-- Part -->
-                                                                                    <div class="col-6">
-                                                                                        <div class="form-floating">
-                                                                                            <select class="form-select" id="floatingPart" name="edit_part" aria-label="Default select example">
-                                                                                                {% for part in parts %}
-                                                                                                    <option value={{part.part_id}}>{{part.part_name}}</option>
-                                                                                                {% endfor %} 
-                                
-                                                                                                {% for latest in latest_exam %}
-                                                                                                    {% if forloop.last %} 
-                                                                                                        <input type="number" value="{{latest.exam_id}}" name="exam_id" hidden>
-                                                                                                    {% endif %}
-                                                                                                {% endfor %}
-                                                                                                </select>                                                                        
-                                                                                            <label for="floatingPart">Part</label>
-                                                                                        </div>
-                                                                                        
-                                                                                    </div>
-                                
-                                                                                    <!-- Points -->
-                                                                                    <div class="col-3">
-                                                                                        <div class="form-floating">
-                                                                                            <input type="number" name="edit_points" value="{{ques.points}}" min=1 class="form-control" id="floatingPoints" placeholder="No." required>
-                                                                                            <label for="floatingPoints">Points</label>
-                                                                                        </div>
-                                                                                        
-                                                                                    </div>
+                                                                        <div class="row">
+                                                                            <!-- Question No. -->
+                                                                            <div class="col-3"> 
+                                                                                <div class="form-floating">
+                                                                                    <input type="number" name="ques_id" value="{{ques.question_id}}" hidden>
+                                                                                    <input type="number" name="edit_question_no" min=1 value="{{ques.question_no}}" class="form-control" id="floatingNo" placeholder="No." required readonly>
+                                                                                    <label for="floatingNo">Question No.</label>
                                                                                 </div>
-                                                                                <br>
-                                                            
-                                                                                <!-- Question -->
-                                                                                <div class="row">
-                                                                                    <div class="col">
-                                                                                        <div class="form-floating">
-                                                                                            <textarea class="form-control" name="edit_question" placeholder="Question" id="floatingQuestion" style="height: 100px;" required>{{ques.question}}</textarea>
-                                                                                            
-                                                                                            <label for="floatingQuestion">Question</label>
-                                                                                            
-                                                                                            <div class="invalid-feedback">
-                                                                                                Please add a question.
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
+                                                                            </div>
+                                                                            <!-- Part -->
+                                                                            <div class="col-6">
+                                                                                <div class="form-floating">
+                                                                                    <select class="form-select" id="floatingPart" name="edit_part" aria-label="Default select example">
+                                                                                        {% for part in parts %}
+                                                                                            <option value={{part.part_id}}>{{part.part_name}}</option>
+                                                                                        {% endfor %} 
+                        
+                                                                                        {% for latest in latest_exam %}
+                                                                                            {% if forloop.last %} 
+                                                                                                <input type="number" value="{{latest.exam_id}}" name="exam_id" hidden>
+                                                                                            {% endif %}
+                                                                                        {% endfor %}
+                                                                                        </select>                                                                        
+                                                                                    <label for="floatingPart">Part</label>
                                                                                 </div>
-                                                                                <br>
-                                                            
-                                                                                <!-- Options -->
-                                                                                <div class="row">
-                                                                                    <div class="input-group mb-3">
-                                                                                        <div class="form-check">
-                                                                                            <input class="form-check-input" type="radio" name="option" id="radioOptionA">
-                                                                                            <label class="form-check-label" for="radioOptionA">
-                                                                                                A. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <input type="text" class="form-control" name="edit_optionA" value="{{ques.optionA}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                                                                        
-                                                                                        <div class="invalid-feedback">
-                                                                                            No option specified.
-                                                                                        </div>
-                                                                                    </div>
-                                                            
-                                                                                    <div class="input-group mb-3">
-                                                                                        <div class="form-check">
-                                                                                            <input class="form-check-input" type="radio" name="option" id="radioOptionB">
-                                                                                            <label class="form-check-label" for="radioOptionB">
-                                                                                                B. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <input type="text" class="form-control" name="edit_optionB" value="{{ques.optionB}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                                
+                                                                            </div>
+                        
+                                                                            <!-- Points -->
+                                                                            <div class="col-3">
+                                                                                <div class="form-floating">
+                                                                                    <input type="number" name="edit_points" value="{{ques.points}}" min=1 class="form-control" id="floatingPoints" placeholder="No." required>
+                                                                                    <label for="floatingPoints">Points</label>
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                    
+                                                                        <!-- Question -->
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div class="form-floating">
+                                                                                    <textarea class="form-control" name="edit_question" placeholder="Question" id="floatingQuestion" style="height: 100px;" required>{{ques.question}}</textarea>
                                                                                     
-                                                                                        <div class="invalid-feedback">
-                                                                                            No option specified.
-                                                                                        </div>
-                                                                                    </div>
-                                                            
-                                                                                    <div class="input-group mb-3">
-                                                                                        <div class="form-check">
-                                                                                            <input class="form-check-input" type="radio" name="option" id="radioOptionC">
-                                                                                            <label class="form-check-label" for="radioOptionC">
-                                                                                                C. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <input type="text" class="form-control" name="edit_optionC" value="{{ques.optionC}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                                    <label for="floatingQuestion">Question</label>
                                                                                     
-                                                                                        <div class="invalid-feedback">
-                                                                                            No option specified.
-                                                                                        </div>
-                                                                                    </div>
-                                                            
-                                                                                    <div class="input-group mb-3">
-                                                                                        <div class="form-check">
-                                                                                            <input class="form-check-input" type="radio" name="option" id="radioOptionD">
-                                                                                            <label class="form-check-label" for="radioOptionD">
-                                                                                                D. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                            </label>
-                                                                                        </div>
-                                                                                        <input type="text" class="form-control" name="edit_optionD" value="{{ques.optionD}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
-                                                                                    
-                                                                                        <div class="invalid-feedback">
-                                                                                            No option specified.
-                                                                                        </div>
+                                                                                    <div class="invalid-feedback">
+                                                                                        Please add a question.
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                    
+                                                                        <!-- Options -->
+                                                                        <div class="row">
+                                                                            <div class="input-group mb-3">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="radio" name="edit_option" value="A" id="radioOptionA" required>
+                                                                                    <label class="form-check-label" for="radioOptionA">
+                                                                                        A. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                    </label>
+                                                                                </div>
+                                                                                <input type="text" class="form-control" name="edit_optionA" value="{{ques.optionA}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                                
+                                                                                <div class="invalid-feedback">
+                                                                                    No option specified.
+                                                                                </div>
+                                                                            </div>
+                                                    
+                                                                            <div class="input-group mb-3">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="radio" name="edit_option" value="B" id="radioOptionB" required>
+                                                                                    <label class="form-check-label" for="radioOptionB">
+                                                                                        B. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                    </label>
+                                                                                </div>
+                                                                                <input type="text" class="form-control" name="edit_optionB" value="{{ques.optionB}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                            
+                                                                                <div class="invalid-feedback">
+                                                                                    No option specified.
+                                                                                </div>
+                                                                            </div>
+                                                    
+                                                                            <div class="input-group mb-3">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="radio" name="edit_option" value="C" id="radioOptionC" required>
+                                                                                    <label class="form-check-label" for="radioOptionC">
+                                                                                        C. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                    </label>
+                                                                                </div>
+                                                                                <input type="text" class="form-control" name="edit_optionC" value="{{ques.optionC}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                            
+                                                                                <div class="invalid-feedback">
+                                                                                    No option specified.
+                                                                                </div>
+                                                                            </div>
+                                                    
+                                                                            <div class="input-group mb-3">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="radio" name="edit_option" value="D" id="radioOptionD" required>
+                                                                                    <label class="form-check-label" for="radioOptionD">
+                                                                                        D. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                                    </label>
+                                                                                </div>
+                                                                                <input type="text" class="form-control" name="edit_optionD" value="{{ques.optionD}}" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                                            
+                                                                                <div class="invalid-feedback">
+                                                                                    No option specified.
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <br>
+                                                                        <!-- Correct Answer -->
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                            <h5>Correct Answer:</h5>
                                                                                 <br>
-                                                                                <!-- Correct Answer -->
-                                                                                <div class="row">
-                                                                                    <div class="col">
-                                                                                    <h5>Correct Answer:</h5>
-                                                                                        <select id="answer" class="form-select" name="edit_answer" value={{ques.answer}} style="width: 150px;" required>
-                                                                                            <option value="optionA">Option A</option>
-                                                                                            <option value="optionB">Option B</option>
-                                                                                            <option value="optionC">Option C</option>
-                                                                                            <option value="optionD">Option D</option>
-                                                                                        </select>
-                                                                                        <br>
-                                                                                        <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="Answer deatils here" readonly> 
-                                                                                    </div>
-                                                                                </div>
+                                                                                {% if ques.answer == 'A' %}
+                                                                                <input type="text" class="form-control" value="A. {{ques.optionA}}" aria-label="Example text with button addon" aria-describedby="button-addon1" readonly> 
+                                                                                {% elif ques.answer == 'B' %}
+                                                                                <input type="text" class="form-control" value="B. {{ques.optionB}}" aria-label="Example text with button addon" aria-describedby="button-addon1" readonly> 
+                                                                                {% elif ques.answer == 'C' %}
+                                                                                <input type="text" class="form-control" value="C. {{ques.optionC}}" aria-label="Example text with button addon" aria-describedby="button-addon1" readonly> 
+                                                                                {% elif ques.answer == 'D' %}
+                                                                                <input type="text" class="form-control" value="D. {{ques.optionD}}" aria-label="Example text with button addon" aria-describedby="button-addon1" readonly> 
+                                                                                {% else %}
+                                                                                <input type="text" class="form-control" value="ERROR" aria-label="Example text with button addon" aria-describedby="button-addon1" readonly> 
+                                                                                {% endif %}
                                                                             </div>
                                                                         </div>
                                                                     </div>
