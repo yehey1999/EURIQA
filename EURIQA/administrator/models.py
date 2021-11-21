@@ -34,6 +34,7 @@ class Part(models.Model):
 	part_name = models.CharField(max_length = 200)
 	instructions = models.CharField(max_length = 200)
 	overall_points = models.IntegerField(default=None, null=True)
+	total_items = models.IntegerField(default=None, null=True)
 	exam = models.ForeignKey(Exam, on_delete=models.CASCADE, default=None, null=True, blank=True)
 
 	class Meta:

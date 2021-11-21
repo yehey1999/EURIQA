@@ -67,9 +67,6 @@ class AdminDashboard(View):
 class AdmminProfile(View):
     def get(self,request):
         qs_admin = Administrator.objects.filter(user_id=request.user.id)
-        print(qs_admin)
-        for admin in qs_admin:
-            print(admin.user_id)
         context = {
             'admin_details': qs_admin,
         }
@@ -225,14 +222,13 @@ class AdminCreateExam(View):
 class AdminAddQuestion(View):
     def get(self,request):
         latest_exam = Exam.objects.last() 
-        part_to_delete = request.POST.get("part_to_delete")
+        part = request.POST.get("part_to_delete")
 
         qs_exam = Exam.objects.all() #Gets all the exam in the db
         qs_parts = Part.objects.filter(exam_id = latest_exam) #Gets the parts of the latest exam added
         qs_questions = Question.objects.filter(exam = latest_exam) #Gets all the questions of the latest exam added
-        part_ques_number = Question.objects.filter(part = part_to_delete).count() #Counts the number of questions of the particular part
-        
-        # print(part_to_delete)
+        part_ques_number = Question.objects.filter(part_id = part).count() #Counts the number of questions of the particular part
+
         context = {
             'latest_exam': qs_exam,
             'parts': qs_parts,
@@ -283,7 +279,6 @@ class AdminAddQuestion(View):
             points = request.POST.get("points")
             answer = request.POST.get("option")
 
-
             get_exam_id = Exam.objects.get(exam_id = exam_id)
             get_part_id = Part.objects.get(part_id = part)
 
@@ -300,6 +295,10 @@ class AdminAddQuestion(View):
             update_total_items = Exam.objects.filter(exam_id = exam_id).update(total_items = total_items)
             update_total_points = Exam.objects.filter(exam_id = exam_id).update(overall_points = total_points)
 
+            # Update total exam items in Exam Part
+            part_total_items = Question.objects.filter(part_id = part).count()
+            update_part_total_items = Part.objects.filter(part_id = part).update(total_items = part_total_items)
+            
             # Update overall points of the particular Exam Part
             part_overall_pts = Question.objects.filter(part = get_part_id).aggregate(Sum('points')).get('points__sum')
 
@@ -310,8 +309,8 @@ class AdminAddQuestion(View):
         elif 'btnDelQues' in request.POST:
             ques_to_delete = request.POST.get("ques_to_delete")
             part = request.POST.get("part")
-            
-            # get_part_id = Part.objects.get(part_id = part)
+
+            # Deletes the question with the given question id
             del_ques = Question.objects.filter(question_id = ques_to_delete).delete()
 
             # Update question number after deleting of question
@@ -322,33 +321,26 @@ class AdminAddQuestion(View):
             #stores the index increased by 1 as the updated question number
             for ques_no, question in enumerate(get_ques): 
                 update_ques_no = get_ques.filter(question_id = question.pk).update(question_no = ques_no+1)
-
             
             # Update total exam items in Exam after deleting
-            get_exam_id = Exam.objects.get(exam_id = ques_to_delete)
-            total_items = Question.objects.filter(exam = get_exam_id).count()
-            update_total_items = Exam.objects.filter(exam_id = ques_to_delete).update(total_items = total_items)
+            get_exam = Exam.objects.last()
+            total_items = Question.objects.filter(exam = get_exam).count()
+            update_total_items = Exam.objects.filter(exam_id = get_exam.pk).update(total_items = total_items)
 
             # Update overall points (Exam) of the selected part after deleting
-            overall_points = Question.objects.filter()
+            exam_overall_points = Question.objects.filter(exam_id = get_exam.pk).aggregate(Sum('points')).get('points__sum')
+            update_exam_overall_points = Exam.objects.filter(exam_id = get_exam.pk).update(overall_points = exam_overall_points)
+
+            # Update total exam items in Exam Part when question is deleted
+            part_total_items = Question.objects.filter(part_id = part).count()
+            update_part_total_items = Part.objects.filter(part_id = part).update(total_items = part_total_items)
 
             # Update overall points (Part) of the selected part after deleting
-
-            
-
-
-            # total_points = Question.objects.filter(exam = get_exam_id).aggregate(Sum('points')).get('points__sum')
-
-            # update_total_points = Exam.objects.filter(exam_id = ques_to_delete).update(overall_points = total_points)
-            
-            # # Update overall points of the particular Exam Part
-            # part_overall_pts = Question.objects.filter(part = get_part_id).aggregate(Sum('points')).get('points__sum')
-
-            # update_part_overall_pts = Part.objects.filter(part_id = part).update(overall_points = part_overall_pts)
+            part_overall_points = Question.objects.filter(part_id = part).aggregate(Sum('points')).get('points__sum')
+            update_part_pverall_points = Part.objects.filter(part_id = part).update(overall_points = part_overall_points)
 
             messages.success(request, "Successfully deleted question.")
 
-        # Not working yet (Method to update question)  
         elif 'btnSaveEdited' in request.POST:
             ques_id = request.POST.get("ques_id")
             part = request.POST.get("edit_part")
@@ -365,35 +357,41 @@ class AdminAddQuestion(View):
 
             edit_question = Question.objects.filter(question_id = ques_id).update(question_no = question_no, part = get_part_id, question = question, optionA = optionA, optionB = optionB, 
                 optionC = optionC, optionD = optionD, answer = answer, points = points)
-            
-            part_overall_pts = Question.objects.filter(part = get_part_id).aggregate(Sum('points')).get('points__sum')
 
-            update_part_overall_pts = Part.objects.filter(part_id = part).update(overall_points = part_overall_pts)
+            # Update overall points (Exam) of the selected part after editing
+            get_exam = Exam.objects.last()
+            exam_overall_points = Question.objects.filter(exam_id = get_exam.pk).aggregate(Sum('points')).get('points__sum')
+            update_exam_overall_points = Exam.objects.filter(exam_id = get_exam.pk).update(overall_points = exam_overall_points)
+            
+            # Update total exam items in Exam Part after editing
+            get_parts=Part.objects.filter(exam_id = get_exam.pk)
+            
+            # Loops through all the items in the parts from a specified ID and automatically updates total items
+            # and overall points when the part is changed.
+            for idx, parts in enumerate(get_parts):
+                #  Update total items of the parts after editing
+                part_total_items = Question.objects.filter(part_id = parts.pk).count()
+                update_part_total_items = Part.objects.filter(part_id = parts.pk).update(total_items = part_total_items)
+
+                # Update overall points of the parts after editing
+                part_overall_points = Question.objects.filter(part_id = parts.pk).aggregate(Sum('points')).get('points__sum')
+                update_part_pverall_points = Part.objects.filter(part_id = parts.pk).update(overall_points = part_overall_points)
 
             messages.success(request, "Question edited successfully.")
         
         elif 'btnDelPart' in request.POST:
             part_to_delete = request.POST.get("part_to_delete")
-            # part = request.POST.get("part")
 
-            print(part_to_delete)
-
-            # get_exam_id = Exam.objects.get(exam_id = exam_to_delete)
-            # get_part_id = Part.objects.get(part_id = part)
             del_ques = Part.objects.filter(part_id = part_to_delete).delete()
-            
-            # # Update total exam items and overall points of Exam after deleting
-            # total_items = Question.objects.filter(exam = get_exam_id).count()
-            # total_points = Question.objects.filter(exam = get_exam_id).aggregate(Sum('points')).get('points__sum')
 
-            # update_total_items = Exam.objects.filter(exam_id = exam_to_delete).update(total_items = total_items)
-            # update_total_points = Exam.objects.filter(exam_id = exam_to_delete).update(overall_points = total_points)
-            
-            # # Update overall points of the particular Exam Part
-            # part_overall_pts = Question.objects.filter(part = get_part_id).aggregate(Sum('points')).get('points__sum')
+            # Update total exam items in Exam after deleting
+            get_exam = Exam.objects.last()
+            total_items = Question.objects.filter(exam = get_exam).count()
+            update_total_items = Exam.objects.filter(exam_id = get_exam.pk).update(total_items = total_items)
 
-            # update_part_overall_pts = Part.objects.filter(part_id = part).update(overall_points = part_overall_pts)
-            # messages.success(request, "Question saved.")
+            # Update overall points in Exam after deleting
+            overall_points = Question.objects.filter(exam_id = get_exam.pk).aggregate(Sum('points')).get('points__sum')
+            update_exam_overall_points = Exam.objects.filter(exam_id = get_exam.pk).update(overall_points = overall_points)
 
             messages.success(request, "Successfully deleted part.")
 
