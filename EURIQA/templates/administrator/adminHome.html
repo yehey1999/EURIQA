@@ -120,8 +120,8 @@
 							</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
-                            <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
-								<i class="material-icons-two-tone">account_circle</i> <!-- MODAL THIS -->
+                            <a href="../administrator/profile" class="dropdown-item">
+								<i class="material-icons-two-tone">account_circle</i> 
 								<span>Profile</span>
 							</a>
 							<a href="../administrator/logout" class="dropdown-item">
@@ -134,81 +134,6 @@
 			</div>
 		</div>
 	</header>
-	
-	<!-- User Profile Modal -->
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Profile</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-
-				<div class="modal-body">
-					{% for admin_details in admin_details %}
-					<div class="row">
-						<div class="col-12 col-sm-auto mb-3">
-							<div style="width: 140px;">
-							<div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-									image here
-							</div>
-							</div>
-						</div>
-						
-						<div class="col-sm d-flex flex-column flex-sm-row justify-content-between mb-3">
-							<div class="text-sm-left mb-2 mb-sm-0">
-								<h2 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{admin_details.user.get_full_name}}</h4>
-								<p class="mb-0"><small>{{admin_details.user.username}}</small></p>
-								<div class="text-muted">
-									<small>{{admin_details.position}}</small>
-								</div>
-								<small><a href="#" style="color: #741E1E">Change photo</a></small>
-							</div>
-							<div class="text-justified text-sm-right">
-							<div class="text-muted"><small>Last logged in: <br><em>{{admin_details.user.last_login}}</em></small></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col">
-							<div class="card border-light mb-3">
-								<div class="card-header">
-									<b>Personal Information</b>
-								</div>
-								<div class="card-body">
-									<dl class="row">
-										<dt class="col-sm-3">Full Name</dt>
-										<dd class="col-sm-9">{{admin_details.user.get_full_name}}</dd>
-		
-										<dt class="col-sm-3">Email</dt>
-										<dd class="col-sm-9">{{admin_details.user.email}}</dd>
-		
-										<dt class="col-sm-3">Address</dt>
-										<dd class="col-sm-9">{{admin_details.address}}</dd>
-									
-										<dt class="col-sm-3">Position</dt>
-										<dd class="col-sm-9">Faculty/NAS/Admin</dd>
-									
-										<dt class="col-sm-3">College</dt>
-										<dd class="col-sm-9"></dd>
-		
-										<dt class="col-sm-3">Department</dt>
-										<dd class="col-sm-9">{{admin_details.position}}</dd>
-									</dl>
-								</div>
-							</div>
-						</div>
-					</div>
-					{% endfor %}
-				</div>
-				<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: maroon;">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- [ Header ] end -->
 
 <!-- [ Main Content ] start -->
