@@ -8,6 +8,7 @@ from administrator.models import *
 from enrollee.models import *
 from django.db import connection
 from django.db.models import Sum
+from django.core.files.storage import FileSystemStorage
 # from .forms import EnrolleeRegistrationForm
 # from .forms import QuestionForm
 
@@ -66,6 +67,9 @@ class AdminDashboard(View):
 class AdmminProfile(View):
     def get(self,request):
         qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        print(qs_admin)
+        for admin in qs_admin:
+            print(admin.user_id)
         context = {
             'admin_details': qs_admin,
         }
@@ -73,6 +77,25 @@ class AdmminProfile(View):
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminProfile.html', context)
+
+    # admin_details = read by the template
+
+    def post(self, request):
+        if request.method == 'POST':
+            if 'saveBtn' in request.POST:   
+                print('change profile button clicked')
+                picture = request.FILES['picture']
+                fileSystemStorage = FileSystemStorage()
+                filename = fileSystemStorage.save(picture.name, picture)
+                picture = fileSystemStorage.url(filename)
+
+
+                update_admin = Administrator.objects.filter(user_id = request.user.id).update(
+                    picture = picture)
+                print('added image')
+
+            # return HttpResponse ('post')
+            return redirect("administrator:admin_profile")
         
 class AdminAccountRegistrationView(View):
     def get(self,request):
