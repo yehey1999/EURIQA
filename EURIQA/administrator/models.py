@@ -9,9 +9,11 @@ class Administrator(models.Model):
     middle_name = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50, blank=False)
     position = models.CharField(max_length=50, blank=False)
+    picture = models.FileField(upload_to='customer_images/', null = True)
     
     class Meta:
         db_table = 'administrator'
+
 
 class Exam(models.Model):
 	# Upcoming : Exam duration
@@ -52,4 +54,4 @@ class Question(models.Model):
 
 	class Meta:
 		db_table = "question"
-	
+
