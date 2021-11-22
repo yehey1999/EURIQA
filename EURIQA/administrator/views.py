@@ -81,6 +81,13 @@ class AdmminProfile(View):
         if request.method == 'POST':
             if 'saveBtn' in request.POST:   
                 print('change profile button clicked')
+                firstname = request.POST.get("update_first_name")
+                middlename = request.POST.get("update_middle_name")
+                lastname = request.POST.get("update_last_name")
+                address = request.POST.get("update_address")
+                position = request.POST.get("update_position")
+                username = request.POST.get("update_username")
+
                 picture = request.FILES['picture']
                 fileSystemStorage = FileSystemStorage()
                 filename = fileSystemStorage.save(picture.name, picture)
@@ -88,7 +95,16 @@ class AdmminProfile(View):
 
 
                 update_admin = Administrator.objects.filter(user_id = request.user.id).update(
-                    picture = picture)
+                    picture = picture,
+                    # first_name = firstname,
+                    middle_name = middlename,
+                    # last_name = lastname,
+                    address = address,
+                    position = position,
+                    # username = username)
+                    )
+                print(update_admin)
+                print('profile updated!')
                 print('added image')
 
             # return HttpResponse ('post')
