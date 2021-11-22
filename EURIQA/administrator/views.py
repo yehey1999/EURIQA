@@ -96,13 +96,16 @@ class AdmminProfile(View):
 
                 update_admin = Administrator.objects.filter(user_id = request.user.id).update(
                     picture = picture,
-                    # first_name = firstname,
                     middle_name = middlename,
-                    # last_name = lastname,
                     address = address,
-                    position = position,
-                    # username = username)
+                    position = position
                     )
+
+                update_user = User.objects.filter(id = request.user.id).update(
+                    first_name = firstname,
+                    last_name = lastname,
+                    username = username)
+
                 print(update_admin)
                 print('profile updated!')
                 print('added image')
