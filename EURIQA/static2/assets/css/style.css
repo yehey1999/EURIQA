@@ -18,6 +18,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Montserrat", sans-serif;
 }
 
+
+
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -561,12 +563,28 @@ section {
 # Multi step Modal
 --------------------------------------------------------------*/
 
+input:-webkit-auto-fill, input:-webkit-auto-fill:hover, input:-webkit-auto-fill:focus {
+  font-family: 'Montserrat', sans-serif, !important;
+}
+
+input:-webkit-autofill::first-line{
+  font-family: 'Montserrat', sans-serif, !important;
+}
+
+
+input:autofill {
+  font-family: 'Montserrat', sans-serif, !important;
+}
+
+
+
 .form-control:focus {
-  color: #fff;
-  background-color: #FADE11;
+  color: #000;
+  background-color: #ffffff;
   border-color: #741E1E;
   outline: 0;
-  box-shadow: 0 0 0 0rem #741E1E
+  box-shadow: 0 0 0 0rem #741E1E;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-secondary:focus {
