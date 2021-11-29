@@ -64,7 +64,7 @@
 						<label>Examination</label>
 					</li>
 					<li class="pc-item active">
-						<a href="index.html" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">home</i></span><span class="pc-mtext">Part 1 - General Knowledge</span></a>
+						<a href="../enrollee/exam" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">home</i></span><span class="pc-mtext">Part 1 - General Knowledge</span></a>
 					</li>
 
 					<li class="pc-item">
@@ -94,19 +94,19 @@
               <img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="user-image" class="user-avtar">
               <span>
                 <span class="user-name"></span>
-                <span class="user-desc">John Paul Alferez</span>
+                <span class="user-desc">{{user.first_name}} {{user.last_name}}</span>
               </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
-                            <a href="#!" class="dropdown-item">
+                 <!--            <a href="#!" class="dropdown-item">
                 <i class="material-icons-two-tone">support</i>
                 <span>Support</span>
               </a>
               <a href="#!" class="dropdown-item">
                 <i class="material-icons-two-tone">settings</i>
                 <span>Settings</span>
-              </a>
-              <a href="#!" class="dropdown-item">
+              </a> -->
+              <a href="../enrollee/logout" class="dropdown-item">
                 <i class="material-icons-two-tone">chrome_reader_mode</i>
                 <span>Logout</span>
               </a>
