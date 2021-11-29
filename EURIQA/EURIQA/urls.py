@@ -24,3 +24,5 @@ urlpatterns = [
     path('enrollee/',include('enrollee.urls', namespace='enrollee')),
     path('administrator/',include('administrator.urls', namespace='administrator')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

@@ -329,6 +329,7 @@
                                 <h5 class="modal-title" id="editModalLabel">Edit Profile Photo</h5>
                                 </div><br>
 
+                                
                                 <div class="row mb-6">
                                     <div class="col-sm-3">
                                         <div class="avatar-wrapper">
@@ -337,11 +338,17 @@
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="image-preview" id="imagePreview">
-                                            <img src="" alt="Image Preview" class="image-preview__image" width="500px" height="300px">
+                                            {% if admin.picture %}
+                                            <img src="{{ admin.picture.url }}" alt="Image Preview" class="image-preview__image" width="200px" height="200px">
+                                            {% else %}
+                                            <img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="" class="" width="200px" height="200px">
+                                            {% endif %}
+
                                             <span class="image-preview__default-text"></span>
                                         </div>
                                     </div>
                                 </div>
+                                
 
                                 <script>
                                     const picture = document.getElementById("picture");
