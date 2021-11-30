@@ -70,3 +70,20 @@ class EnrolleeExamView(View):
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
         return render(request, 'enrollee/enrolleeExam.html')
+class EnrolleeDataPolicyView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("enrollee:enrollee_login")
+        return render(request, 'enrollee/enrolleeDataPolicy.html')
+
+class EnrolleeCaptureImageView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("enrollee:enrollee_login")
+        return render(request, 'enrollee/enrolleeCaptureImage.html')
+
+class EnrolleeInstructionsView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("enrollee:enrollee_login")
+        return render(request, 'enrollee/enrolleeInstructions.html')

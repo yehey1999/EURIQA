@@ -9,5 +9,8 @@ urlpatterns = [
     path('logout', views.EnrolleeLogoutView.as_view(), name='enrollee_logout'),
     path('details', views.EnrolleeDetailsCheckView.as_view(), name='enrollee_details'),
     path('terms', views.EnrolleeTermsView.as_view(), name='enrollee_terms'),
-    path('exam', views.EnrolleeExamView.as_view(), name='enrollee_terms')
+    path('exam', views.EnrolleeExamView.as_view(), name='enrollee_exam'),
+    path('datapolicy', views.EnrolleeDataPolicyView.as_view(), name='enrollee_datapolicy'),
+    path('captureimage', views.EnrolleeCaptureImageView.as_view(), name='enrollee_captureimage'),
+    path('instructions', views.EnrolleeInstructionsView.as_view(), name='enrollee_instructions')
 ]
