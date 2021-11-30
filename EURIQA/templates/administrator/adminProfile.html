@@ -3,14 +3,14 @@
 <html lang="en">
 
 <head>
-    <title>Admin Dashboard</title>
+    <title>Profile Settings</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicon icon -->
-    <link rel="icon" href="{% static 'assets/images/dashboard/favicon.svg' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/img/favicon.png' %}" type="image/x-icon">
 
     <!-- font css -->
     <link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}">
@@ -109,7 +109,9 @@
                 <ul class="list-unstyled">
                     <li class="dropdown pc-h-item">
                         <a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                            <img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="" class="user-avtar">
+                            {% for admin in admin_details %}
+                            <img src='{{admin.picture.url}}' alt="" class="user-avtar">
+                            {% endfor %}
                             <span>
                                 <span class="user-name">{{user.get_full_name}}</span>
                                 <span class="user-desc">Administrator</span>
