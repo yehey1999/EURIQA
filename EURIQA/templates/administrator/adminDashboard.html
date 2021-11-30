@@ -87,7 +87,7 @@
 						<span>Exam Management Settings</span>
 					</li>
                     <li class="pc-item">
-						<a href="../administrator/exam-management/all-exams" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">assignment</i></span><span class="pc-mtext">Manage Exams</span></a>
+						<a href="../administrator/exam-management/all-exams" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">assignment</i></span><span class="pc-mtext">All Exams</span></a>
 					</li>
                     <li class="pc-item">
 						<a href="../administrator/exam-management/create-exam" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">post_add</i></span><span class="pc-mtext">Create Exam</span></a>
@@ -114,7 +114,9 @@
 				<ul class="list-unstyled">
 					<li class="dropdown pc-h-item">
 						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-							<img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="user-image" class="user-avtar">
+							{% for admin in admin_details %}
+                            <img src='{{admin.picture.url}}' alt="" class="user-avtar">
+                            {% endfor %}
 							<span>
 								<span class="user-name">{{user.get_full_name}}</span>
 								<span class="user-desc">Administrator</span>

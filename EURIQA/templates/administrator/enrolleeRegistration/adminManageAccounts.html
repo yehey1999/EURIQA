@@ -124,7 +124,9 @@
 				<ul class="list-unstyled">
 					<li class="dropdown pc-h-item">
 						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-							<img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="user-image" class="user-avtar">
+							{% for admin in admin_details %}
+                            <img src='{{admin.picture.url}}' alt="" class="user-avtar">
+                            {% endfor %}
 							<span>
 								<span class="user-name">{{user.get_full_name}}</span>
 								<span class="user-desc">Administrator</span>
@@ -223,16 +225,17 @@
                                                     {% csrf_token %}
                                                     <!-- Gets the id and exam status of the user-->
                                                     <input name="user_id" value={{account.user.id}} hidden />
-                                                    <input name="exam_status" value="{{account.exam_status}}" hidden />
+                                                    <input type="text" name="exam_status" value="{{account.exam_status}}" hidden/>
+                                                    <input type="text" name="program_id" value="{{account.program.program_id}}" hidden/>
                                                     
                                                     <!-- Enables the deactivation confirmation modal when button is clicked-->
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#deactivateAcc" style="border: none;">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#deactivateAcc-{{account.enrollee_id}}" style="border: none;">
                                                         <i class="fas fa-trash-alt" style="color: red;"></i>
                                                     </a>
                                                     
                                                     
                                                     <!-- Deactivation Confirmation Modal-->
-                                                    <div class="modal fade" id="deactivateAcc" tabindex="-1" aria-labelledby="deactivateAccLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="deactivateAcc-{{account.enrollee_id}}" tabindex="-1" aria-labelledby="deactivateAccLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -405,12 +408,12 @@
                                                     <input name="enrollee_id" value={{account.enrollee_id}} hidden />
 
                                                     <!-- Enables the reactivation confirmation modal when button is clicked-->
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#reactivateAcc" style="border: none;">
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#reactivateAcc-{{account.enrollee_id}}" style="border: none;">
                                                         <i class="fas fa-plus-circle" style="color: green;"></i>
                                                     </a>
                                                     
                                                     <!-- Deactivation Confirmation Modal-->
-                                                    <div class="modal fade" id="reactivateAcc" tabindex="-1" aria-labelledby="reactivateAccLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="reactivateAcc-{{account.enrollee_id}}" tabindex="-1" aria-labelledby="reactivateAccLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">

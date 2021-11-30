@@ -116,7 +116,9 @@
 				<ul class="list-unstyled">
 					<li class="dropdown pc-h-item">
 						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-							<img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="user-image" class="user-avtar">
+							{% for admin in admin_details %}
+                            <img src='{{admin.picture.url}}' alt="" class="user-avtar">
+                            {% endfor %}
 							<span>
 								<span class="user-name">{{user.get_full_name}}</span>
 								<span class="user-desc">Administrator</span>
@@ -180,9 +182,18 @@
                                 {% csrf_token %}       
                                 <h2>Account Details</h2>
                                 <hr>
-                    
+                                
+                                <!-- Type input field -->
+                                <div class="col-md-3 div_type">
+                                    <label for="user_type" class="form-label" >Type</label>
+                                    <select id="inputType" class="form-select type" name="user_type" required>
+                                        <option value="enrollee" selected>Enrollee</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </div>
+
                                 <!-- Username input field -->
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="inputUname" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="inputUname" placeholder="ID Number" name="username" required>
                                     
@@ -193,7 +204,7 @@
                                 </div>
                     
                                 <!-- Password input field -->
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="inputPass" class="form-label">Password</label>
                                     <input type="text" class="form-control" id="inputPass" placeholder="Format: Lastname.123456" name="password" readonly required>
                     
@@ -203,7 +214,7 @@
                                 </div>
                     
                                 <!-- Email input field -->
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="inputEmail" class="form-label">Email Address</label>
                                     <input type="email" class="form-control" name="email" id="inputEmail" required>
                     
@@ -212,24 +223,15 @@
                                     </div>
                                 </div>
                     
-                                <!-- Type input field -->
-                                <div class="col-md-3 div_type">
-                                    <label for="user_type" class="form-label" >Type</label>
-                                    <select class="form-select type" name="user_type" required>
-                                        <option value="enrollee" selected>Enrollee</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                </div>
-                    
                                 <!-- Enrolled as input field -->
                                 <div class="col-md-3 div_enrolled_as">
                                     <label for="enrolled_as" class="form-label" >Enrolled as</label>
-                                    <select class="form-select enrolled_as" name="enrolled_as" required>
+                                    <select id="inputEnrolledAs" class="form-select enrolled_as" name="enrolled_as" required>
                                         <option value="freshman" selected>Freshman</option>
                                         <option value="transferee">Transferee</option>
                                     </select>
                                 </div>
-                    
+
                                 <!-- School level input field -->
                                 <div class="col-md-3 div_level">
                                     <label for="inputLevel" class="form-label" >School Level</label>
@@ -241,16 +243,91 @@
                                     </select>
                                 </div>
                     
-                                <!-- Program input field -->
-                                <div class="col-md-3 div_program">
-                                    <label for="inputProgram" class="form-label" >Enrolled Program</label>
-                                    <select id="inputProgram" class="form-select program" name="program" required>
-                                        {% for program in programs %}
-                                            <option value={{program.program_id}}>{{program.program_name}}</option> 
-                                        {% endfor %}
+                                <!-- Colleges input field -->
+                                <div class="col-md-3 div_colleges">
+                                    <label for="inputColleges" class="form-label" >College</label>
+                                    <select id="inputColleges" class="form-select colleges" name="colleges" required>
+                                            <option value="CASE" selected>CASE</option>
+                                            <option value="CCS">CCS</option> 
+                                            <option value="CCJ">CCJ</option> 
+                                            <option value="CEA">CEA</option> 
+                                            <option value="CMBA">CMBA</option> 
+                                            <option value="CNAHS">CNAHS</option> 
                                     </select>
                                 </div>
-                    
+
+                                        <!-- CASE Depts input field -->
+                                        <div class="col-md-3 div_case">
+                                            <label for="inputCase" class="form-label" >Enrolled Program</label>
+                                            <select id="inputCase" class="form-select case" name="program" required>
+                                                {% for program in programs %}
+                                                {% if program.college == 'CASE' %}
+                                                    <option value={{program.program_id}}>{{program.program_name}}</option> 
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <!-- CCS Depts input field -->
+                                        <div class="col-md-3 div_ccs">
+                                            <label for="inputCcs" class="form-label" >Enrolled Program</label>
+                                            <select id="inputCcs" class="form-select ccs" name="program" required>
+                                                {% for program in programs %}
+                                                {% if program.college == 'CCS' %}
+                                                    <option value={{program.program_id}}>{{program.program_name}}</option> 
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        
+                                        <!-- CCJ Depts input field -->
+                                        <div class="col-md-3 div_ccj">
+                                            <label for="inputCcj" class="form-label" >Enrolled Program</label>
+                                            <select id="inputCcj" class="form-select ccj" name="program" required>
+                                                {% for program in programs %}
+                                                {% if program.college == 'CCJ' %}
+                                                    <option value={{program.program_id}}>{{program.program_name}}</option> 
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <!-- CEA Depts input field -->
+                                        <div class="col-md-3 div_cea">
+                                            <label for="inputCea" class="form-label" >Enrolled Program</label>
+                                            <select id="inputCea" class="form-select cea" name="program" required>
+                                                {% for program in programs %}
+                                                {% if program.college == 'CEA' %}
+                                                    <option value={{program.program_id}}>{{program.program_name}}</option> 
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <!-- CNAHS Depts input field -->
+                                        <div class="col-md-3 div_cnahs">
+                                            <label for="inputCnahs" class="form-label" >Enrolled Program</label>
+                                            <select id="inputCnahs" class="form-select cnahs" name="program" required>
+                                                {% for program in programs %}
+                                                {% if program.college == 'CNAHS' %}
+                                                    <option value={{program.program_id}}>{{program.program_name}}</option> 
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+
+                                        <!-- CMBA Depts input field -->
+                                        <div class="col-md-3 div_cmba">
+                                            <label for="inputCmba" class="form-label" >Enrolled Program</label>
+                                            <select id="inputCmba" class="form-select cmba" name="program" required>
+                                                {% for program in programs %}
+                                                {% if program.college == 'CMBA' %}
+                                                    <option value={{program.program_id}}>{{program.program_name}}</option> 
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                
                                 <!-- Strand input field -->
                                 <div class="col-md-3 div_strand">
                                     <label for="inputStrand" class="form-label" >Enrolled Strand</label>
@@ -374,47 +451,290 @@
 
     <!-- INPUT SCRIPTS -->
     <script>
-        // Hide level input field when user type is admin and vice versa
+        // Hide and disable all inputs related to admin when user type is 'enrollee'
         $(".type").change(function() {
         if ($(this).val() == "enrollee") {
             $('.div_pos').hide();
-            $('.div_level').show();
-            $('.div_program').show();
-            $('.div_enrolled_as').show();
+            $("#inputPos").prop('disabled', true);
 
+            $('.div_level').show();
+            $("#inputLevel").prop('disabled', false);
+
+            $('.div_colleges').show();
+            $("#inputColleges").prop('disabled', false);
+
+            $('.div_case').show();
+            $("#inputCase").prop('disabled', false);
+
+            $('.div_enrolled_as').show();
+            $("#inputEnrolledAs").prop('disabled', false);
+
+        // Hide and disable all inputs related to enrollee when user type is 'admin'
         } else {
             $('.div_pos').show();
-            $('.div_program').hide();
+            $("#inputPos").prop('disabled', false);
+
+            $('.div_colleges').hide();
+            $("#inputColleges").prop('disabled', true);
+
             $('.div_level').hide();
+            $("#inputLevel").prop('disabled', true);
+
+            $('.div_colleges').hide();
+            $("#inputColleges").prop('disabled', true);
+
             $('.div_enrolled_as').hide();
+            $("#inputEnrolledAs").prop('disabled', true);
+
+            $('.div_strand').hide();
+            $("#inputStrand").prop('disabled', true);
+            
+            $('.div_colleges').hide();
+            $("#inputColleges").prop('disabled', true);
+
+            $('.div_ccs').hide();
+            $("#inputCcs").prop('disabled', true);
+
+            $('.div_case').hide();
+            $("#inputCase").prop('disabled', true);
+
+            $('.div_ccj').hide();
+            $("#inputCcj").prop('disabled', true);
+
+            $('.div_cea').hide();
+            $("#inputCea").prop('disabled', true);
+
+            $('.div_cnahs').hide();
+            $("#inputCnahs").prop('disabled', true);
+
+            $('.div_cmba').hide();
+            $("#inputCmba").prop('disabled', true);
         }
         });
 
-        // Hide and disable strand input field when level is 'college'
+        // Hide and disable input fields related to 'shs' when level is 'college'
         $(".level").change(function() {
         if ($(this).val() == "college") {
+            $('.div_colleges').show();
+            $("#inputColleges").prop('disabled', false);
+            
             $('.div_strand').hide();
-            $("#inputProgram").prop('disabled', false);
             $("#inputStrand").prop('disabled', true);
-            $('.div_program').show();
 
-        // Hide and disable program input field when level is 'shs'
+            $('.div_ccs').hide();
+            $("#inputCcs").prop('disabled', true);
+
+            $('.div_case').show();
+            $("#inputCase").prop('disabled', false);
+
+            $('.div_ccj').hide();
+            $("#inputCcj").prop('disabled', true);
+
+            $('.div_cea').hide();
+            $("#inputCea").prop('disabled', true);
+
+            $('.div_cnahs').hide();
+            $("#inputCnahs").prop('disabled', true);
+
+            $('.div_cmba').hide();
+            $("#inputCmba").prop('disabled', true);
+             
+            // Selecting the proper courses to display belonging to 'CCS'
+            $(".colleges").change(function() {
+            if ($(this).val() == "CCS") {
+                $('.div_ccs').show();
+                $("#inputCcs").prop('disabled', false);
+
+                $('.div_case').hide();
+                $("#inputCase").prop('disabled', true);
+
+                $('.div_ccj').hide();
+                $("#inputCcj").prop('disabled', true);
+
+                $('.div_cea').hide();
+                $("#inputCea").prop('disabled', true);
+
+                $('.div_cnahs').hide();
+                $("#inputCnahs").prop('disabled', true);
+
+                $('.div_cmba').hide();
+                $("#inputCmba").prop('disabled', true);
+
+            // Selecting the proper courses to display belonging to 'CASE'
+            } else if($(this).val() == "CASE") {
+                $('.div_ccs').hide();
+                $("#inputCcs").prop('disabled', true);
+
+                $('.div_case').show();
+                $("#inputCase").prop('disabled', false);
+
+                $('.div_ccj').hide();
+                $("#inputCcj").prop('disabled', true);
+
+                $('.div_cea').hide();
+                $("#inputCea").prop('disabled', true);
+
+                $('.div_cnahs').hide();
+                $("#inputCnahs").prop('disabled', true);
+
+                $('.div_cmba').hide();
+                $("#inputCmba").prop('disabled', true);
+
+            // Selecting the proper courses to display belonging to 'CCJ'
+            } else if($(this).val() == "CCJ") {
+                $('.div_ccs').hide();
+                $("#inputCcs").prop('disabled', true);
+
+                $('.div_case').hide();
+                $("#inputCase").prop('disabled', true);
+
+                $('.div_ccj').show();
+                $("#inputCcj").prop('disabled', false);
+
+                $('.div_cea').hide();
+                $("#inputCea").prop('disabled', true);
+
+                $('.div_cnahs').hide();
+                $("#inputCnahs").prop('disabled', true);
+
+                $('.div_cmba').hide();
+                $("#inputCmba").prop('disabled', true);
+            
+            // Selecting the proper courses to display belonging to 'CEA'
+            } else if($(this).val() == "CEA") {
+                $('.div_ccs').hide();
+                $("#inputCcs").prop('disabled', true);
+
+                $('.div_case').hide();
+                $("#inputCase").prop('disabled', true);
+
+                $('.div_ccj').hide();
+                $("#inputCcj").prop('disabled', true);
+
+                $('.div_cea').show();
+                $("#inputCea").prop('disabled', false);
+
+                $('.div_cnahs').hide();
+                $("#inputCnahs").prop('disabled', true);
+
+                $('.div_cmba').hide();
+                $("#inputCmba").prop('disabled', true);
+
+            // Selecting the proper courses to display belonging to 'CNAHS'
+            } else if($(this).val() == "CNAHS") {
+                $('.div_ccs').hide();
+                $("#inputCcs").prop('disabled', true);
+
+                $('.div_case').hide();
+                $("#inputCase").prop('disabled', true);
+
+                $('.div_ccj').hide();
+                $("#inputCcj").prop('disabled', true);
+
+                $('.div_cea').hide();
+                $("#inputCea").prop('disabled', true);
+
+                $('.div_cnahs').show();
+                $("#inputCnahs").prop('disabled', false);
+
+                $('.div_cmba').hide();
+                $("#inputCmba").prop('disabled', true);
+
+            // Selecting the proper courses to display belonging to 'CMBA'
+            } else if($(this).val() == "CMBA") {
+                $('.div_ccs').hide();
+                $("#inputCcs").prop('disabled', true);
+
+                $('.div_case').hide();
+                $("#inputCase").prop('disabled', true);
+
+                $('.div_ccj').hide();
+                $("#inputCcj").prop('disabled', true);
+
+                $('.div_cea').hide();
+                $("#inputCea").prop('disabled', true);
+
+                $('.div_cnahs').hide();
+                $("#inputCnahs").prop('disabled', true);
+
+                $('.div_cmba').show();
+                $("#inputCmba").prop('disabled', false);
+            
+            } else {
+                $('.div_ccs').hide();
+                $("#inputCcs").prop('disabled', true);
+
+                $('.div_case').hide();
+                $("#inputCase").prop('disabled', true);
+
+                $('.div_ccj').hide();
+                $("#inputCcj").prop('disabled', true);
+
+                $('.div_cea').hide();
+                $("#inputCea").prop('disabled', true);
+
+                $('.div_cnahs').hide();
+                $("#inputCnahs").prop('disabled', true);
+
+                $('.div_cmba').hide();
+                $("#inputCmba").prop('disabled', true);
+            }
+            });
+
+        // Hide and disable input fields related to 'college' when level is 'shs'
         } else {
             $('.div_strand').show();
-            $('.div_program').hide();
             $("#inputStrand").prop('disabled', false);
-            $("#inputProgram").prop('disabled', true);
+            
+            $('.div_colleges').hide();
+            $("#inputColleges").prop('disabled', true);
+
+            $('.div_ccs').hide();
+            $("#inputCcs").prop('disabled', true);
+
+            $('.div_case').hide();
+            $("#inputCase").prop('disabled', true);
+
+            $('.div_ccj').hide();
+            $("#inputCcj").prop('disabled', true);
+
+            $('.div_cea').hide();
+            $("#inputCea").prop('disabled', true);
+
+            $('.div_cnahs').hide();
+            $("#inputCnahs").prop('disabled', true);
+
+            $('.div_cmba').hide();
+            $("#inputCmba").prop('disabled', true);
         }
         });
 
-        // Hide and disable strand and program when level is 'elem' or 'jhs'
+        // Hide and disable fields related to 'college' and 'shs' when level is 'elem' or 'jhs'
         $(".level").change(function() {
         if ($(this).val() == "elem" || $(this).val() == "jhs" ) {
             $('.div_strand').hide();
-            $('.div_program').hide();
-
             $("#inputStrand").prop('disabled', true);
-            $("#inputProgram").prop('disabled', true);
+            
+            $('.div_colleges').hide();
+            $("#inputColleges").prop('disabled', true);
+
+            $('.div_ccs').hide();
+            $("#inputCcs").prop('disabled', true);
+
+            $('.div_case').hide();
+            $("#inputCase").prop('disabled', true);
+
+            $('.div_ccj').hide();
+            $("#inputCcj").prop('disabled', true);
+
+            $('.div_cea').hide();
+            $("#inputCea").prop('disabled', true);
+
+            $('.div_cnahs').hide();
+            $("#inputCnahs").prop('disabled', true);
+
+            $('.div_cmba').hide();
+            $("#inputCmba").prop('disabled', true);
         }
         });
 

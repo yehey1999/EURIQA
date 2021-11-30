@@ -60,9 +60,15 @@ class AdminHomeView(View):
 
 class AdminDashboard(View):
     def get(self,request):
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+
+        context = {
+            'admin_details': qs_admin,
+        }
+        
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
-        return render(request, 'administrator/adminDashboard.html')
+        return render(request, 'administrator/adminDashboard.html', context)
 
 class AdmminProfile(View):
     def get(self,request):
@@ -117,7 +123,10 @@ class AdminAccountRegistrationView(View):
     def get(self,request):
         qs_program = Program.objects.order_by('program_name')
         qs_strand = Strand.objects.order_by('strand_name')
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        
         context = {
+            'admin_details': qs_admin,
             'programs': qs_program,
             'strands': qs_strand,
         }
@@ -145,12 +154,12 @@ class AdminAccountRegistrationView(View):
                     program = None
                 else:
                     program = Program.objects.get(program_id=set_program)
-                
+
                 if set_strand is None:
                     strand = None
                 else:
                     strand = Strand.objects.get(strand_id=set_strand)
-                
+
                 position = request.POST.get('position')
                 user_type = request.POST.get('user_type')
 
@@ -168,11 +177,21 @@ class AdminAccountRegistrationView(View):
                 user_id_latest_added=User.objects.all().last()
                 register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level, program = program, strand = strand, enrolled_as = enrolled_as)
                 register_enrollee.save()
+                
+                # Can easily update the number of enrollees for we set either program and strand to null if they received no input from the template
+                # Update total enrollees in Program
+                total_enrollees_col = Enrollee.objects.filter(program = set_program).count()
+                update_enrollees_col = Program.objects.filter(program_id = set_program).update(num_enrollees = total_enrollees_col)
+                
+                # Update total enrollees in Strand
+                total_enrollees_shs = Enrollee.objects.filter(strand = set_strand).count()
+                update_total_enrollees_shs = Strand.objects.filter(strand_id = set_strand).update(num_enrollees = total_enrollees_shs)
 
             else:
                 user_id_latest_added=User.objects.all().last()
                 register_admin = Administrator(user = user_id_latest_added, middle_name=middlename, address = full_address, position = position)
                 register_admin.save()
+
         messages.success(request, "Account created")
 
         return redirect("administrator:admin_regform")
@@ -180,7 +199,10 @@ class AdminAccountRegistrationView(View):
 class AdminManageAccounts(View):
     def get(self,request):
         qs_accounts = Enrollee.objects.all()
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        
         context = {
+            'admin_details': qs_admin,
             'accounts': qs_accounts,
         }
 
@@ -193,10 +215,21 @@ class AdminManageAccounts(View):
             # Deactivate accounts that are done taking the exam
             if 'btn_deact' in request.POST:
                 user_id = request.POST.get('user_id')
-                exam_status = request.POST.get('exam_status')
+                exam_status = request.POST.get("exam_status")
+                program_id = request.POST.get("program_id")
                 
                 if exam_status == "done":
                     deactivate_acc = User.objects.filter(id = user_id).update(is_active=0)
+
+                    # Update total enrollees in Program
+                    check_isactive = User.objects.filter(is_active = 1).values_list('id', flat=True)
+                    get_enrollee = Enrollee.objects.filter(enrollee_id__in = check_isactive).values_list('program', flat=True)
+                    
+                    # Update total enrollees in Program
+                    total_enrollees_col = Enrollee.objects.filter(program__in = get_enrollee).count()
+                    update_enrollees_col = Program.objects.filter(program_id = program_id).update(num_enrollees = total_enrollees_col)
+                    
+
                     messages.success(request, 'Account deactivated')
                 else:
                     messages.error(request, 'Cannot deactivate account. Enrollee has not taken the exam yet.')
@@ -214,9 +247,14 @@ class AdminManageAccounts(View):
 
 class AdminCreateExam(View):
     def get(self,request):
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+
+        context = {
+            'admin_details': qs_admin,
+        }
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
-        return render(request, 'administrator/examManagement/adminCreateExam.html')
+        return render(request, 'administrator/examManagement/adminCreateExam.html', context)
 
     def post(self, request):
         if 'btnSaveExam' in request.POST:
@@ -247,8 +285,11 @@ class AdminAddQuestion(View):
         qs_parts = Part.objects.filter(exam_id = latest_exam) #Gets the parts of the latest exam added
         qs_questions = Question.objects.filter(exam = latest_exam) #Gets all the questions of the latest exam added
         part_ques_number = Question.objects.filter(part_id = part).count() #Counts the number of questions of the particular part
-
+        
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        
         context = {
+            'admin_details': qs_admin,
             'latest_exam': qs_exam,
             'parts': qs_parts,
             'questions': qs_questions,
@@ -422,8 +463,10 @@ class AdminAddQuestion(View):
 class AdminViewAllExamsTable(View):
     def get(self, request):
         qs_exam = Exam.objects.all()
-
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        
         context = {
+            'admin_details': qs_admin,
             'exams': qs_exam,
         }
 
