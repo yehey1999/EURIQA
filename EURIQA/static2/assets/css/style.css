@@ -559,6 +559,79 @@ section {
   background: #6e3232;
 }
 
+
+
+/*--------------------------------------------------------------
+# F.A.Q
+--------------------------------------------------------------*/
+.team .faq-list {
+  padding: 0;
+  width: 100%;
+}
+.team .faq-list ul {
+  padding: 0;
+  list-style: none;
+}
+.team .faq-list li + li {
+  margin-top: 15px;
+}
+.team .faq-list li {
+  padding: 20px;
+  background: whitesmoke;
+  border-radius: 4px;
+  position: relative;
+}
+.team .faq-list a {
+  display: block;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  padding: 0 30px;
+  outline: none;
+  cursor: pointer;
+  color: #741E1E;
+}
+.team .faq-list .icon-help {
+  font-size: 24px;
+  position: absolute;
+  right: 0;
+  left: 20px;
+  color: #741E1E;
+}
+.team .faq-list .icon-show, .faq .faq-list .icon-close {
+  font-size: 24px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.team .faq-list p {
+  margin-bottom: 0;
+  padding: 30px 10px 10px 10px;
+}
+.team .faq-list .icon-show {
+  display: none;
+}
+.team .faq-list a.collapsed {
+  color: #343a40;
+}
+.team .faq-list a.collapsed:hover {
+  color: #741E1E;
+}
+.team .faq-list a.collapsed .icon-show {
+  display: inline-block;
+}
+.team .faq-list a.collapsed .icon-close {
+  display: none;
+}
+@media (max-width: 1200px) {
+  .team .faq-list {
+    padding: 0;
+  }
+}
+
+
 /*--------------------------------------------------------------
 # Multi step Modal
 --------------------------------------------------------------*/
@@ -655,6 +728,7 @@ input:autofill {
   font-size: 13px;
   color: #000;
 }
+
 
 
 /*--------------------------------------------------------------
