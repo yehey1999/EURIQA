@@ -538,6 +538,9 @@ section {
 .details .btn-primary:hover {
   background: #6e3232;
 }
+.details .btn-primary:active {
+  background: #6e3232;
+}
 
 .btn-primary {
   font-family: "Montserrat", sans-serif;
