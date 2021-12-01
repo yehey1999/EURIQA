@@ -227,7 +227,7 @@
                                                     <input name="user_id" value={{account.user.id}} hidden />
                                                     <input type="text" name="exam_status" value="{{account.exam_status}}" hidden/>
                                                     <input type="text" name="program_id" value="{{account.program.program_id}}" hidden/>
-                                                    
+                                                    <input type="text" name="strand_id" value="{{account.strand.strand_id}}" hidden/>
                                                     <!-- Enables the deactivation confirmation modal when button is clicked-->
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#deactivateAcc-{{account.enrollee_id}}" style="border: none;">
                                                         <i class="fas fa-trash-alt" style="color: red;"></i>
@@ -405,8 +405,10 @@
                                                     {% csrf_token %}
                                                     <!-- Gets the id of the deactivated user-->
                                                     <input name="deact-user_id" value={{account.user.id}} hidden />
-                                                    <input name="enrollee_id" value={{account.enrollee_id}} hidden />
-
+                                                    <input name="deact-enrollee_id" value={{account.enrollee_id}} hidden />
+                                                    <input type="text" name="deact-program_id" value="{{account.program.program_id}}" hidden />
+                                                    <input type="text" name="deact-strand_id" value="{{account.strand.strand_id}}" hidden/>
+                                                    
                                                     <!-- Enables the reactivation confirmation modal when button is clicked-->
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#reactivateAcc-{{account.enrollee_id}}" style="border: none;">
                                                         <i class="fas fa-plus-circle" style="color: green;"></i>

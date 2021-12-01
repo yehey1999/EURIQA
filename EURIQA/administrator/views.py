@@ -217,30 +217,75 @@ class AdminManageAccounts(View):
                 user_id = request.POST.get('user_id')
                 exam_status = request.POST.get("exam_status")
                 program_id = request.POST.get("program_id")
+                strand_id = request.POST.get("strand_id")
                 
                 if exam_status == "done":
                     deactivate_acc = User.objects.filter(id = user_id).update(is_active=0)
 
-                    # Update total enrollees in Program
+                    # Update total enrollees in Program and Strand #
+                    # Gets the user id of all the active accounts
                     check_isactive = User.objects.filter(is_active = 1).values_list('id', flat=True)
-                    get_enrollee = Enrollee.objects.filter(enrollee_id__in = check_isactive).values_list('program', flat=True)
                     
-                    # Update total enrollees in Program
-                    total_enrollees_col = Enrollee.objects.filter(program__in = get_enrollee).count()
-                    update_enrollees_col = Program.objects.filter(program_id = program_id).update(num_enrollees = total_enrollees_col)
-                    
+                    # If Program is not none or empty, the user added is of College type and vice versa. 
+                    # herefore, proceed on updating the num of enrollees in Strand
+                    if program_id !=  "":
+                        # Gets the active enrollee of type 'College'
+                        get_active_col = Enrollee.objects.filter(user_id__in = check_isactive)
 
+                        # Counts the number of active enrollees under the input Strand after account deaqctivation
+                        total_enrollees_col = get_active_col.filter(program = program_id).count()
+                        
+                        # Updates the number of enrollees in the Program table based on the output from the count above
+                        update_enrollees_col = Program.objects.filter(program_id = program_id).update(num_enrollees = total_enrollees_col)
+                    
+                    else:
+                        # Gets the active enrollee of type 'SHS'
+                        get_active_shs = Enrollee.objects.filter(user_id__in = check_isactive)
+
+                        # Counts the number of active enrollees under the input Strand after account deaqctivation
+                        total_enrollees_shs = get_active_shs.filter(strand = strand_id).count()
+                        
+                        # Updates the number of enrollees in the Strand table based on the output from the count above
+                        update_enrollees_shs = Strand.objects.filter(strand_id = strand_id).update(num_enrollees = total_enrollees_shs)
                     messages.success(request, 'Account deactivated')
+
                 else:
                     messages.error(request, 'Cannot deactivate account. Enrollee has not taken the exam yet.')
 
             # Reactivate accounts that are deactivated
             if 'btn_react' in request.POST:
                 deact_uid = request.POST.get('deact-user_id')
-                enrollee_id = request.POST.get('enrollee_id')
+                enrollee_id = request.POST.get('deact-enrollee_id')
+                program_id = request.POST.get("deact-program_id")
+                strand_id = request.POST.get("deact-strand_id")
 
                 reactivate_acc = User.objects.filter(id = deact_uid).update(is_active=1)
                 update_examstat = Enrollee.objects.filter(enrollee_id = enrollee_id).update(exam_status="not done")
+                
+                # Update total enrollees in Program and Strand #
+                # Gets the user id of all the active accounts
+                check_isactive = User.objects.filter(is_active = 1).values_list('id', flat=True)
+
+                # If Program is none or empty, the user added is of SHS type. Therefore, proceed on updating the num of enrollees in Strand
+                if program_id != "":
+                    # Gets the active enrollee of type 'College'
+                    get_active_col = Enrollee.objects.filter(user_id__in = check_isactive)
+
+                    # Counts the number of active enrollees under the input Strand after account deaqctivation
+                    total_enrollees_col = get_active_col.filter(program = program_id).count()
+                    
+                    # Updates the number of enrollees in the Program table based on the output from the count above
+                    update_enrollees_col = Program.objects.filter(program_id = program_id).update(num_enrollees = total_enrollees_col)
+                
+                else:
+                    # Gets the active enrollee of type 'SHS'
+                    get_active_shs = Enrollee.objects.filter(user_id__in = check_isactive)
+
+                    # Counts the number of active enrollees under the input Strand after account deaqctivation
+                    total_enrollees_shs = get_active_shs.filter(strand = strand_id).count()
+                    
+                    # Updates the number of enrollees in the Strand table based on the output from the count above
+                    update_enrollees_shs = Strand.objects.filter(strand_id = strand_id).update(num_enrollees = total_enrollees_shs)
                 messages.success(request, 'Account reactivated')
 
         return redirect("administrator:admin_accounts")
