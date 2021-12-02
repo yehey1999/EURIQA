@@ -87,3 +87,9 @@ class EnrolleeInstructionsView(View):
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
         return render(request, 'enrollee/enrolleeInstructions.html')
+
+class EnrolleeExamCompletionView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("enrollee:enrollee_login")
+        return render(request, 'enrollee/enrolleeExamCompletion.html')

@@ -12,5 +12,6 @@ urlpatterns = [
     path('exam', views.EnrolleeExamView.as_view(), name='enrollee_exam'),
     path('datapolicy', views.EnrolleeDataPolicyView.as_view(), name='enrollee_datapolicy'),
     path('captureimage', views.EnrolleeCaptureImageView.as_view(), name='enrollee_captureimage'),
-    path('instructions', views.EnrolleeInstructionsView.as_view(), name='enrollee_instructions')
+    path('instructions', views.EnrolleeInstructionsView.as_view(), name='enrollee_instructions'),
+    path('examCompletion', views.EnrolleeExamCompletionView.as_view(), name='enrollee_examcompletion')
 ]

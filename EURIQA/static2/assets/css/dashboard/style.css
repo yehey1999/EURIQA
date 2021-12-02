@@ -5179,7 +5179,7 @@ textarea.form-control-lg {
     color: #ffffff;
     text-align: center;
     white-space: nowrap;
-    background-color: #7267EF;
+    background-color: #741E1E;
     transition: width 0.6s ease;
 }
 
@@ -14832,6 +14832,11 @@ pre[class*="language-"] > code {
     .pc-sidebar .pc-item:focus > .pc-link .pc-micon svg, .pc-sidebar .pc-item:hover > .pc-link .pc-micon i,
     .pc-sidebar .pc-item:hover > .pc-link .pc-micon svg {
     color: #fff;
+}
+
+.pc-item.disabled {
+    pointer-events:none;
+    opacity:0.6;         
 }
 
 .pc-sidebar .pc-navbar > .pc-item.active > .pc-link, .pc-sidebar .pc-navbar > .pc-item:focus > .pc-link, .pc-sidebar .pc-navbar > .pc-item:hover > .pc-link {
