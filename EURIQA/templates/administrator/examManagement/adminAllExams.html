@@ -216,11 +216,11 @@
                                     {% endif %} -->
                                         <td>{{exam.created_by.user.get_full_name}}</td> 
                                         <td>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#viewExam-{{exam.exam_id}}">
-                                                <i class="material-icons-two-tone" style="background-color:green; padding-bottom: 10px;">view_list</i>
+                                            <a href="/administrator/exam-management/edit-exam/{{exam.exam_id}}/">
+                                                <i title="Edit Exam" class="material-icons-two-tone" style="background-color:green; padding-bottom: 10px;">view_list</i>
                                             </a>
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#deleteExam-{{exam.exam_id}}">
-                                                <i class="material-icons-two-tone" style="background-color: maroon; padding-bottom: 10px;">delete</i>
+                                                <i title="Delete Exam" class="material-icons-two-tone" style="background-color: maroon; padding-bottom: 10px;">delete</i>
                                             </a>
 
                                             <!-- DELETE QUESTION MODAL -->
@@ -236,7 +236,7 @@
 
                                                         <div class="modal-body" style="text-align: left;">
                                                             Are you sure you want to delete exam?
-                                                            <input type="text" name="exam_to_delete" value={{exam.exam_id}} hidden>
+                                                            <input type="text" name="exam_id" value={{exam.exam_id}} hidden>
                                                         </div>
 
                                                         <div class="modal-footer">

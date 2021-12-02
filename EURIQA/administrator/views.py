@@ -521,10 +521,55 @@ class AdminViewAllExamsTable(View):
 
     def post(self, request):
         if request.method == "POST":
+            exam_id = request.POST.get("exam_id")
+            
             if 'btnDelExam' in request.POST:
-                exam_to_delete = request.POST.get("exam_to_delete")
-
-                del_ques = Exam.objects.filter(exam_id = exam_to_delete).delete()
+                del_ques = Exam.objects.filter(exam_id = exam_id).delete()
                 messages.success(request, "Successfully deleted exam.")
 
         return redirect("administrator:all-exams")
+
+def view_exam(request, exam_id=None):
+    get_all = Exam.objects.all().values_list('exam_id')
+    if Exam.objects.filter(exam_id__in=get_all):
+        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        qs_exam = Exam.objects.get(exam_id = exam_id)
+        qs_questions = Question.objects.filter(exam = exam_id)
+        qs_parts = Part.objects.filter(exam_id = exam_id) #Gets the parts of the latest exam added
+        
+        # get = qs_questions.values_list('part').distinct()
+        # for parts in enumerate(get):
+        #     print(parts)
+
+        # print(parts[1])
+    else:
+        messages.error(request,"User does not exist")
+
+    context ={
+        'exams': qs_exam,
+        'questions' : qs_questions,
+        'parts': qs_parts,
+        'admin_details': qs_admin,
+
+    }
+
+    return render(request, 'administrator/examManagement/adminViewExam.html',context)
+
+
+# class AdminEditExam(View):
+#     def get(self, request):
+#         qs_exam = Exam.objects.all()
+#         qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        
+#         context = {
+#             'admin_details': qs_admin,
+#             'exams': qs_exam,
+#         }
+
+#         if not request.user.is_authenticated:
+#             return redirect("administrator:admin_login")
+#         return render(request, 'administrator/examManagement/adminViewExam.html', context)
+
+#     def post(self, request):
+
+#         return redirect("administrator:edit-exams")

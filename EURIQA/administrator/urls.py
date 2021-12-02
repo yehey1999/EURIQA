@@ -14,4 +14,5 @@ urlpatterns = [
     path('exam-management/create-exam', views.AdminCreateExam.as_view(), name='admin_create_exam'),
     path('exam-management/exam-details', views.AdminAddQuestion.as_view(), name='admin_exam_details'),
     path('exam-management/all-exams', views.AdminViewAllExamsTable.as_view(), name='all-exams'),
-]
+    path('exam-management/edit-exam/<int:exam_id>/', views.view_exam, name='edit-exams'),
+]   

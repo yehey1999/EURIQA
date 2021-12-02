@@ -230,7 +230,7 @@
                                                     <input type="text" name="strand_id" value="{{account.strand.strand_id}}" hidden/>
                                                     <!-- Enables the deactivation confirmation modal when button is clicked-->
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#deactivateAcc-{{account.enrollee_id}}" style="border: none;">
-                                                        <i class="fas fa-trash-alt" style="color: red;"></i>
+                                                        <i title="Deactivate Account" class="material-icons-two-tone" style="background-color: maroon;">delete</i>
                                                     </a>
                                                     
                                                     
@@ -411,7 +411,8 @@
                                                     
                                                     <!-- Enables the reactivation confirmation modal when button is clicked-->
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#reactivateAcc-{{account.enrollee_id}}" style="border: none;">
-                                                        <i class="fas fa-plus-circle" style="color: green;"></i>
+                                                        <!-- <i title="Reactivate Account" class="fas fa-plus-circle" style="color: green;"></i> -->
+                                                        <i title="Reactivate Account" class="material-icons-two-tone" style="background-color:green;">add_circle</i>
                                                     </a>
                                                     
                                                     <!-- Deactivation Confirmation Modal-->
