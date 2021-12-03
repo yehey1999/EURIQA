@@ -61,9 +61,24 @@ class AdminHomeView(View):
 class AdminDashboard(View):
     def get(self,request):
         qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        qs_enrollee = Enrollee.objects.all()
+        qs_program = Program.objects.all()
+        qs_part = Part.objects.all()
+        qs_strand = Strand.objects.all()
+        count_freshman=Enrollee.objects.filter(enrolled_as='freshman').count()
+        count_transferee=Enrollee.objects.filter(enrolled_as='transferee').count()
+
+        print(qs_enrollee)
+        print(qs_program)
 
         context = {
-            'admin_details': qs_admin,
+            'qs_admin': qs_admin,
+            'qs_enrollee' : qs_enrollee,
+            'qs_program' : qs_program,
+            'qs_part' : qs_part,
+            'qs_strand' : qs_strand,
+            'count_freshman' : count_freshman,
+            'count_transferee' : count_transferee,
         }
         
         if not request.user.is_authenticated:
@@ -73,10 +88,11 @@ class AdminDashboard(View):
 class AdmminProfile(View):
     def get(self,request):
         qs_admin = Administrator.objects.filter(user_id=request.user.id)
+
         context = {
             'admin_details': qs_admin,
         }
-        
+
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminProfile.html', context)
