@@ -520,7 +520,7 @@
                                                                                 <div class="form-floating">
                                                                                     <select class="form-select" id="floatingPart" name="edit_part" aria-label="Default select example">
                                                                                         {% for part in parts %}
-                                                                                            <option value={{part.part_id}}>{{part.part_name}}</option>
+                                                                                            <option value={{part.part_id}} {% if ques.part.part_id == part.part_id %} selected {% endif %}>{{part.part_name}}</option>
                                                                                         {% endfor %} 
                         
                                                                                         {% for latest in latest_exam %}

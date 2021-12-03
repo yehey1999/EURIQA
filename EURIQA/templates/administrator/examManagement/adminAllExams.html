@@ -189,12 +189,12 @@
                             <table id="allExams" class="table table-striped" style="width:100%;">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;">Exam ID</th>
+                                        <!-- <th style="text-align: center;">Exam ID</th> -->
                                         <th style="text-align: center;">Exam Name</th>
                                         <th style="text-align: center;">Assigned To</th>
                                         <!-- <th style="text-align: center;">Total Items</th> -->
                                         <!-- <th style="text-align: center;">Overall Points</th> -->
-                                        <!-- <th style="text-align: center;">Link</th> -->
+                                        <th style="text-align: center;">Link</th>
                                         <th style="text-align: center;">Created by</th>
                                         <th style="text-align: center;">Actions</th>
                                     </tr>
@@ -203,22 +203,26 @@
                                 <tbody>
                                     {% for exam in exams %}
                                     <tr style="text-align: center;">
-                                        <td>{{exam.exam_id}}</td>
+                                        <!-- <td>{{exam.exam_id}}</td> -->
                                         <td>{{exam.title}}</td>
                                         <td>{{exam.takers}}</td>
                                         <!-- <td>{{exam.total_items}}</td> -->
                                         <!-- <td>{{exam.overall_points}}</td> -->
 
-                                    <!-- {% if exam.link != None %}
-                                        <td><a href={{exam.link}}>Click here</a></td>
-                                    {% else %}
-                                        <td>None</td>
-                                    {% endif %} -->
+                                        {% if exam.link != None %}
+                                            <td><a href={{exam.link}}>Click here</a></td>
+                                        {% else %}
+                                            <td>Exam is not linked</td>
+                                        {% endif %}
                                         <td>{{exam.created_by.user.get_full_name}}</td> 
                                         <td>
+                                            {% if exam.link == None %}
                                             <a href="/administrator/exam-management/edit-exam/{{exam.exam_id}}/">
                                                 <i title="Edit Exam" class="material-icons-two-tone" style="background-color:green; padding-bottom: 10px;">view_list</i>
                                             </a>
+                                            {% else %}
+                                                <i title="Edit Exam" class="material-icons-two-tone" style="background-color:rgba(0, 128, 0, 0.329); padding-bottom: 10px;">view_list</i>
+                                            {% endif %}
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#deleteExam-{{exam.exam_id}}">
                                                 <i title="Delete Exam" class="material-icons-two-tone" style="background-color: maroon; padding-bottom: 10px;">delete</i>
                                             </a>
@@ -286,7 +290,9 @@
     <!-- JS for Datatables-->
     <script>
         $(document).ready(function() {
-            $('#allExams').DataTable();
+            $('#allExams').DataTable({
+                "order": [[ 3, "desc" ]]
+            });
         } );
     </script>
 

@@ -531,45 +531,172 @@ class AdminViewAllExamsTable(View):
 
 def view_exam(request, exam_id=None):
     get_all = Exam.objects.all().values_list('exam_id')
-    if Exam.objects.filter(exam_id__in=get_all):
-        qs_admin = Administrator.objects.filter(user_id=request.user.id)
-        qs_exam = Exam.objects.get(exam_id = exam_id)
-        qs_questions = Question.objects.filter(exam = exam_id)
-        qs_parts = Part.objects.filter(exam_id = exam_id) #Gets the parts of the latest exam added
-        
-        # get = qs_questions.values_list('part').distinct()
-        # for parts in enumerate(get):
-        #     print(parts)
+    if request.method != 'POST':
+        if Exam.objects.filter(exam_id__in=get_all):
+            qs_admin = Administrator.objects.filter(user_id=request.user.id)
+            qs_exam = Exam.objects.get(exam_id = exam_id)
+            qs_questions = Question.objects.filter(exam = exam_id)
+            qs_parts = Part.objects.filter(exam_id = exam_id) #Gets the parts of the latest exam added
+            
+            # get = qs_questions.values_list('part').distinct()
+            # for parts in enumerate(get):
+            #     print(parts)
 
-        # print(parts[1])
+            # print(parts[1])
+        else:
+            messages.error(request,"User does not exist")
+
+        context ={
+            'exams': qs_exam,
+            'questions' : qs_questions,
+            'parts': qs_parts,
+            'admin_details': qs_admin,
+
+        }
+
+        return render(request, 'administrator/examManagement/adminViewExam.html', context)
+    
     else:
-        messages.error(request,"User does not exist")
+        if 'btnAddQues' in request.POST:
+            # exam_id = request.POST.get("exam_id")
+            part = request.POST.get("add_part")
+            question = request.POST.get("add_ques")
+            optionA = request.POST.get("add_optionA")
+            optionB = request.POST.get("add_optionB")
+            optionC = request.POST.get("add_optionC")
+            optionD = request.POST.get("add_optionD")
+            points = request.POST.get("add_points")
+            answer = request.POST.get("add_option")
 
-    context ={
-        'exams': qs_exam,
-        'questions' : qs_questions,
-        'parts': qs_parts,
-        'admin_details': qs_admin,
+            print(exam_id)
+            get_exam_id = Exam.objects.get(exam_id = exam_id)
+            get_part_id = Part.objects.get(part_id = part)
 
-    }
+            count_ques_no = Question.objects.filter(part = part).count()
+            question_no = count_ques_no + 1
+            add_question = Question(question_no = question_no, exam = get_exam_id, part = get_part_id, question = question, optionA = optionA, optionB = optionB, 
+                optionC = optionC, optionD = optionD, answer = answer, points = points)
+            add_question.save()
 
-    return render(request, 'administrator/examManagement/adminViewExam.html',context)
+            # Update total exam items and overall points of Exam
+            total_items = Question.objects.filter(exam = get_exam_id).count()
+            total_points = Question.objects.filter(exam = get_exam_id).aggregate(Sum('points')).get('points__sum')
+            
+            print(total_items)
+            
+            update_total_items = Exam.objects.filter(exam_id = exam_id).update(total_items = total_items)
+            update_total_points = Exam.objects.filter(exam_id = exam_id).update(overall_points = total_points)
 
+            # # Update total exam items in Exam Part
+            part_total_items = Question.objects.filter(part_id = part).count()
+            update_part_total_items = Part.objects.filter(part_id = part).update(total_items = part_total_items)
+            
+            # # Update overall points of the particular Exam Part
+            part_overall_pts = Question.objects.filter(part = get_part_id).aggregate(Sum('points')).get('points__sum')
 
-# class AdminEditExam(View):
-#     def get(self, request):
-#         qs_exam = Exam.objects.all()
-#         qs_admin = Administrator.objects.filter(user_id=request.user.id)
+            update_part_overall_pts = Part.objects.filter(part_id = part).update(overall_points = part_overall_pts)
+            
+            messages.success(request,"Question added successfully")
         
-#         context = {
-#             'admin_details': qs_admin,
-#             'exams': qs_exam,
-#         }
+        elif 'btnSaveEdited' in request.POST:
+            ques_id = request.POST.get("ques_id")
+            part = request.POST.get("edit_part")
+            question_no = request.POST.get("edit_question_no")
+            question = request.POST.get("edit_question")
+            optionA = request.POST.get("edit_optionA")
+            optionB = request.POST.get("edit_optionB")
+            optionC = request.POST.get("edit_optionC")
+            optionD = request.POST.get("edit_optionD")
+            answer = request.POST.get("edit_option")
+            points = request.POST.get("edit_points")
 
-#         if not request.user.is_authenticated:
-#             return redirect("administrator:admin_login")
-#         return render(request, 'administrator/examManagement/adminViewExam.html', context)
+            get_part_id = Part.objects.get(part_id = part)
 
-#     def post(self, request):
+            edit_question = Question.objects.filter(question_id = ques_id).update(question_no = question_no, part = get_part_id, question = question, optionA = optionA, optionB = optionB, 
+                optionC = optionC, optionD = optionD, answer = answer, points = points)
 
-#         return redirect("administrator:edit-exams")
+            # Update overall points (Exam) of the selected part after editing
+
+            exam_overall_points = Question.objects.filter(exam_id = exam_id).aggregate(Sum('points')).get('points__sum')
+            update_exam_overall_points = Exam.objects.filter(exam_id = exam_id).update(overall_points = exam_overall_points)
+            
+            # Update total exam items in Exam Part after editing
+            get_parts=Part.objects.filter(exam_id = exam_id)
+            
+            # Loops through all the items in the parts from a specified ID and automatically updates total items
+            # and overall points when the part is changed.
+            for idx, parts in enumerate(get_parts):
+                #  Update total items of the parts after editing
+                part_total_items = Question.objects.filter(part_id = parts.pk).count()
+                update_part_total_items = Part.objects.filter(part_id = parts.pk).update(total_items = part_total_items)
+
+                # Update overall points of the parts after editing
+                part_overall_points = Question.objects.filter(part_id = parts.pk).aggregate(Sum('points')).get('points__sum')
+                update_part_pverall_points = Part.objects.filter(part_id = parts.pk).update(overall_points = part_overall_points)
+
+            messages.success(request, "Question edited successfully.")
+
+        elif 'btnDelQues' in request.POST:
+            ques_to_delete = request.POST.get("ques_to_delete")
+            part = request.POST.get("part")
+
+            # Deletes the question with the given question id
+            del_ques = Question.objects.filter(question_id = ques_to_delete).delete()
+
+            # Update question number after deleting of question
+            count_ques_no = Question.objects.filter(part = part).count() #Counts all the questions in the selected part
+            get_ques = Question.objects.filter(part = part) #Gets all questions saved in the part selected from the template
+
+            #Loops over the questions saved under the part selected based on the primary key and
+            #stores the index increased by 1 as the updated question number
+            for ques_no, question in enumerate(get_ques): 
+                update_ques_no = get_ques.filter(question_id = question.pk).update(question_no = ques_no+1)
+            
+            # Update total exam items in Exam after deleting
+            total_items = Question.objects.filter(exam = exam_id).count()
+            update_total_items = Exam.objects.filter(exam_id = exam_id).update(total_items = total_items)
+
+            # Update overall points (Exam) of the selected part after deleting
+            exam_overall_points = Question.objects.filter(exam_id = exam_id).aggregate(Sum('points')).get('points__sum')
+            update_exam_overall_points = Exam.objects.filter(exam_id = exam_id).update(overall_points = exam_overall_points)
+
+            # Update total exam items in Exam Part when question is deleted
+            part_total_items = Question.objects.filter(part_id = part).count()
+            update_part_total_items = Part.objects.filter(part_id = part).update(total_items = part_total_items)
+
+            # Update overall points (Part) of the selected part after deleting
+            part_overall_points = Question.objects.filter(part_id = part).aggregate(Sum('points')).get('points__sum')
+            update_part_pverall_points = Part.objects.filter(part_id = part).update(overall_points = part_overall_points)
+
+            messages.success(request, "Successfully deleted question.")
+
+        elif 'btnAddPart' in request.POST:
+            part_name = request.POST.get("part_name")
+            instruction = request.POST.get("instruction")
+
+            get_exam_id = Exam.objects.get(exam_id = exam_id)
+            
+            add_part = Part(part_name = part_name, instructions = instruction, exam = get_exam_id)
+            add_part.save()
+
+            messages.success(request, "Part saved.")
+
+        elif 'btnDelPart' in request.POST:
+            part_to_delete = request.POST.get("part_to_delete")
+
+            del_ques = Part.objects.filter(part_id = part_to_delete).delete()
+
+            # Update total exam items in Exam after deleting
+            total_items = Question.objects.filter(exam = exam_id).count()
+            update_total_items = Exam.objects.filter(exam_id = exam_id).update(total_items = total_items)
+
+            # Update overall points in Exam after deleting
+            overall_points = Question.objects.filter(exam_id = exam_id).aggregate(Sum('points')).get('points__sum')
+            update_exam_overall_points = Exam.objects.filter(exam_id = exam_id).update(overall_points = overall_points)
+
+            messages.success(request, "Successfully deleted part.")
+        
+        else:
+            messages.error(request, "Failed to process query.")
+
+    return redirect("administrator:edit-exams", exam_id = exam_id)

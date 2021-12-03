@@ -133,11 +133,11 @@
 							</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
-                            <a href="../profile" class="dropdown-item">
+                            <a href="/administrator/profile" class="dropdown-item">
 								<i class="material-icons-two-tone">account_circle</i> <!-- MODAL THIS -->
 								<span>Profile</span>
 							</a>
-							<a href="../logout" class="dropdown-item">
+							<a href="/administrator/logout" class="dropdown-item">
                                 <i class="fas fa-sign-out-alt"></i>
 								<span>Logout</span>
 							</a>
@@ -185,6 +185,7 @@
                             <h4 style="color: white;">Exam Title: [{{exams.title}}]</h5>
                         </div>
                         <div class="card-body">
+                            <!-- Exam Information-->
                             <div class="container">
                                 <div class="row">
                                     <div class="col-5">
@@ -196,33 +197,63 @@
                                         <h5><b style="padding-right: 25px;">Total Points:</b> {{exams.overall_points}}</h5>
                                     </div>
                                     <div class="col-2">
-                                        <h5><a href="#" style="color: maroon; float: right;">+ Add Questions</a></h5>
+                                        <h5><a href="#" data-bs-toggle="modal" data-bs-target="#addQuestion" style="color: maroon; float: left;">+ Add Questions</a></h5>
+                                        <br>
+                                        <h5><a href="#" data-bs-toggle="modal" data-bs-target="#addPart" style="color: maroon; float: left;">+ Add Parts</a></h5>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Questions -->
                             <div class="container" style="padding-top: 50px;">                             
                                 {% for part in parts %}                     
                                 <div class="card">
-                                    <div class="card-header">
+                                    <div class="card-header" style="background-color: white; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);">
                                         <h5>
                                             <!-- Part name -->
-                                            <a style="color: white;" data-toggle="collapse" href="#part-{{part.part_id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                            <a style="color: maroon;" data-toggle="collapse" href="#part-{{part.part_id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                                 Part Name: [{{part.part_name}}]
                                             </a>
                                             
+                                            <!-- Delete Button -->
+                                            <a href="#" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#deletePart-{{part.part_id}}">
+                                                <i title="Delete Part" class="material-icons-two-tone" style="background-color: maroon;">delete</i>
+                                            </a> 
+                                            
                                             <!--Button down-->
-                                            <a style="float: right; padding: 0px; height: 20px; background-color: maroon;" data-toggle="collapse" href="#part-{{part.part_id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                <i class="material-icons-two-tone" style="background-color: white; padding-bottom: 30px">keyboard_arrow_down</i>
+                                            <a style="float: right; padding: 0px; height: 20px;" data-toggle="collapse" href="#part-{{part.part_id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                <i class="material-icons-two-tone" style="background-color: maroon; padding-bottom: 30px">keyboard_arrow_down</i>
                                             </a>
                                         </h5>
                                     </div>
 
                                     <div class="collapse" id="part-{{part.part_id}}">
-                                        <div class="card-body" >
+                                        <div class="card-body" style="background-color: rgb(235, 233, 233,0.3); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);"">
                                             <!-- Duration -->
-                                            <p class="text-justify" style="font-size:16px">
-                                                <b>Duration: </b>
-                                            </p>
+                                            <div class="row" style="padding-bottom: 20px;">
+                                                <p class="text-justify" style="font-size:16px">
+                                                    <b style="padding-right: 30px;">Instructions:</b>{{part.instructions}}
+                                                </p>
+                                            </div>
+
+                                            <div class="row" style="padding-bottom: 20px;">
+                                                <div class="col-4">
+                                                    <p class="text-justify" style="font-size:16px">
+                                                        <b style="padding-right: 30px;">Duration: </b> 
+                                                    </p>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p class="text-justify" style="font-size:16px">
+                                                        <b style="padding-right: 30px;">Total Items: </b>{{part.total_items}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p class="text-justify" style="font-size:16px">
+                                                        <b style="padding-right: 30px;">Total Points: </b>{{part.overall_points}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            
                                             {% for ques in questions %}
                                                 <!-- Condition below filters displays the questions to their respective parts -->
                                                 {% if ques.part.part_id == part.part_id %}
@@ -276,14 +307,37 @@
                                     </div>
 
                                 </div>
-                                {% endfor %}
 
+                                <div class="modal fade" id="deletePart-{{part.part_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <form class="row g-3 needs-validation" novalidate method="POST"> 
+                                        {% csrf_token %}
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><b>Confirm Part Deletion</b></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body" style="text-align: left;">
+                                                Are you sure you want to delete this part? All questions under this part will also be deleted.
+                                                <input type="text" name="part_to_delete" value={{part.part_id}} hidden>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" name="btnDelPart" class="btn btn-secondary" style="background-color: maroon;">Yes</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                {% endfor %}
+                                <br><hr><br>
                                 <!-- Question Table -->
                                 <h3>All Questions</h3>
                                 <table id="addedQuestions" class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th style="text-align: center;">Question No.</th>
                                             <th style="text-align: center;">Question</th>
                                             <th style="text-align: center;">Part</th>
@@ -295,7 +349,6 @@
                                     <tbody style="text-align: center;">
                                         {% for ques in questions %}
                                         <tr>
-                                            <td>{{ques.question_id}}</td>
                                             <td>{{ques.question_no}}</td>
                                             <!-- Truncates the question-->
                                             <td style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;">
@@ -305,10 +358,10 @@
                                             <td>{{ques.points}}</td>
                                             <td>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#editQuestion-{{ques.question_id}}">
-                                                    <i class="material-icons-two-tone" style="background-color:gold; padding-bottom: 30px;">edit</i>
+                                                    <i title="Edit Question" class="material-icons-two-tone" style="background-color:gold; padding-bottom: 30px;">edit</i>
                                                 </a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#deleteQuestion-{{ques.question_id}}">
-                                                    <i class="material-icons-two-tone" style="background-color: maroon; padding-bottom: 30px">delete</i>
+                                                    <i title="Delete Question" class="material-icons-two-tone" style="background-color: maroon; padding-bottom: 30px">delete</i>
                                                 </a>
 
                                                 <!-- EDIT QUESTION MODAL -->
@@ -340,15 +393,9 @@
                                                                                 <div class="form-floating">
                                                                                     <select class="form-select" id="floatingPart" name="edit_part" aria-label="Default select example">
                                                                                         {% for part in parts %}
-                                                                                            <option value={{part.part_id}}>{{part.part_name}}</option>
-                                                                                        {% endfor %} 
-                        
-                                                                                        {% for latest in latest_exam %}
-                                                                                            {% if forloop.last %} 
-                                                                                                <input type="number" value="{{latest.exam_id}}" name="exam_id" hidden>
-                                                                                            {% endif %}
+                                                                                            <option value={{part.part_id}} {% if ques.part.part_id == part.part_id %} selected {% endif %}>{{part.part_name}}</option>
                                                                                         {% endfor %}
-                                                                                        </select>                                                                        
+                                                                                    </select>                                                                        
                                                                                     <label for="floatingPart">Part</label>
                                                                                 </div>
                                                                                 
@@ -505,6 +552,193 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Add Question Modal -->
+                    <form class="row g-3 needs-validation" novalidate method="POST">
+                        {% csrf_token %}
+                        <div class="modal fade" id="addQuestion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Questions</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">                                                    
+                                        <!-- Add Question -->
+                                        <div class="row" style="padding-top: 50px;">
+                                            <div class="col-1"></div>
+                                            <div class="col-10">
+                                                <div class="row">
+                                                    <!-- Exam ID -->
+                                                    <input type="number" value="{{exams.exam_id}}" name="exam_id" hidden>
+                                                    <!-- Part -->
+                                                    <div class="col-8">
+                                                        <div class="form-floating">
+                                                            <select class="form-select" id="floatingPart" name="add_part" aria-label="Default select example">
+                                                                {% for part in parts %}
+                                                                    <option value={{part.part_id}}>{{part.part_name}}</option>
+                                                                {% endfor %} 
+                                                                </select>                                                                        
+                                                            <label for="floatingPart">Part</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Points -->
+                                                    <div class="col-4">
+                                                        <div class="form-floating">
+                                                            <input type="number" name="add_points" min=1 value=1 class="form-control" id="floatingPoints" placeholder="No." required>
+                                                            <label for="floatingPoints">Points</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                            
+                                                <!-- Question -->
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-floating">
+                                                            <textarea class="form-control" name="add_ques" placeholder="Question" id="floatingQuestion" style="height: 100px;" required></textarea> 
+                                                            <label for="floatingQuestion">Question</label>
+                                                            
+                                                            <div class="invalid-feedback">
+                                                                Please add a question.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                            
+                                                <!-- Options -->
+                                                <div class="row">
+                                                    <div class="input-group mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="add_option" value="A" id="radioOptionA" required>
+                                                            <label class="form-check-label" for="radioOptionA">
+                                                                A. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </label>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="add_optionA" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                        
+                                                        <div class="invalid-feedback">
+                                                            No option specified.
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="input-group mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="add_option" value="B" id="radioOptionB" required>
+                                                            <label class="form-check-label" for="radioOptionB">
+                                                                B. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </label>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="add_optionB" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                    
+                                                        <div class="invalid-feedback">
+                                                            No option specified.
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="input-group mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="add_option" value="C" id="radioOptionC" required>
+                                                            <label class="form-check-label" for="radioOptionC">
+                                                                C. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </label>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="add_optionC" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                    
+                                                        <div class="invalid-feedback">
+                                                            No option specified.
+                                                        </div>
+                                                    </div>
+                            
+                                                    <div class="input-group mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="add_option" value="D" id="radioOptionD" required>
+                                                            <label class="form-check-label" for="radioOptionD">
+                                                                D. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </label>
+                                                        </div>
+                                                        <input type="text" class="form-control" name="add_optionD" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+                                                    
+                                                        <div class="invalid-feedback">
+                                                            No option specified.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                            </div>
+                                            <div class="col-1"></div>
+                                        </div> 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-secondary" name="btnAddQues" style="background-color: maroon;">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+
+                    <!-- Add Part Modal -->
+                    <form class="row g-3 needs-validation" novalidate method="POST"> 
+                        {% csrf_token %}
+
+                        <!-- <input type="number" value={{exam.exam_id}} name="exam_id" hidden> -->
+
+                        <div class="modal fade" id="addPart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <!-- Modal Header -->
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Add Part</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+            
+                                    <!-- Modal Body -->    
+                                    <div class="modal-body">
+                                        <!-- Exam Parts -->
+                                        <div class="row">
+                                            <!-- Part Name -->
+                                            <div class="col">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" name="part_name" id="floatingPartName" placeholder="Part Name" required>
+                                                    <label for="floatingPartName">Part Name</label>
+                    
+                                                    <div class="invalid-feedback">
+                                                        Specify part name.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>    
+                                        <!-- Instructions -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="form-floating">
+                                                    <textarea class="form-control" name="instruction" placeholder="Instruction" id="floatingInstruction" style="height: 100px;" required></textarea>
+                                                    <label for="floatingInstruction">Instruction</label>
+                                                    
+                                                    <div class="invalid-feedback">
+                                                        Instructions can't be blank.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <!-- Modal Footer-->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+                                        
+                                        <!-- Save Button -->
+                                        <button type="submit" class="btn btn-secondary" name="btnAddPart" style="background-color: maroon;">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <!-- [ Main Content ] end -->
@@ -537,10 +771,12 @@
     <!-- JS for Datatables-->
     <script>
         $(document).ready(function() {
-            $('#addedQuestions').DataTable();
+            $('#addedQuestions').DataTable({
+                "order": [[ 2, "asc" ]]
+            });
         } );
     </script>
-    </script>
+
 </footer>
 
 </html>
