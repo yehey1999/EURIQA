@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>EURIQA - Home Page</title>
+  <title>EURIQA - Instructions</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -55,7 +55,7 @@
           <div class="ml-auto">
             <div class="list-unstyled">
               <div class="dropdown pc-h-item">
-                <a class="pc-head-link mr-0"   href="../administrator/logout" role="button" aria-haspopup="false" aria-expanded="false" style="font-family: Montserrat, sans-serif;">
+                <a class="pc-head-link mr-0"   href="../enrollee/logout" role="button" aria-haspopup="false" aria-expanded="false" style="font-family: Montserrat, sans-serif;">
                     <span class="user-name">Logout</span>
                 </a>
               </div>
@@ -98,44 +98,34 @@
                     <fieldset>
                       <div class="form-card">
                         <div class="row">
-                          <div class="col-7">
+                          <div class="col">
                             <h2 class="fs-title">Instructions</h2>
                           </div>
-
+                          <div class="row">
+                            <div class="col">
+                              <p style="text-align: justify;">[insert instructions here]</p>
+                            </div>
+                          </div>
                         </div> <br><br>
-                        <h2 class="maroon-text text-center"><strong>Part 1</strong></h2>
-                        <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Duis congue consequat massa, sit amet ultrices diam sollicitudin ut. Vivamus 
-                            at porttitor dui. Nunc luctus orci ut metus venenatis feugiat eu sit amet nibh.
-                            asellus at pharetra ante.</p>
 
-                        <h2 class="maroon-text text-center"><strong>Part 2</strong></h2>
-                        <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Duis congue consequat massa, sit amet ultrices diam sollicitudin ut. Vivamus 
-                            at porttitor dui. Nunc luctus orci ut metus venenatis feugiat eu sit amet nibh.
-                            asellus at pharetra ante..</p>
-
-                        <h2 class="maroon-text text-center"><strong>Part 3</strong></h2>
-                        <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Duis congue consequat massa, sit amet ultrices diam sollicitudin ut. Vivamus 
-                            at porttitor dui. Nunc luctus orci ut metus venenatis feugiat eu sit amet nibh.
-                            asellus at pharetra ante..</p>
-                          <div class="row justify-content-center">
-                          <div class="col-7 text-center">
-                            
+                        <div class="row">
+                          <div class="col">
+                            {% for part in parts %}
+                              <h6 class="maroon-text" style="padding-top: 10px;"><strong>{{part.part_name}}</strong></h6>
+                              <p align="justify">Instructions: {{part.instructions}}</p>
+                              <p align="justify">Duration: </p>
+                              <p align="justify">Total Items: {{part.total_items}}</p>
+                              <p align="justify">Total Points: {{part.overall_pooints}}</p>
+                            {% endfor %}
                           </div>
                         </div>
-                        <div class="row-12">
-                          <div class="row justify-content-center">
-                            <a href="../enrollee/exam">
-                              <input type="button" name="Proceed" class="next action-button" value="Submit" /> 
-                            </a>
-                            
-                          </div>
-                          
+                        <br>
 
-                      </div>
-                       
+                        <!-- Buttons -->
+                        <div style="float: right;">
+                          <a class="btn btn-secondary" href="../enrollee/captureimage" style="background-color: gray; width: 150px; height: 40px;">Previous</a>
+                          <a class="btn btn-secondary" href="../enrollee/exam" style="background-color: maroon; width: 150px; height: 40px;">Proceed</a>
+                        </div>
                     </fieldset>
                   </form>
                 </div>

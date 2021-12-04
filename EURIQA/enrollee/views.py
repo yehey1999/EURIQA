@@ -81,9 +81,39 @@ class EnrolleeCaptureImageView(View):
 
 class EnrolleeInstructionsView(View):
     def get(self, request):
+        qs_enrollee = Enrollee.objects.filter(user = request.user.id)
+        
+        get_level = Enrollee.objects.filter(user = request.user.id).values_list('level', flat=True)
+        check_level = Enrollee.objects.filter(user = request.user.id).get(level__in = get_level)
+        
+        if check_level.level == "college":
+            qs_exam = Exam.objects.filter(takers="College")
+
+        elif check_level.level == "shs":
+            qs_exam = Exam.objects.filter(takers="Senior High School")
+        
+        elif check_level.level == "jhs":
+            qs_exam = Exam.objects.filter(takers="Junior High School")
+        
+        elif check_level.level == "elem":
+            qs_exam = Exam.objects.filter(takers="Elementary")
+        
+        else:
+            print("level does not exist")
+
+        get_exam_id = qs_exam.values_list('exam_id', flat=True)
+
+        qs_part = Part.objects.filter(exam__in = get_exam_id)
+
+        context = {
+            'exams': qs_exam,
+            'enrollee': qs_enrollee,
+            'parts': qs_part,
+        }
+
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
-        return render(request, 'enrollee/enrolleeInstructions.html')
+        return render(request, 'enrollee/enrolleeInstructions.html', context)
         
 class EnrolleeExamView(View):
     def get(self, request):
