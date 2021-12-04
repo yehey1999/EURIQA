@@ -309,9 +309,11 @@ class AdminManageAccounts(View):
 class AdminCreateExam(View):
     def get(self,request):
         qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        qs_exam = Exam.objects.all()
 
         context = {
             'admin_details': qs_admin,
+            'exam': qs_exam,
         }
         if not request.user.is_authenticated:
             return redirect("administrator:admin_login")
@@ -322,13 +324,29 @@ class AdminCreateExam(View):
             exam_title = request.POST.get("exam_title")
             exam_takers = request.POST.get("exam_takers")
             link = request.POST.get("link")
-            
+        
             get_admin_id = Administrator.objects.get(user_id = request.user.id)
-            
-            create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link)
-            create_exam.save()
-            messages.success(request, "Exam created.")
 
+            # Checks the values stored in 'takers' column of 'Exam' table in the database
+            check_takers = Exam.objects.values_list('takers', flat=True)
+            
+            # If there is no exam existing in the db, automatically create exam
+            if check_takers is None:
+                create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link)
+                create_exam.save()
+                messages.success(request, "Exam created.")
+            
+            # Disallows adding of another exam of the same type of 'takers' or examinees
+            else:
+                existing_exam = Exam.objects.filter(takers=exam_takers)
+                if existing_exam:
+                    messages.error(request, "An exam assigned to the "+exam_takers+ " already exists.")
+                    return redirect("administrator:admin_create_exam")
+                
+                else:
+                    create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link)
+                    create_exam.save()
+                    messages.success(request, "Exam created.")
         else:
             messages.error(request, "Failed to create exam.")
 
@@ -479,6 +497,15 @@ class AdminAddQuestion(View):
             edit_question = Question.objects.filter(question_id = ques_id).update(question_no = question_no, part = get_part_id, question = question, optionA = optionA, optionB = optionB, 
                 optionC = optionC, optionD = optionD, answer = answer, points = points)
 
+            # Update question number after deleting of question
+            count_ques_no = Question.objects.filter(part = part).count() #Counts all the questions in the selected part
+            get_ques = Question.objects.filter(part = part) #Gets all questions saved in the part selected from the template
+
+            #Loops over the questions saved under the part selected based on the primary key and
+            #stores the index increased by 1 as the updated question number
+            for ques_no, question in enumerate(get_ques): 
+                update_ques_no = get_ques.filter(question_id = question.pk).update(question_no = ques_no+1)
+                
             # Update overall points (Exam) of the selected part after editing
             get_exam = Exam.objects.last()
             exam_overall_points = Question.objects.filter(exam_id = get_exam.pk).aggregate(Sum('points')).get('points__sum')

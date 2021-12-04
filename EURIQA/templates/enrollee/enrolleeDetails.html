@@ -55,7 +55,7 @@
           <div class="ml-auto">
             <div class="list-unstyled">
               <div class="dropdown pc-h-item">
-                <a class="pc-head-link mr-0"   href="../enrollee/home" role="button" aria-haspopup="false" aria-expanded="false" style="font-family: Montserrat, sans-serif;">
+                <a class="pc-head-link mr-0"   href="../administrator/logout" role="button" aria-haspopup="false" aria-expanded="false" style="font-family: Montserrat, sans-serif;">
                     <span class="user-name">Logout</span>
                 </a>
               </div>
@@ -77,7 +77,7 @@
       <div class="row justify-content-between">
         <div class="col-lg-7 pt-5 pt-lg-3 order-2 order-lg-3 d-flex align-items-center">
           <div data-aos="zoom-out">
-            <h1>Welcome <span style="color:#741E1E"> {{user.first_name}} {{user.last_name}}! </span></h1>
+            <h1>Welcome <span style="color:#741E1E"> {{user.first_name}}!</span></h1>
             <h2>You are one step away from becoming an official student of CIT - University!</h2>
 
           </div>
@@ -103,20 +103,72 @@
                 <center><h2>Before we Proceed</h2></center>
                 <p>Double check the details below. If there’s something wrong, contact your enrollment officer.</p>
                 <section class="sec">
-                  <label>First name</label>
-                    <input name="firstname" type="text" value="{{user.first_name}}" readonly>
-                  <label class="label">Middle name</label>
-                    <input name="middlename" type="text" value="{{user.middle_name}}" readonly>
-                  <label class="label">Last name</label>
-                    <input name="lastname" type="text" value="{{user.last_name}}" readonly>
-                  <label class="label">Address</label>
-                    <input name="address" type="text" value="" readonly>
-                  <label class="label">Email</label>
-                    <input name="email" type="text" value="{{user.email}}" readonly><br><br>
+
+                  {% for enrollee in enrollees %}
+                  <!-- First Name -->
+                  <div class="form-floating mb-3">
+                    <input type="text" name="firstname" class="form-control" id="floatingInput" value="{{user.first_name}}" readonly>
+                    <label for="floatingInput">First Name</label>
+                  </div>
+                  
+                  <!-- Middle Name -->
+                  <div class="form-floating mb-3">
+                    {% if enrollee.middle_name != '' or enrollee.middle_name is None  %}
+                      <input type="text" name="middlename" class="form-control" id="floatingInput" value="{{enrollee.middle_name}}" readonly>
+                      <label for="floatingInput">Middle Name</label>
+                    {% else %}
+                      <input type="text" class="form-control" id="floatingInput1" value="-" readonly>
+                      <label for="floatingInput1">Middle Name</label>
+                    {% endif %}
+                  </div>
+                  
+                  <!-- Last Name -->
+                  <div class="form-floating mb-3">
+                    <input type="text" name="lastname" class="form-control" id="floatingInput" value="{{user.last_name}}" readonly>
+                    <label for="floatingInput">Last Name</label>
+                  </div>
+                  
+                  <!-- Email -->
+                  <div class="form-floating mb-3">
+                    <input type="text" name="email" class="form-control" id="floatingInput" value="{{user.email}}" readonly>
+                    <label for="floatingInput">Email</label>
+                  </div>
+
+                  <!-- Address -->
+                  <div class="form-floating mb-3">
+                    <input type="text" name="address" class="form-control" id="floatingInput" value="{{enrollee.address}}" readonly>
+                    <label for="floatingInput">Address</label>
+                  </div>
+
+                  <!-- Program/Strand -->
+                  <div class="form-floating mb-3">
+                    {% if enrollee.strand is None and enrollee.program is not None %}
+                    <input type="text" name="program" class="form-control" id="floatingProgram" value="{{enrollee.program.program_name}} ({{enrollee.enrolled_as}})" readonly>
+                    <label for="floatingProgram">Program</label>
+                    
+                    {% elif enrollee.strand is not None and enrollee.program is None %}
+                    <input type="text" name="strand" class="form-control" id="floatingProgram" value="{{enrollee.strand.strand_name}} ({{enrollee.enrolled_as}})" readonly>
+                    <label for="floatingProgram">Strand</label>
+                    
+                    {% else %}
+                      {% if enrollee.level == 'elem' %}
+                      <input type="text" name="level" class="form-control" id="floatingProgram" value="Elementary ({{enrollee.enrolled_as}})" readonly>
+                      <label for="floatingProgram">Level</label>
+
+                      {% else %}
+                      <input type="text" name="level" class="form-control" id="floatingProgram" value="Junior High School ({{enrollee.enrolled_as}})" readonly>
+                      <label for="floatingProgram">Level</label>
+                      {% endif %}
+                    {% endif %}
+
+                  </div>
+
                   <center>
                     <a href="../enrollee/terms">
-                    <button class="button" name="btn-Proceed" >Confirm Details</button></center>
-                  </a>
+                    <button class="btn btn-secondary" style="background-color:#741E1E;">Confirm Details</button>
+                  </center>
+                    </a>
+                  {% endfor %}
                 </section>
               </div>
             </div>  

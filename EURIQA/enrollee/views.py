@@ -5,6 +5,7 @@ from django.contrib.auth.models import auth, User
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from enrollee.models import *
+from administrator.models import *
 
 # Create your views here.
 
@@ -65,13 +66,9 @@ class EnrolleeTermsView(View):
             return redirect("enrollee:enrollee_login")
         return render(request, 'enrollee/enrolleeTerms.html')
 
-class EnrolleeExamView(View):
-    def get(self, request):
-        if not request.user.is_authenticated:
-            return redirect("enrollee:enrollee_login")
-        return render(request, 'enrollee/enrolleeExam.html')
 class EnrolleeDataPolicyView(View):
     def get(self, request):
+        qs_exam = Exam.objects.all()
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
         return render(request, 'enrollee/enrolleeDataPolicy.html')
@@ -87,6 +84,12 @@ class EnrolleeInstructionsView(View):
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
         return render(request, 'enrollee/enrolleeInstructions.html')
+        
+class EnrolleeExamView(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("enrollee:enrollee_login")
+        return render(request, 'enrollee/enrolleeExam.html')
 
 class EnrolleeExamCompletionView(View):
     def get(self, request):
