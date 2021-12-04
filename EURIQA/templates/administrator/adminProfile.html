@@ -290,6 +290,25 @@
                         <div class="col-md-12">
                             <form>
                                 <div class="row mb-6">
+                                    <div class="col-sm-3">
+                                        <div class="avatar-wrapper">
+                                            <input type="file" class="form-control-file" id="picture" name="picture" accept="image/png, image/gif, image/jpeg">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="image-preview" id="imagePreview">
+                                            {% if admin.picture %}
+                                            <img src="{{ admin.picture.url }}" alt="Image Preview" class="image-preview__image" width="200px" height="200px">
+                                            {% else %}
+                                            <img src="{% static 'assets/img/dashboard/user/avatar-2.jpg' %}" alt="" class="" width="200px" height="200px">
+                                            {% endif %}
+
+                                            <span class="image-preview__default-text"></span>
+                                        </div>
+                                    </div>
+                                </div><br>
+
+                                <div class="row mb-6">
                                     <label for="inputEmail3" class="col-sm-3 col-form-label">First Name</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="update_first_name" name="update_first_name" value="{{user.first_name}}">
@@ -327,15 +346,15 @@
                                 </div><br>
 
 
-                                <div class="modal-header">
+                                <!-- <div class="modal-header">
                                 <h5 class="modal-title" id="editModalLabel">Edit Profile Photo</h5>
-                                </div><br>
+                                </div><br> -->
 
                                 
-                                <div class="row mb-6">
+                                <!-- <div class="row mb-6">
                                     <div class="col-sm-3">
                                         <div class="avatar-wrapper">
-                                            <input type="file" class="form-control-file" id="picture" name="picture">
+                                            <input type="file" class="form-control-file" id="picture" name="picture" accept="image/png, image/gif, image/jpeg">
                                         </div>
                                     </div>
                                     <div class="col-sm-9">
@@ -349,7 +368,7 @@
                                             <span class="image-preview__default-text"></span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 
 
                                 <script>
