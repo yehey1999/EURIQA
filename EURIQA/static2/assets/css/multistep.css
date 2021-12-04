@@ -178,7 +178,7 @@ p {
 
 #progressbar #confirm:before {
     font-family: FontAwesome;
-    content: "\f46d"
+    content: "\f18d"
 }
 
 #progressbar li:before {

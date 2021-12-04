@@ -2481,7 +2481,7 @@ textarea.form-control-lg {
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #293240;
+    color: #741E1E;
     vertical-align: middle;
     background-color: #ffffff;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
@@ -4971,8 +4971,8 @@ textarea.form-control-lg {
 .page-item.active .page-link {
     z-index: 3;
     color: #ffffff;
-    background-color: #7267EF;
-    border-color: #7267EF;
+    background-color: #741E1E;
+    border-color: #741E1E;
 }
 
 .page-item.disabled .page-link {

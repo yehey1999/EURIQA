@@ -28,7 +28,7 @@ class AdminLoginView(View):
             is_admin = Administrator.objects.filter(user_id=request.user.id)
 
             if is_admin:
-                return redirect('administrator:admin_home')
+                return redirect('administrator:admin_dashboard')
 
             else:
                 messages.error(request,"Your account is unauthorized to log in.")
