@@ -120,11 +120,19 @@
                           </div>
                         </div>
                         <br>
-
+                        
+                        
                         <!-- Buttons -->
                         <div style="float: right;">
-                          <a class="btn btn-secondary" href="../enrollee/captureimage" style="background-color: gray; width: 150px; height: 40px;">Previous</a>
-                          <a class="btn btn-secondary" href="../enrollee/exam" style="background-color: maroon; width: 150px; height: 40px;">Proceed</a>
+                          <a class="btn btn-secondary" href="../enrollee/captureimage" style="background-color: gray; width: 150px; height: 40px;">Previous</a>   
+                          {% for exam in exams %}
+                            {% for part in parts %}
+                              {% if forloop.first %} <!-- Outputs only the first 'part' outputted from the loop. -->
+                                <!-- Redirect to the url passing the exam and part id -->
+                                <a class="btn btn-secondary" href="../enrollee/exam/{{exam.exam_id}}/{{part.part_id}}" style="background-color: maroon; width: 150px; height: 40px;">Proceed</a>
+                              {% endif %}
+                            {% endfor %}
+                          {% endfor %}
                         </div>
                     </fieldset>
                   </form>

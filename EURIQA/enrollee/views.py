@@ -114,15 +114,43 @@ class EnrolleeInstructionsView(View):
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
         return render(request, 'enrollee/enrolleeInstructions.html', context)
-        
-class EnrolleeExamView(View):
-    def get(self, request):
-        if not request.user.is_authenticated:
-            return redirect("enrollee:enrollee_login")
-        return render(request, 'enrollee/enrolleeExam.html')
-
+    
 class EnrolleeExamCompletionView(View):
     def get(self, request):
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
         return render(request, 'enrollee/enrolleeExamCompletion.html')
+
+def exam_page(request, exam_id=None, part_id=None):
+    get_level = Enrollee.objects.filter(user = request.user.id).values_list('level', flat=True)
+    check_level = Enrollee.objects.filter(user = request.user.id).get(level__in = get_level)
+    
+    if check_level.level == "college":
+        qs_exam = Exam.objects.filter(takers="College")
+
+    elif check_level.level == "shs":
+        qs_exam = Exam.objects.filter(takers="Senior High School")
+    
+    elif check_level.level == "jhs":
+        qs_exam = Exam.objects.filter(takers="Junior High School")
+    
+    elif check_level.level == "elem":
+        qs_exam = Exam.objects.filter(takers="Elementary")
+    
+    else:
+        print("level does not exist")
+
+    get_exam_id = qs_exam.values_list('exam_id', flat=True)
+
+    qs_part = Part.objects.filter(part_id = part_id)
+    qs_question = Question.objects.filter(exam_id = exam_id).filter(part = part_id)
+    
+    context = {
+        'exams': qs_exam,
+        'parts': qs_part,
+        'questions': qs_question,
+    }
+
+    if not request.user.is_authenticated:
+        return redirect("enrollee:enrollee_login")
+    return render(request, 'enrollee/enrolleeExam.html', context)

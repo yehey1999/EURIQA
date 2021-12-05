@@ -1,14 +1,18 @@
 {% load static %}
 
 <head>
-    <title>Enrollee Exam</title>
+    {% for exam in exams %}
+    {% for part in parts %}
+    <title>{{exam.title}} - {{part.part_name}}</title>
+    {% endfor %}
+    {% endfor %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicon icon -->
-    <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/img/favicon.png' %}" type="image/x-icon">
 
     <!-- font css -->
     <link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}">
@@ -120,259 +124,150 @@
   <!-- [ Header ] end -->
 
     <!-- [ Main Content ] start -->
+<body>
+    {% for exam in exams %}
+    {% for part in parts %}
     <div class="pc-container">
         <div class="pcoded-content">
-        <!-- [ breadcrumb ] start -->
-        <div class="page-header">
-            <div class="page-block">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <div class="page-header-title">
-                            <h5 class="m-b-10">Part 1 - General Knowledge</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- [ breadcrumb ] end -->
-
-    
-        <!-- INSTRUCTIONS start -->
-        <div class="row">
-            <div class="col-xl-12 col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>PART 1. GENERAL KNOWLEDGE</h5>
-                    </div>      
-                    <div class="card-group">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title" style="font-weight: 500;">INSTRUCTIONS</h5>
-                                <p class="card-text">Choose TRUE if the statement is correct. If the statement is not correct, choose FALSE.</p>
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10"><b>{{exam.title}}</b></h5>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <!-- [ breadcrumb ] end -->
 
-        <div class="row">
-            <!-- QUESTIONS start -->
-            <div class="col-sm-8">
-                <!-- QUESTION 1 -->
-                <div class="card">
-                    <div class="card-body">
-                        <p style="font-weight: 500;"> 1. The word "Mineral" can be spelled using only the letters found in the word "Parliament".</p>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- QUESTION 2 -->
-                <div class="card">
-                    <div class="card-body">
-                        <p style="font-weight: 500;"> 2. The word "Mineral" can be spelled using only the letters found in the word "Parliament".</p>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >>
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- QUESTION 3 -->
-                <div class="card">
-                    <div class="card-body">
-                        <p style="font-weight: 500;"> 3. The word "Mineral" can be spelled using only the letters found in the word "Parliament".</p>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- QUESTION 4 -->
-                <div class="card">
-                    <div class="card-body">
-                        <p style="font-weight: 500;"> 4. The word "Mineral" can be spelled using only the letters found in the word "Parliament".</p>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- QUESTION 5 -->
-                <div class="card">
-                    <div class="card-body">
-                        <p style="font-weight: 500;"> 5. The word "Mineral" can be spelled using only the letters found in the word "Parliament".</p>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div><br>
-                            <div class="input-group">
-                                <div class="input-group-text">  
-                                    <input class="form-check-input" type="radio" value="" name="radio">
-                                </div>
-                                <input type="text" class="form-control" disabled >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <nav class="mb-4" aria-label="...">
-                            <ul class="pagination pagination-lg" style="margin: 10px; padding: 10px; width: auto;">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#!" tabindex="-1">1</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">5</a></li>
-                            </ul>
-                            <ul class="pagination pagination-lg" style="margin: 10px; padding: 10px; width: auto;">
-                                <li class="page-item"><a class="page-link" href="#!">6</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">7</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">8</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">9</a></li>
-                                <li class="page-item"><a class="page-link" href="#!">10</a></li>
-                            </ul>                      
-                        </nav>
-                        <div class="progress mb-4">
-							<div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-						</div>
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-end">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#!" tabindex="-1">Previous</a>
-                                </li>
-
-                                <li class="page-item">
-                                    <a class="page-link" href="#!">Next</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-
-
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Facial Recognition</h5>
-                    </div>
-                        <img class="img-fluid card-img-top" src="{% static 'assets/img/webcam.jpg' %}" alt="Facial Recog">
-                        <div class="card-body"> 
-                            <div class="alert alert-danger" role="alert">
-                                This Feature is required by the administration. Failure to do so will result to consequences.
-                            </div>
-                        </div>
-                    </div>
-                
-                
+        
+            <!-- INSTRUCTIONS start -->
+            <div class="row">
+                <div class="col-xl-12 col-md-12">
                     <div class="card">
+                        <div class="card-header">
+                            <h5>{{part.part_name}}</h5>
+                        </div>      
+                        <div class="card-group">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-weight: 500;">INSTRUCTIONS</h5>
+                                    <p class="card-text">{{part.instructions}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- QUESTIONS start -->
+                <div class="col-sm-8"> 
+                    {% for ques in questions %}
+                    <div class="card">
+                        <div class="card-body">
+                            <p style="font-weight: 500; text-align: justify;">{{ques.question_no}}. {{ques.question}}</p>
+                            <!-- Options -->
+                                <!--Option A-->
+                                <p style="text-align: justify;">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="options" value="A" id="exampleRadios1">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;A.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionA}}
+                                    </div>
+                                </p>
+
+                                <!--Option B-->
+                                <p style="text-align: justify;">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="options" value="B" id="exampleRadios1">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;B.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionB}}
+                                    </div>
+                                </p>
+                                <!--Option C-->
+                                <p style="text-align: justify;">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="options" value="C" id="exampleRadios1">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;C.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionC}}
+                                    </div>
+                                </p>
+                                <!--Option D-->
+                                <p style="text-align: justify;">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="options" value="D" id="exampleRadios1">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;D.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionD}}
+                                    </div>
+                                </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <nav class="mb-4" aria-label="...">
+                                <ul class="pagination pagination-lg" style="margin: 10px; padding: 10px; width: auto;">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#!" tabindex="-1">1</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#!">4</a></li>
+                                    <li class="page-item"><a class="page-link" href="#!">5</a></li>
+                                </ul>
+                                <ul class="pagination pagination-lg" style="margin: 10px; padding: 10px; width: auto;">
+                                    <li class="page-item"><a class="page-link" href="#!">6</a></li>
+                                    <li class="page-item"><a class="page-link" href="#!">7</a></li>
+                                    <li class="page-item"><a class="page-link" href="#!">8</a></li>
+                                    <li class="page-item"><a class="page-link" href="#!">9</a></li>
+                                    <li class="page-item"><a class="page-link" href="#!">10</a></li>
+                                </ul>                      
+                            </nav>
+                            <div class="progress mb-4">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#!" tabindex="-1">Previous</a>
+                                    </li>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#!">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="col-sm-4">
+                    <div class="card"> <!--style="position: fixed;"-->
+                        <div class="card-header">
+                            <h5>Facial Recognition</h5>
+                        </div>
+                            <!-- <img class="img-fluid card-img-top" src="{% static 'assets/img/webcam.jpg' %}" alt="Facial Recog"> -->
+                            <div class="card-body">
+                                <div id="vidcontainer">
+                                    <video autoplay="true" id="videoElement">
+                                    
+                                    </video>
+                                </div>
+                                <br>
+                                <!-- <div class="alert alert-danger" role="alert"> -->
+                                   <div id="check_focus">
+                                        <b>Action Logs:</b>
+                                        <textarea id="message" style="overflow-y: scroll; width: 340px; height: 200px; resize: none;" readonly></textarea>
+                                   </div>
+                                <!-- </div> -->
+                            </div>
+                    </div>
+                
+                
+                    <!-- <div class="card" >
                         <div class="card-body table-border-style">
                             <div class="table-responsive">
                                 <div class="card-header">
@@ -396,22 +291,59 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                </div>
+
+                        <div id="dimscreen"></div>
+
+                        <div class="modal" tabindex="-1" role="dialog" id="reload_exam">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title">Modal title</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <p>You have exceed the number of suspicious actions set by the administrator. Please retake the exam</p>
+                                </div>
+                                <div class="modal-footer">
+                                    {% for exam in exams %}
+                                    {% for part in parts %}
+                                    <a class="btn btn-secondary" href="../{{exam.exam_id}}/{{part.part_id}}" style="background-color:maroon;">Retake Exam</a>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    <!-- <button name="btnRetake" class="btn btn-primary" id="btnRetake">Retake exam</button> -->
+                                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                                </div>
+                              </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
-
-
         <!-- [ Main Content ] end -->
     </div>
+    {% endfor %}
+    {% endfor %}
 
     <a id="backtotopbutton"><i data-feather="arrow-up"></i></a>
+</body>
+
+<!-- Scripts -->
+<footer>
+    <!-- custom-chart js -->
+    <script src="{% static 'assets/js/dashboard/pages/dashboard-sale.js' %}"></script>
+    </body>
 
     <!-- Required Js -->
     <script src="{% static 'assets/js/dashboard/vendor-all.min.js' %}"></script>
     <script src="{% static 'assets/js/dashboard/plugins/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/dashboard/plugins/feather.min.js' %}"></script>
     <script src="{% static 'assets/js/dashboard/pcoded.min.js' %}"></script>
+
+    <!-- Back to top button -->
     <script>
         var btn = $('#backtotopbutton');
 
@@ -427,13 +359,250 @@
         e.preventDefault();
         $('html, body').animate({scrollTop:0}, '300');
         });
+    </script>
 
+    <!-- Open Camera -->
+    <script>
+        var video = document.querySelector("#videoElement");
+
+        if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+            video.srcObject = stream;
+            })
+            .catch(function (err0r) {
+            console.log("Something went wrong!");
+            });
+        }
         
     </script>
 
+    <!-- Prompt User Alert when Page is Reloaded -->
+    <!-- <script>
+        window.onbeforeunload = function() { return "Your work will be lost."; };
+    </script> -->
 
-<!-- custom-chart js -->
-<script src="{% static 'assets/js/dashboard/pages/dashboard-sale.js' %}"></script>
-</body>
+    <!-- Disable going back to previous page -->
+    <script>
+        (function (global) {
+
+            if(typeof (global) === "undefined") {
+                throw new Error("window is undefined");
+            }
+
+            var _hash = "!";
+            var noBackPlease = function () {
+                global.location.href += "#";
+
+                // Making sure we have the fruit available for juice (^__^)
+                global.setTimeout(function () {
+                    global.location.href += "!";
+                }, 50);
+            };
+
+            global.onhashchange = function () {
+                if (global.location.hash !== _hash) {
+                    global.location.hash = _hash;
+                }
+            };
+
+            global.onload = function () {
+                noBackPlease();
+
+                // Disables backspace on page except on input fields and textarea..
+                document.body.onkeydown = function (e) {
+                    var elm = e.target.nodeName.toLowerCase();
+                    if (e.which === 8 && (elm !== 'input' && elm  !== 'textarea')) {
+                        e.preventDefault();
+                    }
+                    // Stopping the event bubbling up the DOM tree...
+                    e.stopPropagation();
+                };
+            }
+            })(window);
+    </script>
+
+    <!-- Check Devices-->
+    <!-- <script>
+        if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+        // Firefox 38+ seems having support of enumerateDevicesx
+        navigator.enumerateDevices = function(callback) {
+            navigator.mediaDevices.enumerateDevices().then(callback);
+        };
+    }
+
+    var MediaDevices = [];
+    var isHTTPs = location.protocol === 'https:';
+    var canEnumerate = false;
+
+    if (typeof MediaStreamTrack !== 'undefined' && 'getSources' in MediaStreamTrack) {
+        canEnumerate = true;
+    } else if (navigator.mediaDevices && !!navigator.mediaDevices.enumerateDevices) {
+        canEnumerate = true;
+    }
+
+    var hasMicrophone = false;
+    var hasSpeakers = false;
+    var hasWebcam = false;
+
+    var isMicrophoneAlreadyCaptured = false;
+    var isWebcamAlreadyCaptured = false;
+
+    function checkDeviceSupport(callback) {
+        if (!canEnumerate) {
+            return;
+        }
+
+        if (!navigator.enumerateDevices && window.MediaStreamTrack && window.MediaStreamTrack.getSources) {
+            navigator.enumerateDevices = window.MediaStreamTrack.getSources.bind(window.MediaStreamTrack);
+        }
+
+        if (!navigator.enumerateDevices && navigator.enumerateDevices) {
+            navigator.enumerateDevices = navigator.enumerateDevices.bind(navigator);
+        }
+
+        if (!navigator.enumerateDevices) {
+            if (callback) {
+                callback();
+            }
+            return;
+        }
+
+        MediaDevices = [];
+        navigator.enumerateDevices(function(devices) {
+            devices.forEach(function(_device) {
+                var device = {};
+                for (var d in _device) {
+                    device[d] = _device[d];
+                }
+
+                if (device.kind === 'audio') {
+                    device.kind = 'audioinput';
+                }
+
+                if (device.kind === 'video') {
+                    device.kind = 'videoinput';
+                }
+
+                var skip;
+                MediaDevices.forEach(function(d) {
+                    if (d.id === device.id && d.kind === device.kind) {
+                        skip = true;
+                    }
+                });
+
+                if (skip) {
+                    return;
+                }
+
+                if (!device.deviceId) {
+                    device.deviceId = device.id;
+                }
+
+                if (!device.id) {
+                    device.id = device.deviceId;
+                }
+
+                if (!device.label) {
+                    device.label = 'Please invoke getUserMedia once.';
+                    if (!isHTTPs) {
+                        device.label = 'HTTPs is required to get label of this ' + device.kind + ' device.';
+                    }
+                } else {
+                    if (device.kind === 'videoinput' && !isWebcamAlreadyCaptured) {
+                        isWebcamAlreadyCaptured = true;
+                    }
+
+                    if (device.kind === 'audioinput' && !isMicrophoneAlreadyCaptured) {
+                        isMicrophoneAlreadyCaptured = true;
+                    }
+                }
+
+                if (device.kind === 'audioinput') {
+                    hasMicrophone = true;
+                }
+
+                if (device.kind === 'audiooutput') {
+                    hasSpeakers = true;
+                }
+
+                if (device.kind === 'videoinput') {
+                    hasWebcam = true;
+                }
+
+                // there is no 'videoouput' in the spec.
+
+                MediaDevices.push(device);
+            });
+
+            if (callback) {
+                callback();
+            }
+        });
+    }
+
+    // check for microphone/camera support!
+    checkDeviceSupport(function() {
+        hasWebcam, 
+        isWebcamAlreadyCaptured
+    });
+    </script> -->
+
+    <!-- Video Style -->
+    <style>
+        #vidcontainer {
+            margin: 0px auto;
+            width: 340px;
+            height: auto;
+            border: 10px #333 solid;
+        }
+        #videoElement {
+            width: 320px;
+            height: auto;
+            background-color: #666;
+        }
+    </style>
+    
+    <!-- Inactive Tab Checker-->
+    <script>
+        var interval_id;
+        var count=0;
+        $(window).on("blur focus", function(e) {
+            var prevType = $(this).data("prevType");
+            var dt = new Date();
+            
+            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+            if (prevType != e.type) {   //  reduce double fire issues
+                switch (e.type) {
+                    case "blur":
+                        count++;
+                        
+                            if (count < 5){
+                                var style = $('#message').append("["+time+"]"+"Tab lost focus.&#13;&#10;")                               
+                            }
+                            else{
+                                $('#dimscreen').css({
+                                    "position": "fixed",
+                                    "padding": "0",
+                                    "margin":"0",
+                                    "top": "0",
+                                    "left": "0",
+                                    "width": "100%",
+                                    "height": "100%",
+                                    "background": "rgba(255,255,255,0.5)",
+                                });
+                                $("#reload_exam").modal('show');
+                            }
+                        break;
+                    case "focus":
+                        // $('#message').text("Focused");
+                        break;
+                }
+            }
+
+            $(this).data("prevType", e.type);
+        })
+    </script>
+</footer>
 
 </html>
