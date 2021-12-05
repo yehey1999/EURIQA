@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from administrator.models import *
 
 # Create your models here.
 class Program(models.Model):
@@ -34,3 +35,24 @@ class Enrollee(models.Model):
 
     class Meta:
         db_table = 'enrollee'
+
+class ExamAnswers(models.Model):
+    answer_id = models.AutoField(primary_key=True)
+    enrollee =  models.ForeignKey(Enrollee, on_delete=models.CASCADE)
+    answer = models.CharField(max_length = 1)
+    exam =  models.ForeignKey(Exam, on_delete=models.CASCADE)
+    part =  models.ForeignKey(Part, on_delete=models.CASCADE)
+    question =  models.OneToOneField(Question, on_delete=models.CASCADE)
+    is_correct = models.BooleanField(default=None, null=True)
+
+    class Meta:
+        db_table = 'exam_answers'
+
+class ExamResults(models.Model):
+    result_id = models.AutoField(primary_key=True)
+    enrollee =  models.OneToOneField(Enrollee, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
+    total_score = models.IntegerField(default=0)
+
+    class Meta:
+        db_table = 'exam_results'

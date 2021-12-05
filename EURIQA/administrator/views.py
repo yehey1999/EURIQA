@@ -597,6 +597,8 @@ def view_exam(request, exam_id=None):
 
         }
 
+        if not request.user.is_authenticated:
+            return redirect("administrator:administrator_login")
         return render(request, 'administrator/examManagement/adminViewExam.html', context)
     
     else:

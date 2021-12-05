@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta content="" name="description">
     <meta content="" name="keywords">
-
+    
     <!-- Favicon icon -->
     <link rel="icon" href="{% static 'assets/img/favicon.png' %}" type="image/x-icon">
 
@@ -65,13 +65,25 @@
                 <br><br>
 				<ul class="pc-navbar">
 					<li class="pc-item pc-caption">
-						<label>Examination</label>
+						<label>Exam Parts</label>
 					</li>
-					<li class="pc-item active">
-						<a href="../enrollee/exam" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">table_rows</i></span><span class="pc-mtext">Part 1 - General Knowledge</span></a>
-					</li>
+                    
+                    {% for part_list in all_parts %}
+                        {% for exam in exams %}
+                            {% for part in parts %}     
+                                <li {% if part.part_id == part_list.part_id %} class="pc-item active" {% else %} class="pc-item" {% endif %}>
+                                    <a href="../{{exam.exam_id}}/{{part_list.part_id}}" class="pc-link " style="pointer-events: none">
+                                        <span class="pc-micon">
+                                            <i class="material-icons-two-tone">assignment</i>
+                                        </span>
+                                        <span class="pc-mtext">{{part_list.part_name}}</span>
+                                    </a>
+                                </li>
+                            {% endfor %} 
+                        {% endfor %}
+                    {% endfor %}
 
-					<li class="pc-item">
+					<!-- <li class="pc-item">
 						<a href="icon-feather.html" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">table_rows</i></span><span class="pc-mtext">Part 2 - Mathematics</span></a>
 					</li>
 					<li class="pc-item">
@@ -80,7 +92,7 @@
 					<li class="pc-item">
 						<a href="map-google.html" class="pc-link "><span class="pc-micon"><i class="material-icons-two-tone">table_rows</i></span><span class="pc-mtext">Part 4 - Science </span></a>
 					</li>
-					<li class="pc-item pc-caption">
+					<li class="pc-item pc-caption"> -->
 				</ul>
 			</div>
 		</div>
@@ -110,7 +122,7 @@
                 <i class="material-icons-two-tone">settings</i>
                 <span>Settings</span>
               </a> -->
-              <a href="../enrollee/logout" class="dropdown-item">
+              <a href="/enrollee/logout" class="dropdown-item">
                 <i class="material-icons-two-tone">chrome_reader_mode</i>
                 <span>Logout</span>
               </a>
@@ -165,44 +177,66 @@
 
             <div class="row">
                 <!-- QUESTIONS start -->
-                <div class="col-sm-8"> 
-                    {% for ques in questions %}
-                    <div class="card">
-                        <div class="card-body">
-                            <p style="font-weight: 500; text-align: justify;">{{ques.question_no}}. {{ques.question}}</p>
-                            <!-- Options -->
-                                <!--Option A-->
-                                <p style="text-align: justify;">
+                <div class="col-sm-8">
+                    <form class="row g-3 needs-validation" novalidate method="POST">
+                        {% csrf_token %}
+                        <!-- {{question_no}} -->
+                        <!-- <input value="{{question_no}}" name="question_no"> -->
+                        {% for ques in questions %}
+                        <div class="card">
+                            <div class="card-body">
+                                <p style="font-weight: 500; text-align: justify;">{{ques.question_no}}. {{ques.question}}</p>
+                                <!-- <input type="number" value={{ques.question_id}} name="ques_id{{ques.question_id}}"> -->
+                                <!-- Options -->
+                                    <!--Option A-->
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="options" value="A" id="exampleRadios1">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;A.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionA}}
+                                        <p style="text-align: justify;">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="A" id="exampleRadios1" required>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;A.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionA}}
+                                            </div>
+                                        </p>
                                     </div>
-                                </p>
+                                    <div class="invalid-feedback">
+                                        No option specified.
+                                    </div>
 
-                                <!--Option B-->
-                                <p style="text-align: justify;">
+                                    <!--Option B-->
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="options" value="B" id="exampleRadios1">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;B.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionB}}
+                                        <p style="text-align: justify;">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="B" id="exampleRadios1" required>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;B.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionB}}
+                                            </div>
+                                        </p>
                                     </div>
-                                </p>
-                                <!--Option C-->
-                                <p style="text-align: justify;">
+
+                                    <!--Option C-->
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="options" value="C" id="exampleRadios1">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;C.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionC}}
+                                        <p style="text-align: justify;">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="C" id="exampleRadios1" required>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;C.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionC}}
+                                            </div>
+                                        </p>
                                     </div>
-                                </p>
-                                <!--Option D-->
-                                <p style="text-align: justify;">
+
+                                    <!--Option D-->
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="options" value="D" id="exampleRadios1">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;D.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionD}}
+                                        <p style="text-align: justify;">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="D" id="exampleRadios1" required>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;D.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionD}}
+                                            </div>
+                                        </p>
                                     </div>
-                                </p>
+                            </div>
                         </div>
-                    </div>
-                    {% endfor %}
+                        {% endfor %}
+                        <center style="padding-bottom: 50px;">
+                            <button class="btn btn-primary" type="submit" name="btnSubmitExam" style="width: 30%;">Submit</button>
+                        </center>
+                    </form>
                 </div>
                 
                 <!-- <div class="col-sm-4">
@@ -336,6 +370,12 @@
     <!-- custom-chart js -->
     <script src="{% static 'assets/js/dashboard/pages/dashboard-sale.js' %}"></script>
     </body>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- BOOTSTRAP FORM VALIDATION -->
+    <script src="{% static 'assets/js/formvalidation.js' %}"></script>
 
     <!-- Required Js -->
     <script src="{% static 'assets/js/dashboard/vendor-all.min.js' %}"></script>
@@ -564,7 +604,7 @@
     </style>
     
     <!-- Inactive Tab Checker-->
-    <script>
+    <!-- <script>
         var interval_id;
         var count=0;
         $(window).on("blur focus", function(e) {
@@ -602,7 +642,7 @@
 
             $(this).data("prevType", e.type);
         })
-    </script>
+    </script> -->
 </footer>
 
 </html>
