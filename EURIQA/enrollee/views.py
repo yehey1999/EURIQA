@@ -176,7 +176,7 @@ def exam_page(request, exam_id=None, part_id=None):
                 enrollee = request.user.id
 
                 # Get enrollee instance based from the enrollee id
-                get_enrollee = Enrollee.objects.get(enrollee_id = enrollee)
+                get_enrollee = Enrollee.objects.get(user_id = enrollee)
                 
                 # Get exam instance based from the exam id
                 get_exam = Exam.objects.get(exam_id = exam_id)

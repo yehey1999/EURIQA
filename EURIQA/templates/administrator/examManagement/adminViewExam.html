@@ -571,7 +571,7 @@
                                                     <!-- Part -->
                                                     <div class="col-8">
                                                         <div class="form-floating">
-                                                            <select class="form-select" id="floatingPart" name="add_part" aria-label="Default select example">
+                                                            <select class="form-select" id="floatingPart" name="add_part" aria-label="Default select example" required>
                                                                 {% for part in parts %}
                                                                     <option value={{part.part_id}}>{{part.part_name}}</option>
                                                                 {% endfor %} 
