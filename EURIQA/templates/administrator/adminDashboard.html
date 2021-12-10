@@ -156,9 +156,9 @@
 			</div>
 			<!-- [ breadcrumb ] end -->
 			
-			<!-- [ Main Content ] start -->
+			<!-- Main Content start -->
 			<div class="row">
-				<!-- support-section start -->
+				<!-- col start -->
 				<div class="col-xl-6 col-md-12">
 					<div class="card flat-card">
 						<div class="row-table">
@@ -196,7 +196,6 @@
 								</div>
 							</div>
 						</div>
-						
 					</div>
 					<div class="row">
 						<div class="col-md-6">
@@ -252,10 +251,10 @@
 							</div>
 						</div>
 					</div>
+				<!-- col end -->
 				</div>
-				
-				<div class="col-md-6">
-                
+				<!-- Account data start -->
+				<div class="col-sm-6">
 					<div class="card table-card">
 						<div class="card-header">
 							<h5>Accounts</h5>
@@ -320,42 +319,110 @@
 						</div>
 					</div>
 				</div>
+				<!-- Account data end -->
 			</div>
-	
-			<div class="row">
-				<div class="col-xl-6 col-md-6">
-					<div class="card">
-						<div class="card-header">
-							<h5>College Enrolment</h5>
-						</div>
-					<div>
-					<canvas id="myChart"></canvas>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xl-6 col-md-12">
-					<div class="card feed-card">
-						<div class="card-header">
-							<h5>SHS Enrolment</h5>
-						</div>
-  					<div>
-					<canvas id="myChart2"></canvas>
-				</div>
-				
-			</div>
-				
 
-			<div class="row">
-					<div class="col-xl-6 col-md-12">
-						<div class="card">
-							<div class="card-header">
-								<h5>Demographic</h5>
-							</div>
-							<div>
-                  				<canvas id="myChart3" width="150px" height="150px"></canvas>
-               				</div>
-						</div>
+			<!-- QUICK ADD start -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Quick Add</h5>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-3 col-form-label">ID Number</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" id="inputEmail3">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" class="form-control" id="inputPassword3">
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <div class="row mb-3">
+                                        <legend class="col-form-label col-sm-3 pt-0">Level</legend>
+                                        <div class="col-sm-9">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    College
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Senior High School
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Junior  High School
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                                <label class="form-check-label" for="gridRadios2">
+                                                    Elementary
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                        <div class="card-footer">
+                            <button class="btn btn-primary mr-2">Submit</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+			<!-- QUICK ADD end -->
+
+            <!-- College Enrollment start -->
+            <div class="col-xl-6 col-md-12">
+				<div class="card table-card">
+					<div class="card-header">
+						<h5>SHS Enrollment</h5>
 					</div>
+					<div class="card-body" style="padding: 10px; margin-bottom: 50px; margin-top: 20px;">
+						<canvas id="myChart2"></canvas>
+					</div>
+				</div>
+			</div>
+			<!-- College Enrollment Graph end -->
+            
+
+			<!-- SHS Enrollment Graph start -->
+            <div class="col-xl-8 col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>College Enrollment</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
+					</div>
+                </div>
+            </div>
+			<!-- SHS Enrollment Graph ends -->
+			
+			<!-- Demographic Graph start -->
+			<div class="col-xl-4 col-md-4">
+				<div class="card table-card">
+					<div class="card-header">
+						<h5>Demographic</h5>
+					</div>
+					<div class="card-body" style="padding: 10px; margin-bottom: 38px;">
+						<canvas id="myChart3" width="150px" height="150px"></canvas>
+					</div>
+				</div>
+            </div>
+			<!-- Demographic Graph start -->
+
 
 					<!-- customer-section start -->
 					<!-- <div class="col-xl-6 col-md-12">
