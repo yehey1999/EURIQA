@@ -110,7 +110,7 @@
 				<ul class="list-unstyled">
 					<li class="dropdown pc-h-item">
 						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-							{% for admin in admin_details %}
+							{% for admin in qs_admin %}
                             <img src='{{admin.picture.url}}' alt="" class="user-avtar">
                             {% endfor %}
 							<span>
@@ -168,8 +168,8 @@
 										<i class="material-icons-two-tone text-primary mb-1">group</i>
 									</div>
 									<div class="col-sm-8 text-md-center">
-										<h5>2589</h5>
-										<span>Students</span>
+										<h5>{{qs_enrollee.count}}</h5>
+										<span>Enrollees</span>
 									</div>
 								</div>
 							</div>
@@ -179,8 +179,8 @@
 										<i class="material-icons-two-tone text-primary mb-1">language</i>
 									</div>
 									<div class="col-sm-8 text-md-center">
-										<h5>1252</h5>
-										<span>Exam Takers</span>
+										<h5>{{count_freshman}}</h5>
+										<span>Freshman</span>
 									</div>
 								</div>
 							</div>
@@ -190,8 +190,8 @@
 										<i class="material-icons-two-tone text-primary mb-1">unarchive</i>
 									</div>
 									<div class="col-sm-8 text-md-center">
-										<h5>45%</h5>
-										<span>Growth</span>
+										<h5>{{count_transferee}}</h5>
+										<span>Transferee</span>
 									</div>
 								</div>
 							</div>
@@ -227,22 +227,22 @@
 						<div class="col-md-6">
 							<div class="card support-bar overflow-hidden">
 								<div class="card-body pb-0">
-									<h2 class="m-0">2589</h2>
-									<span class="text-primary">Students</span>
+									<h2 class="m-0">{{qs_enrollee.count}}</h2>
+									<span class="text-primary">Enrollees</span>
 									<p class="mb-3 mt-3">Total number of takers per department.</p>
 								</div>
 								<div class="card-footer border-0">
 									<div class="row text-center">
 										<div class="col">
-											<h4 class="m-0">1420</h4>
+											<h4 class="m-0">{{count_college}}</h4>
 											<span>College</span>
 										</div>
 										<div class="col">
-											<h4 class="m-0">1100</h4>
+											<h4 class="m-0">{{count_shs}}</h4>
 											<span>Senior</span>
 										</div>
 										<div class="col">
-											<h4 class="m-0 ">755</h4>
+											<h4 class="m-0 ">{{count_jhs}}</h4>
 											<span>Junior</span>
 										</div>
 									</div>
@@ -265,54 +265,24 @@
 									<table class="table table-hover m-b-0">
 										<thead>
 											<tr>
-												<th>Product Name</th>
-												<th>Status</th>
+												<th>Enrollee ID</th>
+												<th>Enrollee Name</th>
 												<th>Year Level</th>
-												<th>Action</th>
+												<th>Exam Status</th>
 											</tr>
 										</thead>
+										{% for qs_enrollee in qs_enrollee|slice:":5" %}
 										<tbody>
 											<tr>
-												<td>John Paul Alferez</td>
+												<td>{{qs_enrollee.enrollee_id}}</td>
 												<td>
-													<div><label class="badge bg-light-warning">Pending</label></div>
+													{{qs_enrollee.user.get_full_name}}
 												</td>
-												<td>College</td>
-												<td><a href="#!"><i class="icon feather icon-edit f-16  text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
-											</tr>
-											<tr>
-												<td>Vince Dominique Carusca</td>
-												<td>
-													<div><label class="badge bg-light-danger">Cancelled</label></div>
-												</td>
-												<td>Junior</td>
-												<td><a href="#!"><i class="icon feather icon-edit f-16  text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
-											</tr>
-											<tr>
-												<td>Riza Marie Mayormita</td>
-												<td>
-													<div><label class="badge bg-light-success">Success</label></div>
-												</td>
-												<td>Senior</td>
-												<td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
-											</tr>
-											<tr>
-												<td>Vince Dominique Carusca</td>
-												<td>
-													<div><label class="badge bg-light-danger">Cancelled</label></div>
-												</td>
-												<td>Senior</td>
-												<td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
-											</tr>
-											<tr>
-												<td>John Paul Alferez</td>
-												<td>
-													<div><label class="badge bg-light-success">Success</label></div>
-												</td>
-												<td>College</td>
-												<td><a href="#!"><i class="icon feather icon-edit f-16 text-success"></i></a><a href="#!"><i class="feather icon-trash-2 ml-3 f-16 text-danger"></i></a></td>
+												<td>{{qs_enrollee.level}}</td>
+												<td>{{qs_enrollee.exam_status}}</td>
 											</tr>
 										</tbody>
+										{% endfor %}
 									</table>
 								</div>
 							</div>
@@ -332,9 +302,9 @@
                         <div class="card-body">
                             <form>
                                 <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-3 col-form-label">ID Number</label>
+                                    <label for="inputUname" class="col-sm-3 col-form-label">Username</label>
                                     <div class="col-sm-9">
-                                        <input type="email" class="form-control" id="inputEmail3">
+                                        <input type="text" class="form-control" id="inputUname" placeholder="ID Number" name="username">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -459,7 +429,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   const data = {
-    labels: [{% for qs_program in qs_program %} '{{ qs_program.college }}', {% endfor %}],
+    labels: [{% for qs_program in qs_program %} '{{ qs_program.program_id }}', {% endfor %}],
     datasets: [{
       label: 'Number of Enrollees',
       data: [{% for qs_program in qs_program %} '{{ qs_program.num_enrollees }}', {% endfor %}],
@@ -499,7 +469,13 @@
   );
 
   const data2 = {
-    labels: [{% for qs_strand in qs_strand %} '{{ qs_strand.strand_name }}', {% endfor %}],
+  	labels: [
+    'ABM',
+    'GAS',
+    'HUMSS',
+    'STEM'
+  ],
+    // labels: [{% for qs_strand in qs_strand %} '{{ qs_strand.strand_name }}', {% endfor %}],
     datasets: [{
       label: 'Number of Enrollees',
       data: [{% for qs_strand in qs_strand %} '{{ qs_strand.num_enrollees }}', {% endfor %}],

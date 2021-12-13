@@ -67,6 +67,9 @@ class AdminDashboard(View):
         qs_strand = Strand.objects.all()
         count_freshman=Enrollee.objects.filter(enrolled_as='freshman').count()
         count_transferee=Enrollee.objects.filter(enrolled_as='transferee').count()
+        count_college=Enrollee.objects.filter(level='college').count()
+        count_shs=Enrollee.objects.filter(level='shs').count()
+        count_jhs=Enrollee.objects.filter(level='jhs').count()
 
         print(qs_enrollee)
         print(qs_program)
@@ -79,6 +82,9 @@ class AdminDashboard(View):
             'qs_strand' : qs_strand,
             'count_freshman' : count_freshman,
             'count_transferee' : count_transferee,
+            'count_college' : count_college,
+            'count_shs' : count_shs,
+            'count_jhs' : count_jhs,
         }
         
         if not request.user.is_authenticated:
