@@ -1,3 +1,5 @@
 
 *.pyc
 EURIQA/administrator/__pycache__/urls.cpython-38.pyc
+
+node_modules
