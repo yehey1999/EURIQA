@@ -357,10 +357,10 @@
             <div class="col-xl-6 col-md-12">
 				<div class="card table-card">
 					<div class="card-header">
-						<h5>SHS Enrollment</h5>
+						<h5>Demographic</h5>
 					</div>
-					<div class="card-body" style="padding: 10px; margin-bottom: 50px; margin-top: 20px;">
-						<canvas id="myChart2"></canvas>
+					<div class="card-body" style="padding: 10px; margin-bottom: 38px;">
+						<canvas id="myChart3" width="150px" height="150px"></canvas>
 					</div>
 				</div>
 			</div>
@@ -368,50 +368,56 @@
             
 
 			<!-- SHS Enrollment Graph start -->
+			<div class="activatedAccounts">
             <div class="col-xl-8 col-md-8">
                 <div class="card">
                     <div class="card-header">
                         <h5>College Enrollment</h5>
+                        <a href="#shs" style="color:maroon;" class="switchDeactivated"><button></button></a>
                     </div>
                     <div class="card-body">
                         <canvas id="myChart"></canvas>
 					</div>
                 </div>
             </div>
+        	</div>
 			<!-- SHS Enrollment Graph ends -->
+
 			
-			<!-- Demographic Graph start -->
-			<div class="col-xl-4 col-md-4">
-				<div class="card table-card">
-					<div class="card-header">
-						<h5>Demographic</h5>
+			
+
+			<div class="deactivatedAccounts" hidden>
+			<div class="col-xl-8 col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>SHS Enrollment</h5>
+                        <a href="#college" style="color:maroon;" class="switchActivated"><button></button></a>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="myChart2"></canvas>
 					</div>
-					<div class="card-body" style="padding: 10px; margin-bottom: 38px;">
-						<canvas id="myChart3" width="150px" height="150px"></canvas>
-					</div>
-				</div>
-            </div>
-			<!-- Demographic Graph start -->
-
-
-					<!-- customer-section start -->
-					<!-- <div class="col-xl-6 col-md-12">
-					
-					<div class="card table-card">
-						<div class="card-header">
-							<h5>Average Score Per Part</h5>
-						</div>
-
-            <div>
-                  <canvas id="myChart4"></canvas>
                 </div>
-					</div>
-				</div> -->
-				<!-- section end -->
-				
+            </div>
+            </div>
+			
+			
 				
 			</div>
 			<!-- [ Main Content ] end -->
+			<!-- <script>
+        $(".switchDeactivated").click(function(){
+            $(".deactivatedAccounts").show();
+            $(".activatedAccounts").hide();
+            $(".deactivatedAccounts").removeAttr("hidden")
+        });
+
+        $(".switchActivated").click(function(){
+            
+            $(".deactivatedAccounts").hide();
+            $(".activatedAccounts").show();
+        });
+
+    </script> -->
 		</div>
 	</div>	
 </body>
@@ -427,6 +433,8 @@
     <!-- custom-chart js -->
     <script src="{% static 'assets/js/dashboard/pages/dashboard-sale.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+ <!-- Charts -->
 <script>
   const data = {
     labels: [{% for qs_program in qs_program %} '{{ qs_program.program_id }}', {% endfor %}],
@@ -541,6 +549,22 @@ const myChart3 = new Chart(
   );
   
 </script>
+
+<!-- Switch between activated and deactivated accounts table -->
+    <script>
+        $(".switchDeactivated").click(function(){
+            $(".deactivatedAccounts").show();
+            $(".activatedAccounts").hide();
+            $(".deactivatedAccounts").removeAttr("hidden")
+        });
+
+        $(".switchActivated").click(function(){
+            
+            $(".deactivatedAccounts").hide();
+            $(".activatedAccounts").show();
+        });
+
+    </script>
 
                 
 </footer>
