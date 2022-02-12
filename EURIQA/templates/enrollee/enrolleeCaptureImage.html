@@ -14,6 +14,11 @@
   <!-- EURIQA Fonts -->
   <link href="https://fonts.EURIQAapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
+  <!-- font css -->
+  <link rel="stylesheet" href="{% static 'assets/fonts/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/fonts/material.css' %}">
+
   <!-- Vendor CSS Files -->
   <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -91,35 +96,48 @@
                     <br> 
 
                     <!-- fieldsets -->
-                    <fieldset>
-                        <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
-                                    <h2 class="fs-title">Image Upload:</h2>
+                      <fieldset>
+                        <form method="POST" action = "" enctype="multipart/form-data">
+                          {% csrf_token %}
+                          <div class="form-card">
+                              <div class="row">
+                                <div class="col">
+                                  
+                                  <!-- Camera Area -->
+                                  <div id="camera" style="width:480px; height: 360px; border: 1px solid black; margin-left: 120px;"></div><br>
+
+                                  <!-- Capture Image/Snapshot -->
+                                  <div id="pre_take_buttons" style="margin-left: 300px;">
+                                    <button class="btn btn-outline-info" type="button" onClick="preview_snapshot()">Capture</button>
+                                  </div>
+
+                                  <!-- Save and Download Image-->
+                                  <div id="post_take_buttons" style="display:none; margin-left: 210px;">
+                                    <button class="btn btn-outline-secondary" type="button" onClick="cancel_preview()">Take Another</button>
+                                    <button class="btn btn-outline-info" type="button" onClick="save_photo()">Save and Download</button>  
+                                    <!-- Get the username to be used in the file name -->        
+                                    <input type="text" id="username" value="{{request.user.username}}" hidden>
+                                  </div><br>
+                                  
+                                  <!-- File Input Field -->
+                                  <div class="mb-3" id="image_field" style="display: none; margin-left: 140px; width: 60%;">
+                                    <label for="formFile" class="form-label">Upload Captured Image. <b>Do not rename the file.</b> </label>
+                                    <input class="form-control" name="picture" type="file" id="formFile" accept="image/png, image/gif, image/jpeg" required>
+                                  </div>
                                 </div>
+                              </div> 
+                            
+                          </div> 
+                          <br><br>
+                          
+                          <!-- Buttons -->
+                          <div style="float: right;">
+                            <a class="btn btn-secondary" href="../enrollee/datapolicy" style="background-color: gray; width: 150px; height: 40px;">Previous</a>
+                            <button type="submit" class="btn btn-secondary" name="btnNext" style="background-color: maroon; width: 150px; height: 40px;">Next</button>
+                          </div>
 
-                            </div> 
-                            <label class="fieldlabels">Upload Your Photo:</label> <input type="file" name="pic" accept="image/*"> 
-                            <label class="fieldlabels">Upload Signature Photo:</label> <input type="file" name="pic" accept="image/*">
-                        </div> 
-                        <br><br>
-                        
-                        <!-- Buttons -->
-                        <div style="float: right;">
-                          <a class="btn btn-secondary" href="../enrollee/datapolicy" style="background-color: gray; width: 150px; height: 40px;">Previous</a>
-                          <a class="btn btn-secondary" href="../enrollee/instructions" style="background-color: maroon; width: 150px; height: 40px;">Next</a>
-                        </div>
-                        
-
-                        <!-- <a href="../enrollee/instructions">
-                            <input type="button" name="Submit" class="next action-button" value="Next" /> 
-                        </a>
-                        <a href="../enrollee/datapolicy">
-                            <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                        </a> -->
-
-                    </fieldset>
-                  </form>
+                        </form>
+                      </fieldset>
                 </div>
               </div>
             </div>
@@ -141,6 +159,63 @@
 </footer><!-- End Footer -->
 
 
+  <!-- Webcam JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js" integrity="sha512-AQMSn1qO6KN85GOfvH6BWJk46LhlvepblftLHzAv1cdIyTWPBKHX+r+NOXVVw6+XQpeW4LJk/GTmoP48FLvblQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Webcam JS Image Capture-->
+  <script language="JavaScript">
+    Webcam.set({
+			width: 480,
+			height: 360,
+			image_format: 'jpeg',
+			jpeg_quality: 90
+		});
+		Webcam.attach( '#camera' );
+
+    function preview_snapshot() {
+			// freeze camera so user can preview pic
+			Webcam.freeze();
+			
+			// swap button sets
+			document.getElementById('pre_take_buttons').style.display = 'none';
+			document.getElementById('post_take_buttons').style.display = '';
+      document.getElementById('image_field').style.display = '';
+		}
+		
+		function cancel_preview() {
+			// cancel preview freeze and return to live camera feed
+			Webcam.unfreeze();
+			
+			// swap buttons back
+			document.getElementById('pre_take_buttons').style.display = '';
+			document.getElementById('post_take_buttons').style.display = 'none';
+      document.getElementById('image_field').style.display = 'none';
+		}
+		
+		function save_photo() {
+			// actually snap photo (from preview freeze) and display it
+			Webcam.snap( function(data_uri) {
+        downloadImage = function (name, datauri) {
+          var a = document.createElement('a');
+          a.setAttribute('download', name + '.jpg');
+          a.setAttribute('href', datauri);
+          a.click();
+        }
+
+        username = document.getElementById('username').value;
+        downloadImage(username, data_uri);
+
+        // display results in page
+				document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+
+				// do not swap buttons back
+				document.getElementById('pre_take_buttons').style.display = 'none';
+        
+				// document.getElementById('post_take_buttons').style.display = '';
+			} );
+		}
+   
+  </script>
 
   <!-- Vendor JS Files -->
   <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>

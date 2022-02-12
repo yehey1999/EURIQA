@@ -13,5 +13,5 @@ urlpatterns = [
     path('captureimage', views.EnrolleeCaptureImageView.as_view(), name='enrollee_captureimage'),
     path('instructions', views.EnrolleeInstructionsView.as_view(), name='enrollee_instructions'),
     path('exam/<int:exam_id>/<int:part_id>', views.exam_page, name='enrollee_exam'),
-     path('results/<int:enrollee_id>/<int:exam_id>', views.exam_results, name='enrollee_examcompletion'),
+    path('results/<int:enrollee_id>/<int:exam_id>', views.exam_results, name='enrollee_examcompletion'),
 ]

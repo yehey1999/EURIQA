@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from enrollee.models import *
 from administrator.models import *
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
@@ -78,7 +79,20 @@ class EnrolleeCaptureImageView(View):
         if not request.user.is_authenticated:
             return redirect("enrollee:enrollee_login")
         return render(request, 'enrollee/enrolleeCaptureImage.html')
+    
+    def post(self, request):
+        if request.method == "POST":
+            if 'btnNext' in request.POST:
+                picture = request.FILES['picture']
+                fileSystemStorage = FileSystemStorage()
+                filename = fileSystemStorage.save(picture.name, picture)
+                picture = fileSystemStorage.url(filename)
 
+                update_admin = Enrollee.objects.filter(user = request.user.id).update(picture = picture)
+                print(request.user.id)
+        
+        return redirect("enrollee:enrollee_instructions")
+        
 class EnrolleeInstructionsView(View):
     def get(self, request):
         qs_enrollee = Enrollee.objects.filter(user = request.user.id)
@@ -136,8 +150,6 @@ def exam_page(request, exam_id=None, part_id=None):
             
             else:
                 print("level does not exist")
-
-            get_exam_id = qs_exam.values_list('exam_id', flat=True)
 
             qs_all_parts = Part.objects.filter(exam = exam_id)
             qs_part = Part.objects.filter(part_id = part_id)
@@ -234,27 +246,38 @@ def exam_page(request, exam_id=None, part_id=None):
 
                 # Update exam status of enrollee
                 update_status = Enrollee.objects.filter(user = request.user.id).update(exam_status = "done")
+                
 
-                get_last_part = Part.objects.get(part_id = part_id)
-                last = Part.objects.last()
-
+                # Get all part IDs and save it in a list
                 get_all = Part.objects.filter(exam_id = exam_id).values_list('part_id', flat=True)
                 part_list=list(get_all)
 
-                if get_last_part.pk != last.pk:
-                    for i in range(len(part_list)):
-                        if (part_list[i] == part_id):
-                            pass
+                # Get the ID of the last Part
+                last_part = Part.objects.filter(exam_id = exam_id).last()
 
-                        elif (part_list[i] < part_id):
-                            return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[i])
-                            break;
-                        else:
-                            return redirect("enrollee:enrollee_examcompletion", enrollee_id=request.user.id, exam_id = exam_id)
-
+                print(part_list)
+                for i in range(len(part_list)):
+                    if part_list[i] == part_id or part_list[i-1] != part_id:
+                        pass
+                        
+                    elif part_list[i] <= last_part.pk or part_list[i] >= last_part.pk:
+                        return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[i])
+                    # elif part_list[i] != last_part.pk:
+                        return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[i])
                     
-                    
+                    elif part_list[i] == last_part.pk:
+                        return redirect("enrollee:enrollee_examcompletion", enrollee_id=request.user.id, exam_id = exam_id)
 
+                        # return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[-1])
+                    
+               
+                    # if part_list[i] != last_part.pk:
+                    #     return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[i+1])
+                        
+                    # elif part_list[i] == last_part.pk:
+                    #     return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[(len(part_list)-1)])
+                        
+               
 def exam_results(request, enrollee_id=None, exam_id=None):
     if request.user.is_authenticated:
         if request.method != 'POST':

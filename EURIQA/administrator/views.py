@@ -103,12 +103,9 @@ class AdmminProfile(View):
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminProfile.html', context)
 
-    # admin_details = read by the template
-
     def post(self, request):
         if request.method == 'POST':
             if 'saveBtn' in request.POST:   
-                print('change profile button clicked')
                 firstname = request.POST.get("update_first_name")
                 middlename = request.POST.get("update_middle_name")
                 lastname = request.POST.get("update_last_name")
@@ -134,11 +131,6 @@ class AdmminProfile(View):
                     last_name = lastname,
                     username = username)
 
-                print(update_admin)
-                print('profile updated!')
-                print('added image')
-
-            # return HttpResponse ('post')
             return redirect("administrator:admin_profile")
         
 class AdminAccountRegistrationView(View):
