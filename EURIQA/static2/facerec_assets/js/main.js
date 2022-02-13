@@ -9,6 +9,7 @@ Promise.all([
   faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
 ]).then(startVideo)
 
+// Function that initiates the video
 function startVideo() {
   navigator.getUserMedia(
     { video: {} },
@@ -18,6 +19,10 @@ function startVideo() {
 }
 
 video.addEventListener('play', () => {
+  // Declare unknown face counter
+  var unknownCtr=0;
+
+  // Create the canvas where the bounding box will be shown
   const canvas = faceapi.createCanvasFromMedia(video)
   document.getElementById("video_area").append(canvas)
   const displaySize = { width: video.width, height: video.height }
@@ -32,20 +37,29 @@ video.addEventListener('play', () => {
     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors()
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-    
+
     if (labeledFaceDescriptors) {
       const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
       const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
+
+      // Draw the bounding box based on the results
       results.forEach((result, i) => {
         const box = resizedDetections[i].detection.box
         const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
         drawBox.draw(canvas)
+
+        // Count the times the detected face is unknown
+        const stringresult = result.toString().split(" ");
+        if (stringresult[0] == "unknown"){
+          unknownCtr++;
+        }
       })
     }
 
   }, 200)
 })
 
+// Function that checks and loads the images
 function loadLabeledImages() {
   const labels = ['emma']
   return Promise.all(
@@ -56,7 +70,7 @@ function loadLabeledImages() {
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
       }
-
+      
       return new faceapi.LabeledFaceDescriptors(label, descriptions)
     })
   )
