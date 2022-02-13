@@ -1,0 +1,26 @@
+{% load static %}
+<html lang="en">
+<head>
+  <title>EURIQA - Face Recognition Test</title>
+  <script defer src="{% static 'facerec_assets/js/face-api.min.js' %}"></script>
+  <script defer src="{% static 'facerec_assets/js/main.js' %}"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      position: absolute;
+    }
+  </style>
+</head>
+<body style="background-color:red">
+  <video id="video" width="200" height="150" autoplay muted></video>
+</body>
+</html>

@@ -92,7 +92,13 @@ class EnrolleeCaptureImageView(View):
                 print(request.user.id)
         
         return redirect("enrollee:enrollee_instructions")
-        
+
+class EnrolleeFaceRecTest(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect("enrollee:enrollee_login")
+        return render(request, 'enrollee/enrolleFaceRecTest.html')
+       
 class EnrolleeInstructionsView(View):
     def get(self, request):
         qs_enrollee = Enrollee.objects.filter(user = request.user.id)
