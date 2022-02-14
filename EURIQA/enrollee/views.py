@@ -1,3 +1,4 @@
+from cmath import nan
 from django.http import Http404, HttpResponse, HttpResponseRedirect, request
 from django.shortcuts import render, redirect
 from django.views.generic import View
@@ -257,32 +258,24 @@ def exam_page(request, exam_id=None, part_id=None):
                 # Get all part IDs and save it in a list
                 get_all = Part.objects.filter(exam_id = exam_id).values_list('part_id', flat=True)
                 part_list=list(get_all)
+                
+                # Append Nonetype at list to serve as stopper when looping through the part ids
+                part_list.append(None)
 
                 # Get the ID of the last Part
                 last_part = Part.objects.filter(exam_id = exam_id).last()
-
-                print(part_list)
+                
+                # Loop over the part ids to properly configure the URLs
                 for i in range(len(part_list)):
                     if part_list[i] == part_id or part_list[i-1] != part_id:
                         pass
                         
-                    elif part_list[i] <= last_part.pk or part_list[i] >= last_part.pk:
+                    elif (part_list[i] is not None) and (part_list[i] <= last_part.pk or part_list[i] >= last_part.pk):
                         return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[i])
-                    # elif part_list[i] != last_part.pk:
-                        return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[i])
-                    
-                    elif part_list[i] == last_part.pk:
+
+                    else:
                         return redirect("enrollee:enrollee_examcompletion", enrollee_id=request.user.id, exam_id = exam_id)
 
-                        # return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[-1])
-                    
-               
-                    # if part_list[i] != last_part.pk:
-                    #     return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[i+1])
-                        
-                    # elif part_list[i] == last_part.pk:
-                    #     return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[(len(part_list)-1)])
-                        
                
 def exam_results(request, enrollee_id=None, exam_id=None):
     if request.user.is_authenticated:
@@ -290,21 +283,31 @@ def exam_results(request, enrollee_id=None, exam_id=None):
             qs_results = ExamResults.objects.filter(exam_id = exam_id)
             qs_exams = Exam.objects.filter(exam_id= exam_id)
             qs_parts = Part.objects.filter(exam = exam_id)
+            
+            # Get the overall_points value from Exam
+            get_exam = Exam.objects.get(exam_id = exam_id)
+            total_points = get_exam.overall_points
 
-            get_parts = qs_parts.values_list('part_id',flat=True)
-            qs_score = ExamAnswers.objects.filter(exam_id = exam_id)
+            # Get the total_score value from ExamResults
+            get_results = ExamResults.objects.get(exam_id = exam_id)
+            score = get_results.total_score
 
-            # for parts in get_parts:
-            #     exam_parts = ExamAnswers.objects.filter(part_id = parts)
-            #     score = exam_parts.filter(is_correct=True).count()
-            #     print(score)
+            # Get the passing score (60% passing rate)
+            passing_score = total_points*0.60
+            print(passing_score)
 
+            # Check if student passed 
+            if score >= passing_score:
+                status = "passed"
+            
+            else:
+                status = "failed"
 
             context={
                 'results' : qs_results,
                 'parts' : qs_parts,
                 'exams': qs_exams,
-                # 'score': score,
+                'status': status,
             }
             return render(request, 'enrollee/enrolleeExamCompletion.html', context)
 
