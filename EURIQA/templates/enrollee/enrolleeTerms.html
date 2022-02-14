@@ -38,6 +38,61 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   
+  <!-- Inline CSS -->
+  <style>
+    ol {
+      list-style-type: none;
+      counter-reset: item;
+      margin: 0;
+      padding: 0;
+    }
+
+    ol > li {
+      display: table;
+      counter-increment: item;
+      margin-bottom: 0.6em;
+    }
+
+    ol > li:before {
+      content: counters(item, ".") ". ";
+      display: table-cell;
+      padding-right: 0.6em;    
+    }
+
+    li ol > li {
+      margin: 0;
+    }
+
+    li ol > li:before {
+      content: counters(item, ".") " ";
+    }
+
+    div.scroll {
+                margin:1px, 1px;
+                padding:4px;
+                width: 100%;
+                height: 600px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                text-align:justify;
+            }
+
+    .tacbox {
+
+      padding: 1em;
+      margin: 2em;
+      border: 3px solid #ddd;
+      background-color: #eee;
+      max-width: 800px;
+    }
+
+    input {
+      height: 2em;
+      width: 2em;
+      vertical-align: middle;
+    }
+
+  </style>
   
 
 </head>
@@ -105,13 +160,43 @@
                               <h2 class="fs-title">Terms and Conditions</h2>
                             </div>
                           </div> 
-                          <div class="row">
+                          <div class="scroll">
                             <div class="col-12">
-                            <br>
+
+                            <ol>
+                                <ol>
+                                  <li align="justify">These terms and conditions represent an agreement between the Cebu Institute of Technology University
+                                    and you. The Contract is formed when you accept the University's offer of 
+                                    a place on a programme (whether taught or research-based, on campus or distance learning), 
+                                    and reconfirmed when you register for each academic year during your programme.</li>
+                                  <li align="justify">These terms and conditions in full, along with your offer, the University's rules, regulations, policies and procedures  
+                                    and the description of your programme on the University’s Degree Finder applicable at the time of your application, 
+                                    form the contract (the “Contract”) between you and the University in relation to your studies at the University. You 
+                                    should read these documents carefully before you accept an offer of a place and/or prior to registration for the next 
+                                    academic year if you are already a student. Your offer letter will set out the steps which you will need to take to 
+                                    accept the University’s offer of a place.</li>
+                                  <li align="justify">If you have any questions or concerns about these terms and conditions, current and prospective students 
+                                    should contact the University's Student Recruitment and Admissions Office:</li>
+                                  <li align="justify">You should ensure that all of the information you provide to the University and/or the Administration Office and/or 
+                                    the ETO Office in respect of you application is true and accurate.</li>
+                                  <li align="justify">If it is discovered that your application contains incorrect or fraudulent information, 
+                                    there is a re-assessment of your fee status, or significant information has been omitted from your application form, 
+                                    the University may withdraw or amend your offer, or where you have already registered, terminate your registration at 
+                                    the University and this Contract.</li>
+                                  <li align="justify">The terms of the Contract shall only be enforceable by you and the University. </li>
+                                  <li align="justify">The Contract constitutes the entire agreement between you and the University in relation to its subject matter. </li>
+                                  <li align="justify">No failure or delay by the University or you to exercise any right or remedy provided under the Contract or by law shall constitute a waiver of that or any other right or remedy, nor shall it prevent or restrict the exercise of that or any other right or remedy. </li>
+                                  <li align="justify">If any provision or part-provision of the Contract is or becomes invalid, illegal or unenforceable, it shall be deemed modified to the minimum extent necessary to make it valid, legal and enforceable. If such modification is not possible, the relevant provision or part-provision shall be deemed deleted. Any modification to or deletion of a provision or part-provision shall not affect the validity and enforceability of the rest of the Contract.</li>
+
+                                </ol>
+                              </li>
+                            </ol>
+                            <br><br>
+                            <p align="justify"> 
                             The services offered by EURIQA under the Terms of Service include 
-                            various products and services to help you sell goods and services to buyers, whether 
-                            online (“Online Services”) by enabling you to create and build your own online store, 
-                            in person (“POS Services”), or both. Any such services offered by EURIQA are referred 
+                            various products and services to help you in University Admission by 
+                            enabling you to access the admission examination through online without having to attend 
+                            in person. Any such services offered by EURIQA are referred 
                             to in these Terms of Services as the “Services”. Any new features or tools which are
                             added to the current Services shall be also subject to the Terms of Service. You can 
                             review the current version of the Terms of Service at any time. EURIQA reserves the 
@@ -122,8 +207,7 @@
                            </p>
                            <p align="justify">You must read, agree with and accept all of the terms and conditions 
                              contained or expressly referenced in these Terms of Service, including EURIQA’s
-                              Acceptable Use Policy (“AUP”) and Privacy Policy, and, if applicable, the Supplementary 
-                              Terms of Service for E.U. Merchants ("EU Terms"), the EURIQA API License and Terms of 
+                              Acceptable Use Policy (“AUP”) and Privacy Policy, the EURIQA API License and Terms of 
                               Use (“API Terms”) and the EURIQA Data Processing Addendum (“DPA”) before you may sign 
                               up for a EURIQA Account or use any EURIQA Service. Additionally, if you offer goods 
                               or services in relation to COVID-19, you must read, acknowledge and agree to the Rules 
@@ -135,8 +219,17 @@
                               complete picture of your legal requirements. By using EURIQA or any EURIQA services, 
                               you are agreeing to these terms. Be sure to occasionally check back for updates.</p><br><br>
                             </div>
+                            
                           </div> 
-                      </div> 
+                          
+                      </div>
+                      <div>
+                        <div class="tacbox">
+                          <input id="checkbox" type="checkbox" required />
+                          <label for="checkbox"> I agree to these <a href="#">Terms and Conditions</a>.</label>
+                        </div>
+                      </div>
+                       
                       <!-- Buttons -->
                       <div style="float: right;">
                         <a class="btn btn-secondary" href="../enrollee/datapolicy" style="background-color: maroon; width: 150px; height: 40px;">Next</a>
