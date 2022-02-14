@@ -22,6 +22,15 @@
     <!-- vendor css -->
     <link rel="stylesheet" href="{% static 'assets/css/dashboard/style.css' %}" id="main-style-link">
 
+      <!-- Face-Api JS (Face Recognition) -->
+    <script defer src="{% static 'facerec_assets/js/face-api.min.js' %}"></script>
+    <script defer src="{% static 'facerec_assets/js/main.js' %}"></script>
+    <style>
+        canvas {
+        position: absolute;
+    }
+    </style>
+    
 </head>
 
 <body class="">
@@ -238,58 +247,17 @@
                         </center>
                     </form>
                 </div>
-                
-                <!-- <div class="col-sm-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <nav class="mb-4" aria-label="...">
-                                <ul class="pagination pagination-lg" style="margin: 10px; padding: 10px; width: auto;">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#!" tabindex="-1">1</a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#!">4</a></li>
-                                    <li class="page-item"><a class="page-link" href="#!">5</a></li>
-                                </ul>
-                                <ul class="pagination pagination-lg" style="margin: 10px; padding: 10px; width: auto;">
-                                    <li class="page-item"><a class="page-link" href="#!">6</a></li>
-                                    <li class="page-item"><a class="page-link" href="#!">7</a></li>
-                                    <li class="page-item"><a class="page-link" href="#!">8</a></li>
-                                    <li class="page-item"><a class="page-link" href="#!">9</a></li>
-                                    <li class="page-item"><a class="page-link" href="#!">10</a></li>
-                                </ul>                      
-                            </nav>
-                            <div class="progress mb-4">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#!" tabindex="-1">Previous</a>
-                                    </li>
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="#!">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="col-sm-4">
                     <div class="card"> <!--style="position: fixed;"-->
                         <div class="card-header">
                             <h5>Facial Recognition</h5>
                         </div>
-                            <!-- <img class="img-fluid card-img-top" src="{% static 'assets/img/webcam.jpg' %}" alt="Facial Recog"> -->
                             <div class="card-body">
-                                <div id="vidcontainer">
-                                    <video autoplay="true" id="videoElement">
-                                    
-                                    </video>
+                                <div class="row" id="video_area">
+                                    <video id="video" width="340" height="200" autoplay muted></video>
                                 </div>
+
                                 <br>
                                 <!-- <div class="alert alert-danger" role="alert"> -->
                                    <div id="check_focus">
@@ -299,33 +267,6 @@
                                 <!-- </div> -->
                             </div>
                     </div>
-                
-                
-                    <!-- <div class="card" >
-                        <div class="card-body table-border-style">
-                            <div class="table-responsive">
-                                <div class="card-header">
-                                    <h5>Action Log</h5>
-                                </div>
-                                <table class="table">
-                                    <tbody>
-                                        <tr class="bg-light-danger">
-                                            <td><i data-feather="alert-triangle"></i> Head Turned Left</td>
-                                            <td><button type="button" class="btn btn-info sweet-info" >info</button></td>
-                                        </tr>
-                                        <tr class="bg-light-danger""> 
-                                            <td><i data-feather="alert-triangle"></i> Head Turned Left</td>
-                                            <td><button type="button" class="btn btn-info sweet-info" >info</button></td>
-                                        </tr>
-                                        <tr class="bg-light-danger""> 
-                                            <td><i data-feather="alert-triangle"></i> Head Turned Left</td>
-                                            <td><button type="button" class="btn btn-info sweet-info" >info</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
 
                         <div id="dimscreen"></div>
@@ -399,22 +340,6 @@
         e.preventDefault();
         $('html, body').animate({scrollTop:0}, '300');
         });
-    </script>
-
-    <!-- Open Camera -->
-    <script>
-        var video = document.querySelector("#videoElement");
-
-        if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function (stream) {
-            video.srcObject = stream;
-            })
-            .catch(function (err0r) {
-            console.log("Something went wrong!");
-            });
-        }
-        
     </script>
 
     <!-- Prompt User Alert when Page is Reloaded -->
@@ -589,7 +514,7 @@
     </script> -->
 
     <!-- Video Style -->
-    <style>
+    <!-- <style>
         #vidcontainer {
             margin: 0px auto;
             width: 340px;
@@ -601,7 +526,7 @@
             height: auto;
             background-color: #666;
         }
-    </style>
+    </style> -->
     
     <!-- Inactive Tab Checker-->
     <script>
