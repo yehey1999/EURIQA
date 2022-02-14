@@ -292,111 +292,57 @@
 				<!-- Account data end -->
 			</div>
 
-			<!-- QUICK ADD start -->
             <div class="row">
-                <div class="col-md-7">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Quick Add</h5>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="row mb-3">
-                                    <label for="inputUname" class="col-sm-3 col-form-label">Username</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="inputUname" placeholder="ID Number" name="username">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputFirstname" class="col-sm-3 col-form-label">First Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="inputFirstname" placeholder="" name="username">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputLastname" class="col-sm-3 col-form-label">Last Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="inputLastname" placeholder="format: Lastname.123456" name="username" readonly>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
-                                    <div class="col-sm-9">
-                                        <input type="password" class="form-control" id="inputPassword3">
-                                    </div>
-                                </div>
-								<div class="row mb-3">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Level</label>
-                                    <div class="col-sm-9">
-                                        <div class="form-group">
-											<select class="form-control" id="exampleFormControlSelect1">
-												<option>College</option>
-												<option>Elementary</option>
-												<option>Junior High School</option>
-												<option>Senior High School</option>											
-											</select>
-										</div>
-                                    </div>
-                                </div>
-                        <div class="card-footer" style="margin-bottom: 12px;">
-                            <button class="btn btn-primary mr-2">Submit</button>
-                        </div>
-                    </form>
-                    </div>
-                </div>
-            </div>
-			<!-- QUICK ADD end -->
-
-            <!-- College Enrollment start -->
-            <div class="col-xl-5 col-md-5">
-				<div class="card table-card">
-					<div class="card-header">
-						<h5>Demographic</h5>
+				<!-- col start -->
+					<div class="col-xl-11 col-md-12">
+						<!-- SHS Enrollment start -->
+						<div class="deactivatedAccounts" hidden>
+							<div class="col-xl-7 col-md-8">
+								<div class="card">
+									<div class="card-header">
+										<h5>SHS Enrollment</h5>
+										<a href="#college" style="color:maroon;" class="switchActivated"><button></button></a>
+									</div>
+									<div class="card-body">
+										<canvas id="myChart2"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- SHS Enrollment Graph end -->
+						<!-- COLLEGE Enrollment Graph start -->
+						<div class="activatedAccounts">
+							<div class="col-xl-7 col-md-8">
+								<div class="card">
+									<div class="card-header">
+										<h5>College Enrollment</h5>
+										<a href="#shs" style="color:maroon;" class="switchDeactivated"><button></button></a>
+									</div>
+									<div class="card-body">
+										<canvas id="myChart"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- COLLEGE Enrollment Graph ends -->
 					</div>
-					<div class="card-body" style="padding: 0; margin-bottom: 0;">
-						<canvas id="myChart3" width="150px" height="150px"></canvas>
+						
+					<!-- Demographic Graph starts -->
+					<div class="col-xl-6 col-md-12">
+						<div class="card table-card">
+							<div class="card-header">
+								<h5>Demographic</h5>
+							</div>
+							<div class="card-body" style="padding: 0; margin-bottom: 0;">
+								<canvas id="myChart3" width="150px" height="150px"></canvas>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<!-- College Enrollment Graph end -->
-            
-
-			<!-- SHS Enrollment Graph start -->
-			<div class="activatedAccounts">
-            <div class="col-xl-8 col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>College Enrollment</h5>
-                        <a href="#shs" style="color:maroon;" class="switchDeactivated"><button></button></a>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart"></canvas>
-					</div>
-                </div>
-            </div>
-        	</div>
-			<!-- SHS Enrollment Graph ends -->
-
-			
-			
-
-			<div class="deactivatedAccounts" hidden>
-			<div class="col-xl-8 col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>SHS Enrollment</h5>
-                        <a href="#college" style="color:maroon;" class="switchActivated"><button></button></a>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="myChart2"></canvas>
-					</div>
-                </div>
-            </div>
-            </div>
-			
-			
-				
-			</div>
+					<!-- Demographic Graph ends -->
+				</div>  
+            </div>	
+	
+		</div>
 			<!-- [ Main Content ] end -->
 			<!-- <script>
         $(".switchDeactivated").click(function(){
