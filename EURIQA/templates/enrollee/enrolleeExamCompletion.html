@@ -141,10 +141,19 @@
                 {% for result in results %}
 								<div class="carousel-item active">
 									<img class="img-fluid d-block w-100" src="{% static 'assets/img/citstudents1.png' %}" alt="First slide">
-									<div class="carousel-caption d-none d-md-block">
-                                        <h3 style="color: white; ">You Passed!</h3>
-                                        <h1 style="color: white; font-size: 120px;">{{result.total_score}}</h1>
+									
+                  {% if status is 'passed' %}
+                  <div class="carousel-caption d-none d-md-block">
+                    <h3 style="color: white; ">You Passed!</h3>
+                    <h1 style="color: white; font-size: 120px;">{{result.total_score}}</h1>
 									</div>
+
+                  {% else %}
+                  <div class="carousel-caption d-none d-md-block">
+                    <h3 style="color: white; ">You Failed :(</h3>
+                    <h1 style="color: white; font-size: 120px;">{{result.total_score}}</h1>
+									</div>
+                  {% endif %}
 								</div>
                 {% endfor %}
 							</div>
@@ -200,7 +209,7 @@
                               {% endfor %}
                                 <hr>
                               {% for exam in exams %}
-                                <dt class="col-sm-9 ">Overall Total Score</dt>
+                                <dt class="col-sm-9 ">Total Score</dt>
                                 <dd class="col-sm-3">{{result.total_score}}/{{exam.overall_points}}{{score}}</dd>
                               {% endfor %}
                             </dl>
