@@ -291,10 +291,9 @@ def exam_results(request, enrollee_id=None, exam_id=None):
             # Get the total_score value from ExamResults
             get_results = ExamResults.objects.get(exam_id = exam_id)
             score = get_results.total_score
-
+            
             # Get the passing score (60% passing rate)
             passing_score = total_points*0.60
-            print(passing_score)
 
             # Check if student passed 
             if score >= passing_score:
@@ -303,11 +302,22 @@ def exam_results(request, enrollee_id=None, exam_id=None):
             else:
                 status = "failed"
 
+            score_list = []
+
+            for qs in qs_parts:
+                correct_answers_per_part = ExamAnswers.objects.filter(exam_id = exam_id).filter(part_id=qs.pk).filter(is_correct=True)
+                score_per_part = correct_answers_per_part.count()
+                score_list.append(score_per_part)
+            
+            # Zip the Part objects and the scores for easy displaying in templates
+            parts_and_score = zip(qs_parts, score_list)
+            
             context={
                 'results' : qs_results,
-                'parts' : qs_parts,
                 'exams': qs_exams,
                 'status': status,
+                'score_list': score_list,
+                'parts_and_score': parts_and_score,
             }
             return render(request, 'enrollee/enrolleeExamCompletion.html', context)
 

@@ -188,8 +188,7 @@
                     </div>
                 </div>
                 -->
-
-                
+ 
               
             </div>
             
@@ -200,21 +199,21 @@
                         <div class="card-header">
                             <h5>Score Breakdown</h5>
                         </div>
-                        {% for result in results %}
                         <div class="card-body" style="background-color: wheat;">
                             <dl class="dl-horizontal row">
-                              {% for part in parts %}
-                                <dt class="col-sm-9 ">{{part.part_name}}</dt>
-                                <dd class="col-sm-3">{{result.total_score}}/{{part.overall_points}}</dd>
+                              {% for item in parts_and_score %}
+                                <dt class="col-sm-9">{{item.0.part_name}}</dt>
+                                <dd class="col-sm-3">{{item.1}}/{{item.0.overall_points}}</dd>
                               {% endfor %}
                                 <hr>
-                              {% for exam in exams %}
-                                <dt class="col-sm-9 ">Total Score</dt>
-                                <dd class="col-sm-3">{{result.total_score}}/{{exam.overall_points}}{{score}}</dd>
+                              {% for result in results %}
+                                {% for exam in exams %}
+                                  <dt class="col-sm-9 ">Total Score</dt>
+                                  <dd class="col-sm-3">{{result.total_score}}/{{exam.overall_points}}</dd>
+                                {% endfor %}
                               {% endfor %}
                             </dl>
-                        </div>
-                        {% endfor %}
+                        </div>  
                     </div>
                 </div>
                 <!-- Score Breakdown End -->
