@@ -82,18 +82,19 @@
             <div class="left-content">
                 <div class="container-fluid">
                 <div class="row justify-content-center">
-                    <div class="col-11 col-sm-10 col-md-10 col-lg-6 col-xl-9 text-center p-0 mt-3 mb-2">
+                  <div class="col-11 col-sm-13 col-md-13 col-lg-12 col-xl-11 text-center p-0 mt-3 mb-2">
                     <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                    <br><br>
-                    <form id="msform">
-                    <!-- progressbar -->
-                    <ul id="progressbar">
-                        <li  id="account"><strong>Terms and Conditions</strong></li>
-                        <li id="personal"><strong>Data Privacy Policy</strong></li>
-                        <li class="active" id="payment"><strong>Capture Images</strong></li>
-                        <li id="confirm"><strong>Instructions</strong></li>
-                    </ul>
-                    <br> 
+                      <br><br>
+                      <form id="msform">
+                        <!-- progressbar -->
+                        <ul id="progressbar">
+                            <li  id="account"><strong>Terms and Conditions</strong></li>
+                            <li  id="personal"><strong>Data Privacy Policy</strong></li>
+                            <li class="active"id="payment"><strong>Capture Images</strong></li>
+                            <li id="facerec"><strong>Facial Recognition Test</strong></li>
+                            <li  id="confirm"><strong>Instructions</strong></li>
+                        </ul>
+                       <br>  
 
                     <!-- fieldsets -->
                       <fieldset>
@@ -104,7 +105,7 @@
                                 <div class="col">
                                   
                                   <!-- Camera Area -->
-                                  <div id="camera" style="width:480px; height: 360px; border: 1px solid black; margin-left: 120px;"></div><br>
+                                  <div id="camera" style="width:480px; height: 360px; border: 1px solid black; margin: auto"></div><br>
 
                                   <!-- Capture Image/Snapshot -->
                                   <div id="pre_take_buttons" style="margin-left: 300px;">
@@ -112,7 +113,7 @@
                                   </div>
 
                                   <!-- Save and Download Image-->
-                                  <div id="post_take_buttons" style="display:none; margin-left: 210px;">
+                                  <div id="post_take_buttons" style="display:none; margin-left: 250px;">
                                     <button class="btn btn-outline-secondary" type="button" onClick="cancel_preview()">Take Another</button>
                                     <button class="btn btn-outline-info" type="button" onClick="save_photo()">Save and Download</button>  
                                     <!-- Get the username to be used in the file name -->        
@@ -120,7 +121,7 @@
                                   </div><br>
                                   
                                   <!-- File Input Field -->
-                                  <div class="mb-3" id="image_field" style="display: none; margin-left: 140px; width: 60%;">
+                                  <div class="mb-3" id="image_field" style="display: none; margin-left: 250px; width: 60%;">
                                     <label for="formFile" class="form-label">Upload Captured Image. <b>Do not rename the file.</b> </label>
                                     <input class="form-control" name="picture" type="file" id="formFile" accept="image/png, image/gif, image/jpeg" required>
                                   </div>
