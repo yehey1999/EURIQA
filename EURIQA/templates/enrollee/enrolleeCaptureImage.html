@@ -94,37 +94,48 @@
                             <li id="facerec"><strong>Facial Recognition Test</strong></li>
                             <li  id="confirm"><strong>Instructions</strong></li>
                         </ul>
-                       <br>  
+                       <br> 
+                       </form>
 
                     <!-- fieldsets -->
                       <fieldset>
-                        <form method="POST" action = "" enctype="multipart/form-data">
-                          {% csrf_token %}
                           <div class="form-card">
                               <div class="row">
                                 <div class="col">
                                   
                                   <!-- Camera Area -->
                                   <div id="camera" style="width:480px; height: 360px; border: 1px solid black; margin: auto"></div><br>
-
                                   <!-- Capture Image/Snapshot -->
-                                  <div id="pre_take_buttons" style="margin-left: 300px;">
+                                  <div id="pre_take_buttons" style="display: flex; justify-content: center; align-items: center;">
                                     <button class="btn btn-outline-info" type="button" onClick="preview_snapshot()">Capture</button>
                                   </div>
-
+                                  <!-- <p id="ins" style="display: none; justify-content: center; align-items: center;">Upload Captured Image. <b>Do not rename the file.</b> </p><br> -->
+                                  
                                   <!-- Save and Download Image-->
-                                  <div id="post_take_buttons" style="display:none; margin-left: 250px;">
+                                  <div id="post_take_buttons" style="display: none; justify-content: center; align-items: center;">
+                                    
                                     <button class="btn btn-outline-secondary" type="button" onClick="cancel_preview()">Take Another</button>
                                     <button class="btn btn-outline-info" type="button" onClick="save_photo()">Save and Download</button>  
+                                    
+                                    
                                     <!-- Get the username to be used in the file name -->        
                                     <input type="text" id="username" value="{{request.user.username}}" hidden>
                                   </div><br>
                                   
-                                  <!-- File Input Field -->
-                                  <div class="mb-3" id="image_field" style="display: none; margin-left: 250px; width: 60%;">
-                                    <label for="formFile" class="form-label">Upload Captured Image. <b>Do not rename the file.</b> </label>
-                                    <input class="form-control" name="picture" type="file" id="formFile" accept="image/png, image/gif, image/jpeg" required>
-                                  </div>
+                                  
+                                    <!-- File Input Field -->
+                                    <div class="mb-3" id="image_field" style="display: none; justify-content: center; align-items: center;">
+                                      <form method="POST" action = "" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <label for="picture" class="form-label">Save and upload captured Image. <b>Note the following:</b>
+                                          <ul>
+                                            <li>Do not change the main file name (filename: username).</li>
+                                            <li>Remove any instance number in the image before uploading. (e.g. username <b><u>(2)</u></b>).</li>
+                                            <li>Do not change the file type.</li> 
+                                          </ul>
+                                        </label>
+                                        <input type="file" class="form-control-file" id="picture" name="picture" accept="image/png, image/gif, image/jpeg">
+                                    </div>
                                 </div>
                               </div> 
                             
@@ -135,9 +146,13 @@
                           <div style="float: right;">
                             <a class="btn btn-secondary" href="../enrollee/datapolicy" style="background-color: gray; width: 150px; height: 40px;">Previous</a>
                             <button type="submit" class="btn btn-secondary" name="btnNext" style="background-color: maroon; width: 150px; height: 40px;">Next</button>
+                            
+                            <!-- <a class="btn btn-secondary" href="../enrollee/face-recognition" style="background-color: maroon; width: 150px; height: 40px;">Next</a> -->
+                            
+                            <!-- <button type="submit" class="btn btn-secondary" name="btnNext" style="background-color: maroon; width: 150px; height: 40px;">Next</button> -->
                           </div>
-
                         </form>
+
                       </fieldset>
                 </div>
               </div>
@@ -159,7 +174,30 @@
   </div>
 </footer><!-- End Footer -->
 
+  <!-- <script>
+    const picture = document.getElementById("picture");
+    // const previewContainer = document.getElementById("imagePreview");
+    // const previewImage = previewContainer.querySelector(".image-preview__image");
+    // const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
 
+    picture.addEventListener("change", function() {
+        const file = this.files[0];
+
+        if (file){
+            const reader = new FileReader();
+
+            previewDefaultText.style.display = "none";
+            previewImage.style.display = "block";
+
+            reader.addEventListener("load", function() {
+                console.log(this);
+                previewImage.setAttribute("src", this.result);
+            });
+
+            reader.readAsDataURL(file);
+        }
+    });
+  </script> -->
   <!-- Webcam JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js" integrity="sha512-AQMSn1qO6KN85GOfvH6BWJk46LhlvepblftLHzAv1cdIyTWPBKHX+r+NOXVVw6+XQpeW4LJk/GTmoP48FLvblQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
@@ -179,8 +217,10 @@
 			
 			// swap button sets
 			document.getElementById('pre_take_buttons').style.display = 'none';
-			document.getElementById('post_take_buttons').style.display = '';
-      document.getElementById('image_field').style.display = '';
+			document.getElementById('post_take_buttons').style.display = 'flex';
+      document.getElementById('image_field').style.display = 'flex';
+      // document.getElementById('ins').style.display = 'flex';
+
 		}
 		
 		function cancel_preview() {
@@ -188,9 +228,11 @@
 			Webcam.unfreeze();
 			
 			// swap buttons back
-			document.getElementById('pre_take_buttons').style.display = '';
+			document.getElementById('pre_take_buttons').style.display = 'flex';
 			document.getElementById('post_take_buttons').style.display = 'none';
       document.getElementById('image_field').style.display = 'none';
+      // document.getElementById('ins').style.display = 'none';
+
 		}
 		
 		function save_photo() {

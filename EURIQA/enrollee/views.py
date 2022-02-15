@@ -82,17 +82,14 @@ class EnrolleeCaptureImageView(View):
         return render(request, 'enrollee/enrolleeCaptureImage.html')
     
     def post(self, request):
-        if request.method == "POST":
+        if request.method == 'POST':
             if 'btnNext' in request.POST:
                 picture = request.FILES['picture']
                 fileSystemStorage = FileSystemStorage()
                 filename = fileSystemStorage.save(picture.name, picture)
                 picture = fileSystemStorage.url(filename)
-
-                update_admin = Enrollee.objects.filter(user = request.user.id).update(picture = picture)
-                print(request.user.id)
-        
-        return redirect("enrollee:enrollee_instructions")
+                update_picture = Enrollee.objects.filter(user_id = request.user.id).update(pictures = picture)
+            return redirect("enrollee:enrollee_frtest")
 
 class EnrolleeFaceRecTest(View):
     def get(self, request):

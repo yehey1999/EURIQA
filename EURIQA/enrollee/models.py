@@ -31,7 +31,7 @@ class Enrollee(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, null=True, blank=True)
     strand = models.ForeignKey(Strand, on_delete=models.CASCADE, default=None, null=True, blank=True)
     exam_status = models.CharField(max_length = 10, null=True, blank=False, default="not done")
-    pictures = models.ImageField(null=True, blank=True, upload_to='static/faces/')
+    pictures = models.ImageField(default='missing_profile.jpg', upload_to='static/profilephotos/')
 
     class Meta:
         db_table = 'enrollee'
