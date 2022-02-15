@@ -9,7 +9,7 @@ class Administrator(models.Model):
     middle_name = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50, blank=False)
     position = models.CharField(max_length=50, blank=False)
-    picture = models.ImageField(default='missing_profile.jpg', upload_to='static/profilephotos/')
+    picture = models.ImageField(default='missing_profile.jpg', upload_to='profilephotos/')
     
     class Meta:
         db_table = 'administrator'

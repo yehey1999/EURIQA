@@ -108,6 +108,10 @@
                       </ul>
                      <br>  
                    <!-- Face Recognition video Area -->
+
+                   <!-- Get the username to be used in the labels -->        
+                    <input type="text" id="username" value="{{request.user.username}}" hidden>
+
                     <div class="row" id="video_area">
                       <video id="video" width="720" height="560" autoplay muted></video>
                     </div>
@@ -123,14 +127,7 @@
                         <!-- Buttons -->
                         <div style="float: right;">
                           <a class="btn btn-secondary" href="../enrollee/captureimage" style="background-color: gray; width: 150px; height: 40px;">Previous</a>   
-                          {% for exam in exams %}
-                            {% for part in parts %}
-                              {% if forloop.first %} <!-- Outputs only the first 'part' outputted from the loop. -->
-                                <!-- Redirect to the url passing the exam and part id -->
-                                <a class="btn btn-secondary" href="../enrollee/exam/{{exam.exam_id}}/{{part.part_id}}" style="background-color: maroon; width: 150px; height: 40px;">Proceed</a>
-                              {% endif %}
-                            {% endfor %}
-                          {% endfor %}
+                          <a class="btn btn-secondary" href="../enrollee/instructions" style="background-color: maroon; width: 150px; height: 40px;">Next</a>   
                         </div>
                       </div>
                     </fieldset>

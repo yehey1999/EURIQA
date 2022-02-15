@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from administrator.models import *
 
-# Create your models here.
+# Create your models here
 class Program(models.Model):
     program_id = models.CharField(max_length=50, primary_key = True)     #ID Format: [college code] - [department code](e.g CCS-IT)
     program_name = models.CharField(max_length=70)
@@ -31,7 +31,7 @@ class Enrollee(models.Model):
     program = models.ForeignKey(Program, on_delete=models.CASCADE, default=None, null=True, blank=True)
     strand = models.ForeignKey(Strand, on_delete=models.CASCADE, default=None, null=True, blank=True)
     exam_status = models.CharField(max_length = 10, null=True, blank=False, default="not done")
-    pictures = models.ImageField(default='missing_profile.jpg', upload_to='static/profilephotos/')
+    pictures = models.ImageField(blank=True, null=True, upload_to='face_references/')
 
     class Meta:
         db_table = 'enrollee'

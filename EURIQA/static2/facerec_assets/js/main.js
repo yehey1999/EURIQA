@@ -61,12 +61,14 @@ video.addEventListener('play', () => {
 
 // Function that checks and loads the images
 function loadLabeledImages() {
-  const labels = ['emma']
+  const name= document.getElementById("username").value
+  console.log(name)
+  const labels = [name]
   return Promise.all(
     labels.map(async label => {
       const descriptions = []
       for (let i = 1; i <= 1; i++) {
-        const img = await faceapi.fetchImage(`/static2/facerec_assets/images/${label}.png`)
+        const img = await faceapi.fetchImage(`/static2/profilephotos/${label}.jpg`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
       }
