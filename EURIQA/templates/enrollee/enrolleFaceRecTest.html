@@ -110,7 +110,10 @@
                    <!-- Face Recognition video Area -->
 
                    <!-- Get the username to be used in the labels -->        
-                    <input type="text" id="username" value="{{request.user.username}}" hidden>
+                    <input type="text" id="username" value="{{request.user.username}}" hidden readonly>
+
+                    <input type="text" id="flags" readonly hidden>
+                    <!-- <textarea id="message" style="overflow-y: scroll; width: 340px; height: 200px; resize: none;" readonly hidden></textarea> -->
 
                     <div class="row" id="video_area">
                       <video id="video" width="720" height="560" autoplay muted></video>
@@ -121,9 +124,7 @@
                     <!-- fieldsets -->              
                     <fieldset>
                       <div class="form-card">
-                        
                         <br>
-
                         <!-- Buttons -->
                         <div style="float: right;">
                           <a class="btn btn-secondary" href="../enrollee/captureimage" style="background-color: gray; width: 150px; height: 40px;">Previous</a>   

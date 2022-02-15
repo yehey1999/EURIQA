@@ -322,6 +322,7 @@ class AdminCreateExam(View):
             exam_title = request.POST.get("exam_title")
             exam_takers = request.POST.get("exam_takers")
             link = request.POST.get("link")
+            max_flags = request.POST.get("max_flags")
         
             get_admin_id = Administrator.objects.get(user_id = request.user.id)
 
@@ -330,7 +331,7 @@ class AdminCreateExam(View):
             
             # If there is no exam existing in the db, automatically create exam
             if check_takers is None:
-                create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link)
+                create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link, max_flags = max_flags)
                 create_exam.save()
                 messages.success(request, "Exam created.")
             
@@ -342,7 +343,7 @@ class AdminCreateExam(View):
                     return redirect("administrator:admin_create_exam")
                 
                 else:
-                    create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link)
+                    create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link, max_flags = max_flags)
                     create_exam.save()
                     messages.success(request, "Exam created.")
         else:

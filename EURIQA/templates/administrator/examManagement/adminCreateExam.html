@@ -189,14 +189,14 @@
                                 <!-- Exam Details -->
                                 <div class="row">
                                     <h5 style="font-weight: 500;">Exam Details</h5>
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <div class="form-floating">
                                             <input type="text" class="form-control" name="exam_title" id="floatingExamTitle" placeholder="Exam Title" required>
                                             <label for="floatingExamTitle">Exam Title</label>
                                         </div>
                                     </div>
                                     
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <div class="form-floating">
                                             <select class="form-select" name="exam_takers" id="floatingExamTitle" placeholder="Exam Title" required>
                                                 <option value="College">College</option>
@@ -208,12 +208,19 @@
                                         </div>
                                     </div>
         
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <div class="form-floating">
                                             <input type="text" class="form-control" name="created_by" id="floatingExamTitle" placeholder="Exam Title" value="{{request.user.get_full_name}}" required readonly>
                                             <label for="floatingExamTitle">Created by</label>
                                         </div>
-                                    </div>         
+                                    </div>
+                                    
+                                    <div class="col-3">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control" name="max_flags" value=5 id="floatingExamTitle" placeholder="Max Flags" required>
+                                            <label for="floatingExamTitle">Max Flags</label>
+                                        </div>
+                                    </div> 
                                 </div>
                                 <br>
                                 

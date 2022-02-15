@@ -20,7 +20,8 @@ function startVideo() {
 
 video.addEventListener('play', () => {
   // Declare unknown face counter
-  var unknownCtr=0;
+  var unknownFaceCtr=0;
+  var flags = 0
 
   // Create the canvas where the bounding box will be shown
   const canvas = faceapi.createCanvasFromMedia(video)
@@ -51,7 +52,18 @@ video.addEventListener('play', () => {
         // Count the times the detected face is unknown
         const stringresult = result.toString().split(" ");
         if (stringresult[0] == "unknown"){
-          unknownCtr++;
+          unknownFaceCtr++;
+
+          // If 20 frames passed with an unknown face in screen, flag the user
+          if (unknownFaceCtr == 10){
+            unknownFaceCtr = 0
+            flags++
+            document.getElementById("flags").value = flags
+          }
+        }
+        // If a face is detected, reset counter to 0
+        else{
+          unknownFaceCtr = 0
         }
       })
     }
@@ -62,7 +74,6 @@ video.addEventListener('play', () => {
 // Function that checks and loads the images
 function loadLabeledImages() {
   const name= document.getElementById("username").value
-  console.log(name)
   const labels = [name]
   return Promise.all(
     labels.map(async label => {

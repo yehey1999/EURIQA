@@ -262,9 +262,17 @@
 
                                 <br>
                                 <!-- <div class="alert alert-danger" role="alert"> -->
-                                   <div id="check_focus">
+                                   <!-- <div id="check_focus">
+                                        <b>Total Flags:</b>
+                                        <input type="number" value="0" id="flags" style="border: none; width: 20%;" readonly> -->
+
+                                        <b>Max Flags:</b>
+                                        {% for exam in exams %}
+                                            <input type="number" value={{exam.max_flags}} id="max_flags" style="border: none; width: 20%;" readonly><br><br>
+                                        {% endfor %}
+
                                         <b>Action Logs:</b>
-                                        <textarea id="message" style="overflow-y: scroll; width: 340px; height: 200px; resize: none;" readonly></textarea>
+                                        <textarea id="message" style="overflow:auto; width:100%; height: 150; resize: none;" readonly></textarea>
                                    </div>
                                 <!-- </div> -->
                             </div>
@@ -273,14 +281,11 @@
 
                         <div id="dimscreen"></div>
 
-                        <div class="modal" tabindex="-1" role="dialog" id="reload_exam">
+                        <div class="modal" tabindex="-1" role="dialog" id="reload_exam" data-keyboard="false" data-backdrop="static">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
                                   <h5 class="modal-title">Suspicious Action Alert</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
                                 </div>
                                 <div class="modal-body">
                                   <p>You have exceed the number of suspicious actions set by the administrator. Please retake the exam</p>
@@ -345,9 +350,9 @@
     </script>
 
     <!-- Prompt User Alert when Page is Reloaded -->
-    <!-- <script>
+    <script>
         window.onbeforeunload = function() { return "Your work will be lost."; };
-    </script> -->
+    </script>
 
     <!-- Disable going back to previous page -->
     <script>
@@ -532,44 +537,73 @@
     
     <!-- Inactive Tab Checker-->
     <script>
-        var interval_id;
-        var count=0;
+        var totalFlags = 0;
+        var oldFlagVal = document.getElementById('flags').value;
+        var newFlagVal = 0;
+
+        
+        setInterval (() => {
+            // let flags = document.getElementById('flags').value;
+            // console.log("test flags", flags)
+            // if(flags) updateFlags();
+            let newFlagVal = document.getElementById('flags').value;
+            
+            if(oldFlagVal != newFlagVal){
+                oldFlagVal = newFlagVal;
+                updateTotalFlags();
+                disableExam(message="Unknown face in video");
+            }
+        },50)
+
+        function updateTotalFlags(){
+            this.totalFlags++;
+        }
+
+        function disableExam(message){
+            var dt = new Date().toLocaleTimeString();
+            var max_flags = document.getElementById('max_flags').value;
+            // var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+            
+            if (this.totalFlags < max_flags){
+                var style = $('#message').append("["+dt+"]"+"   "+message+"&#13;&#10;")
+                // $('#totalFlags').val(totalFlags)
+            }
+            else{
+                $('#dimscreen').css({
+                    "position": "fixed",
+                    "padding": "0",
+                    "margin":"0",
+                    "top": "0",
+                    "left": "0",
+                    "width": "100%",
+                    "height": "100%",
+                    "background": "rgba(255,255,255)",
+                });
+                $("#reload_exam").modal('show');
+            }
+        }
+
         $(window).on("blur focus", function(e) {
             var prevType = $(this).data("prevType");
-            var dt = new Date();
-            
-            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
             if (prevType != e.type) {   //  reduce double fire issues
                 switch (e.type) {
                     case "blur":
-                        count++;
-                        
-                            if (count < 5){
-                                var style = $('#message').append("["+time+"]"+"Tab lost focus.&#13;&#10;")                               
-                            }
-                            else{
-                                $('#dimscreen').css({
-                                    "position": "fixed",
-                                    "padding": "0",
-                                    "margin":"0",
-                                    "top": "0",
-                                    "left": "0",
-                                    "width": "100%",
-                                    "height": "100%",
-                                    "background": "rgba(255,255,255,0.5)",
-                                });
-                                $("#reload_exam").modal('show');
-                            }
+                        updateTotalFlags();
+                        disableExam(message="Inactive exam tab");
+                    
                         break;
                     case "focus":
                         // $('#message').text("Focused");
                         break;
                 }
             }
+                
 
             $(this).data("prevType", e.type);
         })
     </script>
+
 </footer>
 
 </html>
