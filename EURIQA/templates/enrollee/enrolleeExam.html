@@ -22,9 +22,13 @@
     <!-- vendor css -->
     <link rel="stylesheet" href="{% static 'assets/css/dashboard/style.css' %}" id="main-style-link">
 
-      <!-- Face-Api JS (Face Recognition) -->
+    <!-- Face-Api JS (Face Recognition) -->
     <script defer src="{% static 'facerec_assets/js/face-api.min.js' %}"></script>
     <script defer src="{% static 'facerec_assets/js/main.js' %}"></script>
+
+    <!-- Timer -->
+    <link rel="stylesheet" href="{% static 'countdowntimer/css/jquery.countdown.css' %}"">
+
     <style>
         canvas {
         position: absolute;
@@ -262,17 +266,22 @@
 
                                 <br>
                                 <!-- <div class="alert alert-danger" role="alert"> -->
-                                   <!-- <div id="check_focus">
-                                        <b>Total Flags:</b>
-                                        <input type="number" value="0" id="flags" style="border: none; width: 20%;" readonly> -->
+                                   <div class="row">
+                                       <div class="col-6">
+                                            <b>Time Left:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="timer"></span></b>
+                                       </div>
 
-                                        <b>Max Flags:</b>
-                                        {% for exam in exams %}
-                                            <input type="number" value={{exam.max_flags}} id="max_flags" style="border: none; width: 20%;" readonly><br><br>
-                                        {% endfor %}
+                                       <div class="col-6">
+                                            <b>Max Flags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span>{{exam.max_flags}}</span>
+                                            <input type="number" value={{exam.max_flags}} id="max_flags" style="border: none; width: 30%;" readonly hidden><br><br>       
+                                       </div>
+                                        <b hidden>Total Flags:</b>
+                                        <input type="number" value="0" id="flags" style="border: none; width: 20%;" readonly hidden>
 
                                         <b>Action Logs:</b>
                                         <textarea id="message" style="overflow:auto; width:100%; height: 150; resize: none;" readonly></textarea>
+                                        <input type="number" value={{exam.duration_hr}} id="duration_hr" name="duration_hr" hidden readonly><br><br>
+                                        <input type="number" value={{exam.duration_min}} id="duration_min" name="duration_hr" hidden readonly><br><br> 
                                    </div>
                                 <!-- </div> -->
                             </div>
@@ -317,7 +326,6 @@
 <footer>
     <!-- custom-chart js -->
     <script src="{% static 'assets/js/dashboard/pages/dashboard-sale.js' %}"></script>
-    </body>
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -330,6 +338,54 @@
     <script src="{% static 'assets/js/dashboard/plugins/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/dashboard/plugins/feather.min.js' %}"></script>
     <script src="{% static 'assets/js/dashboard/pcoded.min.js' %}"></script>
+
+    <!-- Timer -->
+    <script src="{% static 'countdowntimer/js/jquery.plugin.min.js' %}"></script>
+    <script src="{% static 'countdowntimer/js/jquery.countdown.js' %}"></script>
+
+   <!-- TImer --> 
+    <script>
+        $(function () {
+            var currentdate = new Date()
+            var duration_hr = document.getElementById('duration_hr').valueAsNumber
+            var duration_min = document.getElementById('duration_min').valueAsNumber
+
+            var setHour = currentdate.getHours()+duration_hr;
+            var setMins = currentdate.getMinutes()+duration_min;
+            var setMonth = currentdate.getMonth()
+            
+            console.log(currentdate)
+        
+            $('#timer').countdown({until: new Date(currentdate.getFullYear(), setMonth, currentdate.getDate(), setHour, setMins), compact: true, format: 'HMS'});
+            
+        });
+    </script>
+
+    <!-- <script>
+        function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.text(minutes + ":" + seconds);
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+
+    jQuery(function ($) {
+        var fiveMinutes = 60 * 5,
+            display = $('#time');
+        startTimer(fiveMinutes, display);
+    });
+    </script> -->
+
 
     <!-- Back to top button -->
     <script>

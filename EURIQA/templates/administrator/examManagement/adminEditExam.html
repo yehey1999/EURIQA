@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Add Questions</title>
+    <title>Edit Exam</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta content="" name="description">
@@ -158,6 +158,7 @@
                                 <h5 class="m-b-10">Edit Exam</h5>
                             </div>
                             <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/administrator/exam-management/all-exams">Exam Management</a></li>
                                 <li class="breadcrumb-item"><a href="/administrator/exam-management/all-exams">All Exams</a></li>
                                 <li class="breadcrumb-item">Edit Exam</li>
                             </ul>
@@ -199,6 +200,39 @@
                                         <h5><a href="#" data-bs-toggle="modal" data-bs-target="#addPart" style="color: maroon; float: left;">+ Add Parts</a></h5>
                                     </div>
                                 </div>
+                                <br>
+                                <br>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-floating">
+                                                <input type="number" min=1 class="form-control" name="max_flags" value={{exams.max_flags}} id="floatingExamTitle" placeholder="Max Flags" required>
+                                                <label for="floatingExamTitle">Max Flags</label>
+                                            </div>
+                                        </div> 
+                                        <div class="col-3">
+                                            <div class="form-floating">
+                                                <input type="number" min=0 max=5 value={{exams.duration_hr}} class="form-control" name="duration_hr" id="floatingExamTitle" placeholder="Duration (hour)" value=1 required>
+                                                <label for="floatingExamTitle">Duration (hour)</label>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-3">
+                                            <div class="form-floating">
+                                                <input type="number" min=0 max=59 class="form-control" name="duration_min" value={{exams.duration_min}} id="floatingExamTitle" placeholder="Duration (minute)" required>
+                                                <label for="floatingExamTitle">Duration (minutes)</label>
+                                            </div>
+                                        </div> 
+                                        
+                                        <div class="col-3" style="padding-top: 5px;">
+                                            <button type="submit" name="btnSaveFlagDuration" class="btn btn-secondary" style="background-color: maroon;">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <br>
+                                <hr>
+
                             </div>
 
                             <!-- Questions -->
@@ -224,6 +258,7 @@
                                         </h5>
                                     </div>
 
+                                    <!-- View Questions Per Part -->
                                     <div class="collapse" id="part-{{part.part_id}}">
                                         <div class="card-body" style="background-color: rgb(235, 233, 233,0.3); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);"">
                                             <!-- Duration -->
@@ -234,17 +269,12 @@
                                             </div>
 
                                             <div class="row" style="padding-bottom: 20px;">
-                                                <div class="col-4">
-                                                    <p class="text-justify" style="font-size:16px">
-                                                        <b style="padding-right: 30px;">Duration: </b> 
-                                                    </p>
-                                                </div>
-                                                <div class="col-4">
+                                                <div class="col-6">
                                                     <p class="text-justify" style="font-size:16px">
                                                         <b style="padding-right: 30px;">Total Items: </b>{{part.total_items}}
                                                     </p>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-6">
                                                     <p class="text-justify" style="font-size:16px">
                                                         <b style="padding-right: 30px;">Total Points: </b>{{part.overall_points}}
                                                     </p>

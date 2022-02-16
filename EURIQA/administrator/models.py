@@ -25,6 +25,8 @@ class Exam(models.Model):
 	link = models.CharField(max_length = 5000, null=True)
 	created_by = models.ForeignKey(Administrator, on_delete=models.CASCADE, default=None, null=True, blank=True)
 	max_flags = models.IntegerField(default=5)
+	duration_hr = models.IntegerField(default=1)
+	duration_min = models.IntegerField(default=0)
 
 	class Meta:
 		db_table = "exam"

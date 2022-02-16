@@ -323,7 +323,9 @@ class AdminCreateExam(View):
             exam_takers = request.POST.get("exam_takers")
             link = request.POST.get("link")
             max_flags = request.POST.get("max_flags")
-        
+            duration_hr = request.POST.get("duration_hr")
+            duration_min = request.POST.get("duration_min")
+
             get_admin_id = Administrator.objects.get(user_id = request.user.id)
 
             # Checks the values stored in 'takers' column of 'Exam' table in the database
@@ -331,7 +333,9 @@ class AdminCreateExam(View):
             
             # If there is no exam existing in the db, automatically create exam
             if check_takers is None:
-                create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link, max_flags = max_flags)
+                create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link, 
+                                max_flags = max_flags, duration_hr = duration_hr, duration_min = duration_min)
+
                 create_exam.save()
                 messages.success(request, "Exam created.")
             
@@ -339,11 +343,13 @@ class AdminCreateExam(View):
             else:
                 existing_exam = Exam.objects.filter(takers=exam_takers)
                 if existing_exam:
-                    messages.error(request, "An exam assigned to the "+exam_takers+ " already exists.")
+                    messages.error(request, "An exam assigned to "+exam_takers+ " already exists.")
                     return redirect("administrator:admin_create_exam")
                 
                 else:
-                    create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link, max_flags = max_flags)
+                    create_exam = Exam(title = exam_title, takers = exam_takers, created_by = get_admin_id, link = link, 
+                                    max_flags = max_flags, duration_hr = duration_hr, duration_min = duration_min)
+                                    
                     create_exam.save()
                     messages.success(request, "Exam created.")
         else:
@@ -382,7 +388,7 @@ class AdminAddQuestion(View):
             get_exam = Exam.objects.filter(exam_id = latest_exam_id)
 
             if get_exam.filter(link__isnull=True): 
-                return render(request, 'administrator/examManagement/adminAddQuestion.html', context)
+                return render(request, 'administrator/examManagement/adminExamDetails.html', context)
             else:
                  messages.error(request, "Can't add questions to a linked exam.")
                  return redirect("administrator:admin_create_exam")
@@ -598,7 +604,7 @@ def view_exam(request, exam_id=None):
 
         if not request.user.is_authenticated:
             return redirect("administrator:administrator_login")
-        return render(request, 'administrator/examManagement/adminViewExam.html', context)
+        return render(request, 'administrator/examManagement/adminEditExam.html', context)
     
     else:
         if 'btnAddQues' in request.POST:
@@ -642,6 +648,16 @@ def view_exam(request, exam_id=None):
             
             messages.success(request,"Question added successfully")
         
+        elif 'btnSaveFlagDuration' in request.POST:
+            max_flags = request.POST.get("max_flags")
+            duration_hr = request.POST.get("duration_hr")
+            duration_min = request.POST.get("duration_min")
+
+            # get_exam_id = Exam.objects.get(exam_id = exam_id)
+
+            # Update new Max Flags and Durations
+            updateFlagDuration = Exam.objects.filter(exam_id = exam_id).update(max_flags = max_flags, duration_hr = duration_hr, duration_min = duration_min)
+
         elif 'btnSaveEdited' in request.POST:
             ques_id = request.POST.get("ques_id")
             part = request.POST.get("edit_part")
