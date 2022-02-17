@@ -256,7 +256,8 @@
                                             </td>
                                             {% endif %}
                                         </tr>  
-                                        
+
+                                            <!-- Activated accounts -->
                                             <!-- Enrolle Info  Modal -->
                                             <div class="modal fade" id="enrolleInfoModal-{{account.enrollee_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 
@@ -273,9 +274,7 @@
                                                             <!-- Image -->
                                                             <div class="col-12 col-sm-auto mb-3">
                                                                 <div style="width: 140px;">
-                                                                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                                            image here
-                                                                    </div>
+                                                                    <img class="d-flex justify-content-center align-items-center rounded" src="{% static 'profilephotos/missing_profile.jpg' %}" style="height: 140px;">
                                                                 </div>
                                                             </div>
                                                             
@@ -303,6 +302,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                         <div class="row">
                                                             <!-- Personal Information -->
                                                             <div class="col">
@@ -327,30 +327,42 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            
-                                                            <!-- Enrolle Performance-->
-                                                            <!-- <div class="col">
+                                                        </div>
+
+                                                        <!-- Enrolle Performance-->
+                                                        <div class="row">
+                                                            <div class="col">
                                                                 <div class="card border-light mb-3">
                                                                     <div class="card-header">
-                                                                        <b>Personal Information</b>
+                                                                        <h5>Exam Performance</h5>
                                                                     </div>
                                                                     <div class="card-body">
                                                                         <dl class="row">
-                                                                            <dt class="col-sm-4">Full Name</dt>
-                                                                            <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
-                                            
-                                                                            <dt class="col-sm-4">Email</dt>
-                                                                            <dd class="col-sm-8">{{account.user.email}}</dd>
-                                            
-                                                                            <dt class="col-sm-4">Address</dt>
-                                                                            <dd class="col-sm-8">{{account.address}}</dd>
-                                                                        
-                                                                            <dt class="col-sm-4">Account Created</dt>
-                                                                            <dd class="col-sm-8">{{account.user.date_joined}}</dd>
+                                                                            {% for results in exam_results %}
+                                                                                {% if account.exam_status == 'done' %}
+                                                                                    {% if account.enrollee_id == results.enrollee_id %}
+                                                                                        <dt class="col-sm-4">Exam Title</dt>
+                                                                                        <dd class="col-sm-8">{{results.exam.title}}</dd>
+                                                        
+                                                                                        <dt class="col-sm-4">Score</dt>
+                                                                                        <dd class="col-sm-8">{{results.total_score}}/{{results.exam.overall_points}}</dd>
+                                                                                        
+                                                                                        <dt class="col-sm-4">Exam Type</dt>
+                                                                                        {% if account.link is null %}
+                                                                                            <dd class="col-sm-8">Teacher Provided</dd> 
+                                                                                        {% else %}
+                                                                                            <dd class="col-sm-8">Linked</dd> 
+                                                                                        {% endif %}
+                                                                                    {% endif %}
+                                                                                {% else %}
+                                                                                    <dd class="col-sm-8">Enrollee has not taken the exam</dd>
+                                                                                    
+                                                                                {% endif %}
+                                                                            {% endfor %}
                                                                         </dl>
                                                                     </div>
                                                                 </div>
-                                                            </div> -->
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <!-- Modal Footer-->
@@ -437,8 +449,9 @@
                                             </td>
                                             {% endif %}
                                         </tr>  
-                                        
-                                            <!-- Enrolle Info  Modal -->
+
+                                            <!-- Deactivated accounts -->
+                                            <!-- Enrolle Performance  Modal -->
                                             <div class="modal fade" id="enrolleInfoModal-{{account.enrollee_id}}-deact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <!-- Modal Header -->
                                                 <div class="modal-dialog modal-dialog-scrollable">
@@ -453,9 +466,7 @@
                                                             <!-- Image -->
                                                             <div class="col-12 col-sm-auto mb-3">
                                                                 <div style="width: 140px;">
-                                                                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                                                                            image here
-                                                                    </div>
+                                                                    <img class="d-flex justify-content-center align-items-center rounded" src="{% static 'profilephotos/missing_profile.jpg' %}" style="height: 140px;">
                                                                 </div>
                                                             </div>
                                                             
@@ -483,12 +494,13 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                         <div class="row">
                                                             <!-- Personal Information -->
                                                             <div class="col">
                                                                 <div class="card border-light mb-3">
                                                                     <div class="card-header">
-                                                                        <b>Personal Information</b>
+                                                                        <h5>Personal Information</h5>
                                                                     </div>
                                                                     <div class="card-body">
                                                                         <dl class="row">
@@ -507,30 +519,41 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            
-                                                            <!-- Enrolle Performance-->
-                                                            <!-- <div class="col">
+                                                        </div>
+                                                        <!-- Enrolle Performance-->
+                                                        <div class="row">
+                                                            <div class="col">
                                                                 <div class="card border-light mb-3">
                                                                     <div class="card-header">
-                                                                        <b>Personal Information</b>
+                                                                        <h5>Exam Performance</h5>
                                                                     </div>
                                                                     <div class="card-body">
                                                                         <dl class="row">
-                                                                            <dt class="col-sm-4">Full Name</dt>
-                                                                            <dd class="col-sm-8">{{account.user.get_full_name}}</dd>
-                                            
-                                                                            <dt class="col-sm-4">Email</dt>
-                                                                            <dd class="col-sm-8">{{account.user.email}}</dd>
-                                            
-                                                                            <dt class="col-sm-4">Address</dt>
-                                                                            <dd class="col-sm-8">{{account.address}}</dd>
-                                                                        
-                                                                            <dt class="col-sm-4">Account Created</dt>
-                                                                            <dd class="col-sm-8">{{account.user.date_joined}}</dd>
+                                                                            {% for results in exam_results %}
+                                                                                {% if account.exam_status == 'done' %}
+                                                                                    {% if account.enrollee_id == results.enrollee_id %}
+                                                                                        <dt class="col-sm-4">Exam Title</dt>
+                                                                                        <dd class="col-sm-8">{{results.exam.title}}</dd>
+                                                        
+                                                                                        <dt class="col-sm-4">Score</dt>
+                                                                                        <dd class="col-sm-8">{{results.total_score}}/{{results.exam.overall_points}}</dd>
+                                                                                        
+                                                                                        <dt class="col-sm-4">Exam Type</dt>
+                                                                                        {% if account.link is null %}
+                                                                                            <dd class="col-sm-8">Teacher Provided</dd> 
+                                                                                        {% else %}
+                                                                                            <dd class="col-sm-8">Linked</dd> 
+                                                                                        {% endif %}
+                                                                                    {% endif %}
+                                                                                {% else %}
+                                                                                    <dd class="col-sm-8">Enrollee has not taken the exam</dd>
+                                                                                    
+                                                                                {% endif %}
+                                                                            {% endfor %}
                                                                         </dl>
                                                                     </div>
                                                                 </div>
-                                                            </div> -->
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <!-- Modal Footer-->

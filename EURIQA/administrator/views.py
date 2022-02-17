@@ -214,10 +214,12 @@ class AdminManageAccounts(View):
     def get(self,request):
         qs_accounts = Enrollee.objects.all()
         qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        qs_results = ExamResults.objects.all()
         
         context = {
             'admin_details': qs_admin,
             'accounts': qs_accounts,
+            'exam_results': qs_results,
         }
 
         if not request.user.is_authenticated:
