@@ -134,41 +134,55 @@ class EnrolleeInstructionsView(View):
         return render(request, 'enrollee/enrolleeInstructions.html', context)
 
 def exam_page(request, exam_id=None, part_id=None):
-    get_level = Enrollee.objects.filter(user = request.user.id).values_list('level', flat=True)
-    
+    # Make sure the users are logged in 
     if request.user.is_authenticated:
         if request.method != 'POST':
-            check_level = Enrollee.objects.filter(user = request.user.id).get(level__in = get_level)
-            
-            if check_level.level == "college":
-                qs_exam = Exam.objects.filter(takers="College")
+            # Make sure the examinee is not done taking the exam before redirecting to exam page
+            get_exam_status = Enrollee.objects.filter(user = request.user.id).values_list('exam_status', flat=True)
+            exam_is_done = Enrollee.objects.filter(user = request.user.id).get(exam_status__in = get_exam_status)
 
-            elif check_level.level == "shs":
-                qs_exam = Exam.objects.filter(takers="Senior High School")
-            
-            elif check_level.level == "jhs":
-                qs_exam = Exam.objects.filter(takers="Junior High School")
-            
-            elif check_level.level == "elem":
-                qs_exam = Exam.objects.filter(takers="Elementary")
+            if exam_is_done.exam_status == 'not done':
+                # Check level of enrollee
+                get_level = Enrollee.objects.filter(user = request.user.id).values_list('level', flat=True)
+                check_level = Enrollee.objects.filter(user = request.user.id).get(level__in = get_level)
+                
+                if check_level.level == "college":
+                    qs_exam = Exam.objects.filter(takers="College")
+
+                elif check_level.level == "shs":
+                    qs_exam = Exam.objects.filter(takers="Senior High School")
+                
+                elif check_level.level == "jhs":
+                    qs_exam = Exam.objects.filter(takers="Junior High School")
+                
+                elif check_level.level == "elem":
+                    qs_exam = Exam.objects.filter(takers="Elementary")
+                
+                else:
+                    print("level does not exist")
+
+                qs_all_parts = Part.objects.filter(exam = exam_id)
+                qs_part = Part.objects.filter(part_id = part_id)
+                qs_question = Question.objects.filter(exam_id = exam_id).filter(part = part_id)
+                qs_question_no = qs_question.values_list('question_no', flat=True)
+                
+                get_last_part = Part.objects.last()
+
+                context = {
+                    'exams': qs_exam,
+                    'parts': qs_part,
+                    'all_parts': qs_all_parts,
+                    'questions': qs_question,
+                    'question_no': qs_question_no,
+                    'last_part': get_last_part,
+                }
+
+                return render(request, 'enrollee/enrolleeExam.html', context)
             
             else:
-                print("level does not exist")
-
-            qs_all_parts = Part.objects.filter(exam = exam_id)
-            qs_part = Part.objects.filter(part_id = part_id)
-            qs_question = Question.objects.filter(exam_id = exam_id).filter(part = part_id)
-            qs_question_no = qs_question.values_list('question_no', flat=True)
-
-            context = {
-                'exams': qs_exam,
-                'parts': qs_part,
-                'all_parts': qs_all_parts,
-                'questions': qs_question,
-                'question_no': qs_question_no,
-            }
-
-            return render(request, 'enrollee/enrolleeExam.html', context)
+                messages.error(request,"You are already done taking the exam.")
+                return redirect("enrollee:enrollee_instructions")
+                
 
         else:
             if 'btnSubmitExam' in request.POST:
@@ -178,8 +192,6 @@ def exam_page(request, exam_id=None, part_id=None):
                 qs_question_id = Question.objects.filter(exam_id = exam_id).filter(part = part_id).values_list('question_id')
                 qs_answers = Question.objects.filter(question_id__in = qs_question_id).values_list('answer')
                 
-                # print(qs_question_id)
-                # print(qs_answers)
                 # Get question ids of the exam. This will be used to get the Question instances of each questions from the exam.
                 # We need the Question instances for ExamResults has a foreign key field from the Question. 
                 get_ques = Question.objects.filter(exam = exam_id).filter(part = part_id).values_list('question_id', flat=True)
@@ -208,7 +220,7 @@ def exam_page(request, exam_id=None, part_id=None):
                     # Retrieves all the answers inputted by the enrollee
                     answer = request.POST.get(ques_num)
 
-                    # Stores the retrieved answer in a list.
+                    # Stores the retrieved answer from the exam in a list.
                     list_answers.append(answer)
                 
                 # Loop over all the question records to get their respective instances.
@@ -248,10 +260,6 @@ def exam_page(request, exam_id=None, part_id=None):
                 # Save/Update Results of Exam for each Part
                 new_results, save_results = ExamResults.objects.update_or_create(enrollee = get_enrollee, exam = get_exam, defaults={'total_score': get_exam_score})
 
-                # Update exam status of enrollee
-                update_status = Enrollee.objects.filter(user = request.user.id).update(exam_status = "done")
-                
-
                 # Get all part IDs and save it in a list
                 get_all = Part.objects.filter(exam_id = exam_id).values_list('part_id', flat=True)
                 part_list=list(get_all)
@@ -269,11 +277,11 @@ def exam_page(request, exam_id=None, part_id=None):
                         
                     elif (part_list[i] is not None) and (part_list[i] <= last_part.pk or part_list[i] >= last_part.pk):
                         return redirect("enrollee:enrollee_exam", exam_id = exam_id, part_id = part_list[i])
-
                     else:
+                        # Update exam status of enrollee if final part is already answered
+                        update_status = Enrollee.objects.filter(user = request.user.id).update(exam_status = "done")
                         return redirect("enrollee:enrollee_examcompletion", enrollee_id=request.user.id, exam_id = exam_id)
 
-               
 def exam_results(request, enrollee_id=None, exam_id=None):
     if request.user.is_authenticated:
         if request.method != 'POST':

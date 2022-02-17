@@ -85,6 +85,12 @@
                   <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <br><br>
                     <form id="msform">
+                      <!-- Message Loader -->
+                    {% for message in messages %}
+                    <div class="alert {{message.tags}}" role="alert" style="text-align: left;">
+                      {{ message }}
+                    </div>
+                    {% endfor %}
                       <!-- progressbar -->
                       <ul id="progressbar">
                           <li  id="account"><strong>Terms and Conditions</strong></li>
@@ -106,27 +112,46 @@
                             <div class="col">
                               <p style="text-align: justify; font-weight: 500;">General Instructions:</p>
                               <ol>
-                                <li>The examination will comprise of Objective type Multiple Choice Questions (MCQs) </li>
-                                <li>All questions are compulsory and each carries One mark.</li>
-                                <li>The total number of questions, duration of examination, will be different based on 
-                                  the course, the detail is available on your screen.</li>
-                                <li>The Subjects or topics covered in the exam will be as per the Syllabus.</li>
-                                <li>There will be NO NEGATIVE MARKING for the wrong answers.</li>
+                                <li>This exam is <b>time-limited.</b> Make sure you are prepared before starting the exam.</li>
+                                <li>Ensure you have a stable connection before answering.</li>
+                                <li>Make sure you are in a well-lit and distraction-free area while taking the exam.</li>
+                                <li>For the duration of the exam, make sure your camera is functioning for the <b>facial recognition system.</b> </li>
+                                <li>Position yourself right in front of the camera. Make sure you are recognized by the facial recognition system.</b> </li>
+                                <li>The system will warn or flag you when the following suspicious actions are detected: <b>(1) an unknown face is recognized by the system (2) when the system detects tab changing.</b> Avoid doing the mentioned actions.</b> </li>
+                                <li>After the maximum flags has been reached, you will be forced to restart the exam with the remaining time you have.</li>
+                                <li>Contact your enrollment officer when a problem arises.</li>
+                                
                               </ol>
                             </div>
                           </div>
-                        </div> <br><br>
+                          <div class="row">
+                            <div class="col">
+                              <p style="text-align: justify; font-weight: 500;">Exam Details:</p>
+                                <ol>
+                                  <li><b>Exam Parts:</b></li>
+                                    {% for part in parts %}
+                                      <ul>
+                                        <li><strong>{{part.part_name}}</strong>&nbsp;(Total Items: {{part.total_items}}, Total Points:&nbsp;{{part.overall_points}})</li>
+                                      </ul>
+                                    {% endfor %}
+                                    {% for exam in exams %}
+                                      <li><b>Maximum flags:</b>&nbsp;&nbsp;&nbsp;{{exam.max_flags}}</li>
+                                      <li><b>Duration:</b>&nbsp;&nbsp;&nbsp;{{exam.duration_hr}} hr/s {{exam.duration_min}} mins</li>
+                                    {% endfor %}
+
+                                </ol>
+  
+                                <!-- <h6 class="maroon-text" style="padding-top: 10px;"><strong>{{part.part_name}}</strong></h6>
+                                <p align="justify">Instructions: {{part.instructions}}</p>
+                                <p align="justify">Duration: </p>
+                                <p align="justify">Total Items: {{part.total_items}}</p>
+                                <p align="justify">Total Points: {{part.overall_pooints}}</p> -->
+                            </div>
+                          </div>
+                        </div>
 
                         <div class="row">
-                          <div class="col">
-                            {% for part in parts %}
-                              <h6 class="maroon-text" style="padding-top: 10px;"><strong>{{part.part_name}}</strong></h6>
-                              <p align="justify">Instructions: {{part.instructions}}</p>
-                              <p align="justify">Duration: </p>
-                              <p align="justify">Total Items: {{part.total_items}}</p>
-                              <p align="justify">Total Points: {{part.overall_pooints}}</p>
-                            {% endfor %}
-                          </div>
+                          
                         </div>
                         <br>
                         
@@ -179,21 +204,9 @@
   <!-- Template Main JS File -->
   <script src="{% static 'assets/js/main.js' %}"></script>
   <script src="{% static 'assets/js/multistep.js' %}"></script>
-  <script type="text/javascript">
-  
-    $(document).ready(function(){
 
-    $('#smartwizard').smartWizard({
-    selected: 0,
-    autoAdjustHeight:true,
-    transitionEffect:'fade',
-    showStepURLhash: false,
-    
-    });
-    
-    });
 
-  </script>
+
 
 </body>
 

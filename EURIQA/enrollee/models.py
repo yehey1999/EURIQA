@@ -39,7 +39,7 @@ class Enrollee(models.Model):
 class ExamAnswers(models.Model):
     answer_id = models.AutoField(primary_key=True)
     enrollee =  models.ForeignKey(Enrollee, on_delete=models.CASCADE)
-    answer = models.CharField(max_length = 1)
+    answer = models.CharField(default=None, null=True, max_length = 1)
     exam =  models.ForeignKey(Exam, on_delete=models.CASCADE)
     part =  models.ForeignKey(Part, on_delete=models.CASCADE)
     question =  models.OneToOneField(Question, on_delete=models.CASCADE)

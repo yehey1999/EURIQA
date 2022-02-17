@@ -205,7 +205,7 @@
                                     <div class="form-check">
                                         <p style="text-align: justify;">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="A" id="exampleRadios1" required>
+                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="A" id="exampleRadios1">
                                                     &nbsp;&nbsp;&nbsp;&nbsp;A.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionA}}
                                             </div>
                                         </p>
@@ -218,7 +218,7 @@
                                     <div class="form-check">
                                         <p style="text-align: justify;">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="B" id="exampleRadios1" required>
+                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="B" id="exampleRadios1">
                                                     &nbsp;&nbsp;&nbsp;&nbsp;B.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionB}}
                                             </div>
                                         </p>
@@ -228,7 +228,7 @@
                                     <div class="form-check">
                                         <p style="text-align: justify;">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="C" id="exampleRadios1" required>
+                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="C" id="exampleRadios1">
                                                     &nbsp;&nbsp;&nbsp;&nbsp;C.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionC}}
                                             </div>
                                         </p>
@@ -238,7 +238,7 @@
                                     <div class="form-check">
                                         <p style="text-align: justify;">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="D" id="exampleRadios1" required>
+                                                <input class="form-check-input" type="radio" name="answer{{ques.question_no}}" value="D" id="exampleRadios1">
                                                     &nbsp;&nbsp;&nbsp;&nbsp;D.&nbsp;&nbsp;&nbsp;&nbsp;{{ques.optionD}}
                                             </div>
                                         </p>
@@ -267,18 +267,16 @@
                                 <br>
                                 <!-- <div class="alert alert-danger" role="alert"> -->
                                    <div class="row">
-                                       <div class="col-6">
+                                       <div class="col">
                                             <b>Time Left:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="timer"></span></b>
                                        </div>
 
-                                       <div class="col-6">
-                                            <b>Max Flags:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><span>{{exam.max_flags}}</span>
-                                            <input type="number" value={{exam.max_flags}} id="max_flags" style="border: none; width: 30%;" readonly hidden><br><br>       
-                                       </div>
-                                        <b hidden>Total Flags:</b>
+                                        <input type="number" value={{exam.max_flags}} id="max_flags" style="border: none; width: 30%;" readonly hidden><br><br>
+                                       
                                         <input type="number" value="0" id="flags" style="border: none; width: 20%;" readonly hidden>
 
-                                        <b>Action Logs:</b>
+                                        <span><b>Action Logs:&nbsp;&nbsp;&nbsp;</b>(Max Flags:&nbsp;{{exam.max_flags}})</span>
+                                        
                                         <textarea id="message" style="overflow:auto; width:100%; height: 150; resize: none;" readonly></textarea>
                                         <input type="number" value={{exam.duration_hr}} id="duration_hr" name="duration_hr" hidden readonly><br><br>
                                         <input type="number" value={{exam.duration_min}} id="duration_min" name="duration_hr" hidden readonly><br><br> 
@@ -288,29 +286,49 @@
                     </div>
                 </div>
 
-                        <div id="dimscreen"></div>
+                    <div id="dimscreen"></div>
 
-                        <div class="modal" tabindex="-1" role="dialog" id="reload_exam" data-keyboard="false" data-backdrop="static">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title">Suspicious Action Alert</h5>
-                                </div>
-                                <div class="modal-body">
-                                  <p>You have exceed the number of suspicious actions set by the administrator. Please retake the exam</p>
-                                </div>
-                                <div class="modal-footer">
-                                    {% for exam in exams %}
-                                    {% for part in parts %}
-                                    <a class="btn btn-secondary" href="../{{exam.exam_id}}/{{part.part_id}}" style="background-color:maroon;">Retake Exam</a>
-                                    {% endfor %}
-                                    {% endfor %}
-                                    <!-- <button name="btnRetake" class="btn btn-primary" id="btnRetake">Retake exam</button> -->
-                                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-                                </div>
-                              </div>
+                    <div class="modal" tabindex="-1" role="dialog" id="reload_exam" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Suspicious Action Alert</h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>You have exceed the number of suspicious actions set by the administrator. Please retake the exam</p>
+                            </div>
+                            <div class="modal-footer">
+                                <!-- {% for exam in exams %}
+                                {% for part in parts %} -->
+                                <a class="btn btn-secondary" href="../{{exam.exam_id}}/{{part.part_id}}" style="background-color:maroon;">Retake Exam</a>
+                                <!-- {% endfor %}
+                                {% endfor %} -->
+                                <!-- <button name="btnRetake" class="btn btn-primary" id="btnRetake">Retake exam</button> -->
+                                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                            </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="modal" tabindex="-1" role="dialog" id="end_exam" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Time is up!</h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>You run out of time. Please proceed to the results page.</p>
+                            </div>
+                            <div class="modal-footer">
+                                {% for exam in exams %}
+                                    {% for part in parts %}
+                                    <a class="btn btn-secondary" href="/enrollee/results/{{request.user.id}}/{{exam.exam_id}}" style="background-color:maroon;">Proceed</a>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -339,53 +357,95 @@
     <script src="{% static 'assets/js/dashboard/plugins/feather.min.js' %}"></script>
     <script src="{% static 'assets/js/dashboard/pcoded.min.js' %}"></script>
 
+
     <!-- Timer -->
-    <script src="{% static 'countdowntimer/js/jquery.plugin.min.js' %}"></script>
-    <script src="{% static 'countdowntimer/js/jquery.countdown.js' %}"></script>
-
-   <!-- TImer --> 
     <script>
-        $(function () {
-            var currentdate = new Date()
-            var duration_hr = document.getElementById('duration_hr').valueAsNumber
-            var duration_min = document.getElementById('duration_min').valueAsNumber
+        localStorage.clear()
+          
+        var duration_hr = document.getElementById('duration_hr').valueAsNumber
+        var duration_min = document.getElementById('duration_min').valueAsNumber
+        var interval;
 
-            var setHour = currentdate.getHours()+duration_hr;
-            var setMins = currentdate.getMinutes()+duration_min;
-            var setMonth = currentdate.getMonth()
+        // convert the time to raw minutes
+        let minutes = (duration_hr*60 + duration_min);
+
+        let currentTime = localStorage.getItem('currentTime');
+        let targetTime = localStorage.getItem('targetTime');
+
+        if (targetTime == null && currentTime == null) {
+            currentTime = new Date();
+            targetTime = new Date(currentTime.getTime() + (minutes * 60000));
+            localStorage.setItem('currentTime', currentTime);
+            localStorage.setItem('targetTime', targetTime);
+        }
+        else{
+            currentTime = new Date(currentTime);
+            targetTime = new Date(targetTime);
+        }
+    
+        if(!checkComplete()){
+            interval = setInterval(checkComplete, 1000);
+        }
+    
+        function checkComplete() {
+            if (currentTime > targetTime) {
+                clearInterval(interval);
+                // Resets the timer
+                $('#dimscreen').css({
+                    "position": "fixed",
+                    "padding": "0",
+                    "margin":"0",
+                    "top": "0",
+                    "left": "0",
+                    "width": "100%",
+                    "height": "100%",
+                    "background": "rgba(255,255,255)",
+                });
+
+                $('#end_exam').modal('show');
+                
+            } 
             
-            console.log(currentdate)
-        
-            $('#timer').countdown({until: new Date(currentdate.getFullYear(), setMonth, currentdate.getDate(), setHour, setMins), compact: true, format: 'HMS'});
-            
-        });
-    </script>
+            else {
+                currentTime = new Date();
+                let sec = (targetTime - currentTime) / 1000;
+                let hours   = Math.floor(sec / 3600);
+                let minutes = Math.floor((sec - (hours * 3600)) / 60);
+                let seconds = Math.floor(sec - (hours * 3600) - (minutes * 60));
+                
+                // Append leading zeroes
+                if (hours   < 10) {
+                    hours   = "0"+hours;
+                }
+                if (minutes < 10) {
+                    minutes = "0"+minutes;
+                }
+                if (seconds < 10) {
+                    seconds = "0"+seconds;
+                }
+                
+                if (hours >= 0 && minutes >= 0 && seconds >= 0){
+                    document.getElementById('timer').innerHTML = hours+" hrs "+minutes+" mins "+seconds+" secs";
 
-    <!-- <script>
-        function startTimer(duration, display) {
-        var timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10)
-            seconds = parseInt(timer % 60, 10);
+                    if (hours == 0 && minutes <= 5 && seconds >=0 ){
+                        $('#timer').css({
+                            "color": "red",
+                        });
+                    }
+                }
 
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-            display.text(minutes + ":" + seconds);
-
-            if (--timer < 0) {
-                timer = duration;
+                else{
+                    document.getElementById('timer').innerHTML = "Time is up";
+                    
+                }
             }
-        }, 1000);
-    }
-
-    jQuery(function ($) {
-        var fiveMinutes = 60 * 5,
-            display = $('#time');
-        startTimer(fiveMinutes, display);
-    });
-    </script> -->
-
+        }
+    
+        document.onbeforeunload = function(){
+            localStorage.setItem('currentTime', currentTime);
+        }
+        
+    </script>
 
     <!-- Back to top button -->
     <script>
@@ -400,14 +460,9 @@
         });
 
         btn.on('click', function(e) {
-        e.preventDefault();
-        $('html, body').animate({scrollTop:0}, '300');
+            e.preventDefault();
+            $('html, body').animate({scrollTop:0}, '300');
         });
-    </script>
-
-    <!-- Prompt User Alert when Page is Reloaded -->
-    <script>
-        window.onbeforeunload = function() { return "Your work will be lost."; };
     </script>
 
     <!-- Disable going back to previous page -->
@@ -575,21 +630,6 @@
         isWebcamAlreadyCaptured
     });
     </script> -->
-
-    <!-- Video Style -->
-    <!-- <style>
-        #vidcontainer {
-            margin: 0px auto;
-            width: 340px;
-            height: auto;
-            border: 10px #333 solid;
-        }
-        #videoElement {
-            width: 320px;
-            height: auto;
-            background-color: #666;
-        }
-    </style> -->
     
     <!-- Inactive Tab Checker-->
     <script>
@@ -597,7 +637,6 @@
         var oldFlagVal = document.getElementById('flags').value;
         var newFlagVal = 0;
 
-        
         setInterval (() => {
             // let flags = document.getElementById('flags').value;
             // console.log("test flags", flags)

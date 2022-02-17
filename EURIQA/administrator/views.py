@@ -657,6 +657,7 @@ def view_exam(request, exam_id=None):
 
             # Update new Max Flags and Durations
             updateFlagDuration = Exam.objects.filter(exam_id = exam_id).update(max_flags = max_flags, duration_hr = duration_hr, duration_min = duration_min)
+            messages.success(request, 'Updated successfully')
 
         elif 'btnSaveEdited' in request.POST:
             ques_id = request.POST.get("ques_id")
