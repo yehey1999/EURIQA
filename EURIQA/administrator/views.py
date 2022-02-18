@@ -84,7 +84,7 @@ class AdminDashboard(View):
                 return redirect("administrator:admin_login")
             
         else:
-            messages.error(request, "You are unauthorized to access this link.")
+            messages.error(request, "You are not logged in.")
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminDashboard.html', context)
 
@@ -105,7 +105,7 @@ class AdmminProfile(View):
                 return redirect("administrator:admin_login")
             
         else:
-            messages.error(request, "You are unauthorized to access this link.")
+            messages.error(request, "You are not logged in.")
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminProfile.html', context)
 
@@ -158,8 +158,8 @@ class AdminAccountRegistrationView(View):
                 messages.error(request, "You are unauthorized to access this link.")
                 return redirect("administrator:admin_login")
         else:
-                messages.error(request, "You are unauthorized to access this link.")
-                return redirect("administrator:admin_login")
+            messages.error(request, "You are not logged in.")
+            return redirect("administrator:admin_login")
         return render(request, 'administrator/enrolleeRegistration/adminRegForm.html', context)
 
     def post(self, request):
@@ -247,8 +247,8 @@ class AdminManageAccounts(View):
                 messages.error(request, "You are unauthorized to access this link.")
                 return redirect("administrator:admin_login")
         else:
-                messages.error(request, "You are unauthorized to access this link.")
-                return redirect("administrator:admin_login")
+            messages.error(request, "You are not logged in.")
+            return redirect("administrator:admin_login")
         return render(request, 'administrator/enrolleeRegistration/adminManageAccounts.html', context)
 
     def post(self, request):
@@ -350,7 +350,7 @@ class AdminCreateExam(View):
                 messages.error(request, "You are unauthorized to access this link.")
                 return redirect("administrator:admin_login")
         else:
-            messages.error(request, "You are unauthorized to access this link.")
+            messages.error(request, "You are not logged in.")
             return redirect("administrator:admin_login")
         return render(request, 'administrator/examManagement/adminCreateExam.html', context)
 
@@ -440,7 +440,7 @@ class AdminAddQuestion(View):
                 messages.error(request, "You are unauthorized to access this link.")
                 return redirect("administrator:admin_login")
         else:
-            messages.error(request, "You are unauthorized to access this link.")
+            messages.error(request, "You are not logged in.")
             return redirect("administrator:admin_login")
 
     def post(self, request):
@@ -618,7 +618,7 @@ class AdminViewAllExamsTable(View):
                 messages.error(request, "You are unauthorized to access this link.")
                 return redirect("administrator:admin_login")
         else:
-            messages.error(request, "You are unauthorized to access this link.")
+            messages.error(request, "You are not logged in.")
             return redirect("administrator:admin_login")
         return render(request, 'administrator/examManagement/adminAllExams.html', context)
 
@@ -663,7 +663,7 @@ def view_exam(request, exam_id=None):
                 messages.error(request, "You are unauthorized to access this link.")
                 return redirect("administrator:admin_login")
         else:
-            messages.error(request, "You are unauthorized to access this link.")
+            messages.error(request, "You are not logged in.")
             return redirect("administrator:admin_login")
         return render(request, 'administrator/examManagement/adminEditExam.html', context)
     
