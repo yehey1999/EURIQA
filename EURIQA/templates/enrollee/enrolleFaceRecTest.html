@@ -36,6 +36,9 @@
   <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
   <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
+  <!-- Page Loader -->
+  <link href="{% static 'assets/css/loader.css' %}" rel="stylesheet">
+
   <!-- Face-Api JS (Face Recognition) -->
   <script defer src="{% static 'facerec_assets/js/face-api.min.js' %}"></script>
   <script defer src="{% static 'facerec_assets/js/main.js' %}"></script>
@@ -51,14 +54,11 @@
     canvas {
         position: absolute;
     }
-
-    
   </style>
 </head>
 
-<body>
-
-  <!-- ======= Header ======= -->
+<body onload="myFunction()">
+    <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center header-transparent">
     <div class="container d-flex align-items-center justify-content-between">
 
@@ -114,13 +114,17 @@
 
                     <input type="text" id="flags" readonly hidden>
                     <!-- <textarea id="message" style="overflow-y: scroll; width: 340px; height: 200px; resize: none;" readonly hidden></textarea> -->
-
-                    <div class="row" id="video_area">
+                    
+                    <div id="loader">
+                    </div>
+                    
+            
+                    <div class="row" id="video_area" style="visibility:hidden;">
                       <video id="video" width="720" height="560" autoplay muted></video>
                     </div>
-                    <div id="sample">
+                    <!-- <div id="sample">
                       
-                    </div>
+                    </div> -->
                     <!-- fieldsets -->              
                     <fieldset>
                       <div class="form-card">
@@ -153,6 +157,20 @@
     </div>
   </div>
 </footer><!-- End Footer -->
+
+<script>
+  var myVar;
+  
+  function myFunction() {
+    myVar = setTimeout(showPage, 3000);
+  }
+  
+  function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("loading_message").style.display = "none";
+    document.getElementById("video_area").style.visibility = 'visible';
+  }
+  </script>
 
 <!-- Vendor JS Files -->
 <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>

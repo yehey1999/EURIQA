@@ -26,6 +26,9 @@
     <script defer src="{% static 'facerec_assets/js/face-api.min.js' %}"></script>
     <script defer src="{% static 'facerec_assets/js/main.js' %}"></script>
 
+    <!-- Page Loader -->
+    <!-- <link href="{% static 'assets/css/loader.css' %}" rel="stylesheet"> -->
+
     <!-- Timer -->
     <link rel="stylesheet" href="{% static 'countdowntimer/css/jquery.countdown.css' %}"">
 
@@ -37,7 +40,7 @@
     
 </head>
 
-<body class="">
+<body onload="myFunction()">
     <!-- [ Pre-loader ] start -->
   <div class="loader-bg">
     <div class="loader-track">
@@ -149,7 +152,6 @@
   <!-- [ Header ] end -->
 
     <!-- [ Main Content ] start -->
-<body>
     {% for exam in exams %}
     {% for part in parts %}
     <div class="pc-container">
@@ -260,6 +262,7 @@
                             <div class="card-body">
                                 <!-- Get the username to be used in the labels -->        
                                 <input type="text" id="username" value="{{request.user.username}}" hidden>
+                                
                                 <div class="row" id="video_area">
                                     <video id="video" width="340" height="200" autoplay muted></video>
                                 </div>
@@ -357,6 +360,20 @@
     <script src="{% static 'assets/js/dashboard/plugins/feather.min.js' %}"></script>
     <script src="{% static 'assets/js/dashboard/pcoded.min.js' %}"></script>
 
+    <!-- Page Loader -->
+    <!-- <script>
+        var myVar;
+        
+        function myFunction() {
+          myVar = setTimeout(showPage, 3000);
+        }
+        
+        function showPage() {
+          document.getElementById("loader").style.display = "none";
+          document.getElementById("loading_message").style.display = "none";
+          document.getElementById("video_area").style.visibility = 'visible';
+        }
+    </script> -->
 
     <!-- Timer -->
     <script>
