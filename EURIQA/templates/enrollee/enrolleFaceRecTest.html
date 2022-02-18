@@ -57,7 +57,7 @@
   </style>
 </head>
 
-<body onload="myFunction()">
+<body onload="pageLoader()">
     <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center header-transparent">
     <div class="container d-flex align-items-center justify-content-between">
@@ -115,16 +115,14 @@
                     <input type="text" id="flags" readonly hidden>
                     <!-- <textarea id="message" style="overflow-y: scroll; width: 340px; height: 200px; resize: none;" readonly hidden></textarea> -->
                     
+                    <!-- Page Loader -->
                     <div id="loader">
                     </div>
                     
-            
-                    <div class="row" id="video_area" style="visibility:hidden;">
+                    <div class="row" id="video_area" style="visibility: hidden;">
                       <video id="video" width="720" height="560" autoplay muted></video>
                     </div>
-                    <!-- <div id="sample">
-                      
-                    </div> -->
+
                     <!-- fieldsets -->              
                     <fieldset>
                       <div class="form-card">
@@ -159,16 +157,14 @@
 </footer><!-- End Footer -->
 
 <script>
-  var myVar;
-  
-  function myFunction() {
-    myVar = setTimeout(showPage, 3000);
+  function pageLoader() {
+    setTimeout(showPage, 3000);
   }
   
   function showPage() {
+    document.getElementById("video_area").style.visibility = "visible";
     document.getElementById("loader").style.display = "none";
-    document.getElementById("loading_message").style.display = "none";
-    document.getElementById("video_area").style.visibility = 'visible';
+    // document.getElementById("loading_message").style.display = "none";
   }
   </script>
 
