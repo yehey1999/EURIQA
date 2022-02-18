@@ -50,36 +50,67 @@ class EnrolleeLogoutView(View):
 
 class EnrolleeDetailsCheckView(View):
     def get(self, request):
-        qs_enrollee = Enrollee.objects.filter(user_id=request.user.id)
+        is_enrollee = Enrollee.objects.filter(user_id=request.user.id)
 
-        print(qs_enrollee)
+        if request.user.is_authenticated:
+            if is_enrollee:
+                qs_enrollee = Enrollee.objects.filter(user_id=request.user.id)
 
-        context = {
-            'enrollees' : qs_enrollee,
-        }
+                print(qs_enrollee)
 
-        if not request.user.is_authenticated:
+                context = {
+                    'enrollees' : qs_enrollee,
+                }
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("enrollee:enrollee_login")
+        else:
+            messages.error(request, "You are not logged in.")
             return redirect("enrollee:enrollee_login")
         return render(request, 'enrollee/enrolleeDetails.html', context)
 
 class EnrolleeTermsView(View):
     def get(self, request):
-        if not request.user.is_authenticated:
+        is_enrollee = Enrollee.objects.filter(user_id=request.user.id)
+
+        if request.user.is_authenticated:
+            if is_enrollee:
+                return render(request, 'enrollee/enrolleeTerms.html')
+        
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("enrollee:enrollee_login")
+        else:
+            messages.error(request, "You are not logged in.")
             return redirect("enrollee:enrollee_login")
-        return render(request, 'enrollee/enrolleeTerms.html')
 
 class EnrolleeDataPolicyView(View):
     def get(self, request):
-        qs_exam = Exam.objects.all()
-        if not request.user.is_authenticated:
+        is_enrollee = Enrollee.objects.filter(user_id=request.user.id)
+        if request.user.is_authenticated:
+            if is_enrollee:
+                return render(request, 'enrollee/enrolleeDataPolicy.html')
+
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("enrollee:enrollee_login")
+        else:
+            messages.error(request, "You are not logged in.")
             return redirect("enrollee:enrollee_login")
-        return render(request, 'enrollee/enrolleeDataPolicy.html')
 
 class EnrolleeCaptureImageView(View):
     def get(self, request):
-        if not request.user.is_authenticated:
+        is_enrollee = Enrollee.objects.filter(user_id=request.user.id)
+        if request.user.is_authenticated:
+            if is_enrollee:
+                return render(request, 'enrollee/enrolleeCaptureImage.html')
+
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("enrollee:enrollee_login")
+        else:
+            messages.error(request, "You are not logged in.")
             return redirect("enrollee:enrollee_login")
-        return render(request, 'enrollee/enrolleeCaptureImage.html')
     
     def post(self, request):
         if request.method == 'POST':
@@ -93,57 +124,25 @@ class EnrolleeCaptureImageView(View):
 
 class EnrolleeFaceRecTest(View):
     def get(self, request):
-        if not request.user.is_authenticated:
+        is_enrollee = Enrollee.objects.filter(user_id=request.user.id)
+        if request.user.is_authenticated:
+            if is_enrollee:
+                return render(request, 'enrollee/enrolleFaceRecTest.html')
+                
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("enrollee:enrollee_login")
+        else:
+            messages.error(request, "You are not logged in.")
             return redirect("enrollee:enrollee_login")
-        return render(request, 'enrollee/enrolleFaceRecTest.html')
        
 class EnrolleeInstructionsView(View):
     def get(self, request):
+        is_enrollee = Enrollee.objects.filter(user_id=request.user.id)
         if request.user.is_authenticated:
-            qs_enrollee = Enrollee.objects.filter(user = request.user.id)
-            
-            get_level = Enrollee.objects.filter(user = request.user.id).values_list('level', flat=True)
-            check_level = Enrollee.objects.filter(user = request.user.id).get(level__in = get_level)
-            
-            if check_level.level == "college":
-                qs_exam = Exam.objects.filter(takers="College")
-
-            elif check_level.level == "shs":
-                qs_exam = Exam.objects.filter(takers="Senior High School")
-            
-            elif check_level.level == "jhs":
-                qs_exam = Exam.objects.filter(takers="Junior High School")
-            
-            elif check_level.level == "elem":
-                qs_exam = Exam.objects.filter(takers="Elementary")
-            
-            else:
-                print("level does not exist")
-
-            get_exam_id = qs_exam.values_list('exam_id', flat=True)
-
-            qs_part = Part.objects.filter(exam__in = get_exam_id)
-
-            context = {
-                'exams': qs_exam,
-                'enrollee': qs_enrollee,
-                'parts': qs_part,
-            }
-            return render(request, 'enrollee/enrolleeInstructions.html', context)
-
-        else:
-            return redirect("enrollee:enrollee_login")
-
-def exam_page(request, exam_id=None, part_id=None):
-    # Make sure the users are logged in 
-    if request.user.is_authenticated:
-        if request.method != 'POST':
-            # Make sure the examinee is not done taking the exam before redirecting to exam page
-            get_exam_status = Enrollee.objects.filter(user = request.user.id).values_list('exam_status', flat=True)
-            exam_is_done = Enrollee.objects.filter(user = request.user.id).get(exam_status__in = get_exam_status)
-
-            if exam_is_done.exam_status == 'not done':
-                # Check level of enrollee
+            if is_enrollee:
+                qs_enrollee = Enrollee.objects.filter(user = request.user.id)
+                
                 get_level = Enrollee.objects.filter(user = request.user.id).values_list('level', flat=True)
                 check_level = Enrollee.objects.filter(user = request.user.id).get(level__in = get_level)
                 
@@ -162,27 +161,79 @@ def exam_page(request, exam_id=None, part_id=None):
                 else:
                     print("level does not exist")
 
-                qs_all_parts = Part.objects.filter(exam = exam_id)
-                qs_part = Part.objects.filter(part_id = part_id)
-                qs_question = Question.objects.filter(exam_id = exam_id).filter(part = part_id)
-                qs_question_no = qs_question.values_list('question_no', flat=True)
-                
-                get_last_part = Part.objects.last()
+                get_exam_id = qs_exam.values_list('exam_id', flat=True)
+
+                qs_part = Part.objects.filter(exam__in = get_exam_id)
 
                 context = {
                     'exams': qs_exam,
+                    'enrollee': qs_enrollee,
                     'parts': qs_part,
-                    'all_parts': qs_all_parts,
-                    'questions': qs_question,
-                    'question_no': qs_question_no,
-                    'last_part': get_last_part,
                 }
+                return render(request, 'enrollee/enrolleeInstructions.html', context)
 
-                return render(request, 'enrollee/enrolleeExam.html', context)
-            
             else:
-                messages.error(request,"You are already done taking the exam.")
-                return redirect("enrollee:enrollee_instructions")
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("enrollee:enrollee_login")
+        else:
+            messages.error(request, "You are not logged in.")
+            return redirect("enrollee:enrollee_login")
+
+def exam_page(request, exam_id=None, part_id=None):
+    # Make sure the users are logged in properly
+        if request.method != 'POST':
+            is_enrollee = Enrollee.objects.filter(user_id=request.user.id)
+            if request.user.is_authenticated:
+                if is_enrollee:
+                
+                    # Make sure the examinee is not done taking the exam before redirecting to exam page
+                    get_exam_status = Enrollee.objects.filter(user = request.user.id).values_list('exam_status', flat=True)
+                    exam_is_done = Enrollee.objects.filter(user = request.user.id).get(exam_status__in = get_exam_status)
+
+                    if exam_is_done.exam_status == 'not done':
+                        # Check level of enrollee
+                        get_level = Enrollee.objects.filter(user = request.user.id).values_list('level', flat=True)
+                        check_level = Enrollee.objects.filter(user = request.user.id).get(level__in = get_level)
+                        
+                        if check_level.level == "college":
+                            qs_exam = Exam.objects.filter(takers="College")
+
+                        elif check_level.level == "shs":
+                            qs_exam = Exam.objects.filter(takers="Senior High School")
+                        
+                        elif check_level.level == "jhs":
+                            qs_exam = Exam.objects.filter(takers="Junior High School")
+                        
+                        elif check_level.level == "elem":
+                            qs_exam = Exam.objects.filter(takers="Elementary")
+                        
+                        else:
+                            print("level does not exist")
+
+                        qs_all_parts = Part.objects.filter(exam = exam_id)
+                        qs_part = Part.objects.filter(part_id = part_id)
+                        qs_question = Question.objects.filter(exam_id = exam_id).filter(part = part_id)
+                        qs_question_no = qs_question.values_list('question_no', flat=True)
+                        
+                        get_last_part = Part.objects.last()
+
+                        context = {
+                            'exams': qs_exam,
+                            'parts': qs_part,
+                            'all_parts': qs_all_parts,
+                            'questions': qs_question,
+                            'question_no': qs_question_no,
+                            'last_part': get_last_part,
+                        }
+
+                        return render(request, 'enrollee/enrolleeExam.html', context)
+                
+                else:
+                    messages.error(request, "You are unauthorized to access this link.")
+                    return redirect("enrollee:enrollee_login")
+            else:
+                messages.error(request, "You are not logged in.")
+                return redirect("enrollee:enrollee_login")
                 
 
         else:
@@ -284,46 +335,55 @@ def exam_page(request, exam_id=None, part_id=None):
                         return redirect("enrollee:enrollee_examcompletion", enrollee_id=request.user.id, exam_id = exam_id)
 
 def exam_results(request, enrollee_id=None, exam_id=None):
-    if request.user.is_authenticated:
-        if request.method != 'POST':
-            qs_results = ExamResults.objects.filter(exam_id = exam_id)
-            qs_exams = Exam.objects.filter(exam_id= exam_id)
-            qs_parts = Part.objects.filter(exam = exam_id)
+    if request.method != 'POST':
+        is_enrollee = Enrollee.objects.filter(user_id=request.user.id)
+        if request.user.is_authenticated:
+            if is_enrollee:
             
-            # Get the overall_points value from Exam
-            get_exam = Exam.objects.get(exam_id = exam_id)
-            total_points = get_exam.overall_points
+                qs_results = ExamResults.objects.filter(exam_id = exam_id)
+                qs_exams = Exam.objects.filter(exam_id= exam_id)
+                qs_parts = Part.objects.filter(exam = exam_id)
+                
+                # Get the overall_points value from Exam
+                get_exam = Exam.objects.get(exam_id = exam_id)
+                total_points = get_exam.overall_points
 
-            # Get the total_score value from ExamResults
-            get_results = ExamResults.objects.get(exam_id = exam_id)
-            score = get_results.total_score
-            
-            # Get the passing score (60% passing rate)
-            passing_score = total_points*0.60
+                # Get the total_score value from ExamResults
+                get_results = ExamResults.objects.get(exam_id = exam_id)
+                score = get_results.total_score
+                
+                # Get the passing score (60% passing rate)
+                passing_score = total_points*0.60
 
-            # Check if student passed 
-            if score >= passing_score:
-                status = "passed"
-            
+                # Check if student passed 
+                if score >= passing_score:
+                    status = "passed"
+                
+                else:
+                    status = "failed"
+
+                score_list = []
+
+                for qs in qs_parts:
+                    correct_answers_per_part = ExamAnswers.objects.filter(exam_id = exam_id).filter(part_id=qs.pk).filter(is_correct=True)
+                    score_per_part = correct_answers_per_part.count()
+                    score_list.append(score_per_part)
+                
+                # Zip the Part objects and the scores for easy displaying in templates
+                parts_and_score = zip(qs_parts, score_list)
+                
+                context={
+                    'results' : qs_results,
+                    'exams': qs_exams,
+                    'status': status,
+                    'score_list': score_list,
+                    'parts_and_score': parts_and_score,
+                }
+                return render(request, 'enrollee/enrolleeExamCompletion.html', context)
+
             else:
-                status = "failed"
-
-            score_list = []
-
-            for qs in qs_parts:
-                correct_answers_per_part = ExamAnswers.objects.filter(exam_id = exam_id).filter(part_id=qs.pk).filter(is_correct=True)
-                score_per_part = correct_answers_per_part.count()
-                score_list.append(score_per_part)
-            
-            # Zip the Part objects and the scores for easy displaying in templates
-            parts_and_score = zip(qs_parts, score_list)
-            
-            context={
-                'results' : qs_results,
-                'exams': qs_exams,
-                'status': status,
-                'score_list': score_list,
-                'parts_and_score': parts_and_score,
-            }
-            return render(request, 'enrollee/enrolleeExamCompletion.html', context)
-
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("enrollee:enrollee_login")
+        else:
+            messages.error(request, "You are not logged in.")
+            return redirect("enrollee:enrollee_login")
