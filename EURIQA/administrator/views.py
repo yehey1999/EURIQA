@@ -47,59 +47,65 @@ class AdminLogoutView(View):
         logout(request)
         return  redirect("administrator:admin_login")
 
-class AdminHomeView(View):
-    def get(self,request):
-        qs_admin = Administrator.objects.filter(user_id=request.user.id)
-        context = {
-            'admin_details': qs_admin,
-        }
-
-        if not request.user.is_authenticated:
-            return redirect("administrator:admin_login")
-        return render(request, 'administrator/adminHome.html', context)
-
 class AdminDashboard(View):
     def get(self,request):
-        qs_admin = Administrator.objects.filter(user_id=request.user.id)
-        qs_enrollee = Enrollee.objects.all()
-        qs_program = Program.objects.all()
-        qs_part = Part.objects.all()
-        qs_strand = Strand.objects.all()
-        count_freshman=Enrollee.objects.filter(enrolled_as='freshman').count()
-        count_transferee=Enrollee.objects.filter(enrolled_as='transferee').count()
-        count_college=Enrollee.objects.filter(level='college').count()
-        count_shs=Enrollee.objects.filter(level='shs').count()
-        count_jhs=Enrollee.objects.filter(level='jhs').count()
+        is_admin = Administrator.objects.filter(user_id=request.user.id)
 
-        print(qs_enrollee)
-        print(qs_program)
+        if request.user.is_authenticated:
+            if is_admin:
+                qs_admin = Administrator.objects.filter(user_id=request.user.id)
+                qs_enrollee = Enrollee.objects.all()
+                qs_program = Program.objects.all()
+                qs_part = Part.objects.all()
+                qs_strand = Strand.objects.all()
+                count_freshman=Enrollee.objects.filter(enrolled_as='freshman').count()
+                count_transferee=Enrollee.objects.filter(enrolled_as='transferee').count()
+                count_college=Enrollee.objects.filter(level='college').count()
+                count_shs=Enrollee.objects.filter(level='shs').count()
+                count_jhs=Enrollee.objects.filter(level='jhs').count()
 
-        context = {
-            'qs_admin': qs_admin,
-            'qs_enrollee' : qs_enrollee,
-            'qs_program' : qs_program,
-            'qs_part' : qs_part,
-            'qs_strand' : qs_strand,
-            'count_freshman' : count_freshman,
-            'count_transferee' : count_transferee,
-            'count_college' : count_college,
-            'count_shs' : count_shs,
-            'count_jhs' : count_jhs,
-        }
-        
-        if not request.user.is_authenticated:
+                print(qs_enrollee)
+                print(qs_program)
+
+                context = {
+                    'qs_admin': qs_admin,
+                    'qs_enrollee' : qs_enrollee,
+                    'qs_program' : qs_program,
+                    'qs_part' : qs_part,
+                    'qs_strand' : qs_strand,
+                    'count_freshman' : count_freshman,
+                    'count_transferee' : count_transferee,
+                    'count_college' : count_college,
+                    'count_shs' : count_shs,
+                    'count_jhs' : count_jhs,
+                }
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
+            
+        else:
+            messages.error(request, "You are unauthorized to access this link.")
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminDashboard.html', context)
 
 class AdmminProfile(View):
     def get(self,request):
-        qs_admin = Administrator.objects.filter(user_id=request.user.id)
+        is_admin = Administrator.objects.filter(user_id=request.user.id)
 
-        context = {
-            'admin_details': qs_admin,
-        }
+        if request.user.is_authenticated:
+            if is_admin:
+                qs_admin = Administrator.objects.filter(user_id=request.user.id)
 
-        if not request.user.is_authenticated:
+                context = {
+                    'admin_details': qs_admin,
+                }
+
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
+            
+        else:
+            messages.error(request, "You are unauthorized to access this link.")
             return redirect("administrator:admin_login")
         return render(request, 'administrator/adminProfile.html', context)
 
@@ -135,18 +141,25 @@ class AdmminProfile(View):
         
 class AdminAccountRegistrationView(View):
     def get(self,request):
-        qs_program = Program.objects.order_by('program_name')
-        qs_strand = Strand.objects.order_by('strand_name')
-        qs_admin = Administrator.objects.filter(user_id=request.user.id)
-        
-        context = {
-            'admin_details': qs_admin,
-            'programs': qs_program,
-            'strands': qs_strand,
-        }
+        is_admin = Administrator.objects.filter(user_id=request.user.id)
 
-        if not request.user.is_authenticated:
-            return redirect("administrator:admin_login")
+        if request.user.is_authenticated:
+            if is_admin:
+                qs_program = Program.objects.order_by('program_name')
+                qs_strand = Strand.objects.order_by('strand_name')
+                qs_admin = Administrator.objects.filter(user_id=request.user.id)
+                
+                context = {
+                    'admin_details': qs_admin,
+                    'programs': qs_program,
+                    'strands': qs_strand,
+                }
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
+        else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
         return render(request, 'administrator/enrolleeRegistration/adminRegForm.html', context)
 
     def post(self, request):
@@ -216,18 +229,26 @@ class AdminAccountRegistrationView(View):
 
 class AdminManageAccounts(View):
     def get(self,request):
-        qs_accounts = Enrollee.objects.all()
-        qs_admin = Administrator.objects.filter(user_id=request.user.id)
-        qs_results = ExamResults.objects.all()
-        
-        context = {
-            'admin_details': qs_admin,
-            'accounts': qs_accounts,
-            'exam_results': qs_results,
-        }
+        is_admin = Administrator.objects.filter(user_id=request.user.id)
 
-        if not request.user.is_authenticated:
-            return redirect("administrator:admin_login")
+        if request.user.is_authenticated:
+            if is_admin:
+                qs_accounts = Enrollee.objects.all()
+                qs_admin = Administrator.objects.filter(user_id=request.user.id)
+                qs_results = ExamResults.objects.all()
+                
+                context = {
+                    'admin_details': qs_admin,
+                    'accounts': qs_accounts,
+                    'exam_results': qs_results,
+                }
+        
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
+        else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
         return render(request, 'administrator/enrolleeRegistration/adminManageAccounts.html', context)
 
     def post(self, request):
@@ -312,14 +333,24 @@ class AdminManageAccounts(View):
 
 class AdminCreateExam(View):
     def get(self,request):
-        qs_admin = Administrator.objects.filter(user_id=request.user.id)
-        qs_exam = Exam.objects.all()
+        is_admin = Administrator.objects.filter(user_id=request.user.id)
 
-        context = {
-            'admin_details': qs_admin,
-            'exam': qs_exam,
-        }
-        if not request.user.is_authenticated:
+        if request.user.is_authenticated:
+            if is_admin:
+            
+                qs_admin = Administrator.objects.filter(user_id=request.user.id)
+                qs_exam = Exam.objects.all()
+
+                context = {
+                    'admin_details': qs_admin,
+                    'exam': qs_exam,
+                }
+                
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
+        else:
+            messages.error(request, "You are unauthorized to access this link.")
             return redirect("administrator:admin_login")
         return render(request, 'administrator/examManagement/adminCreateExam.html', context)
 
@@ -368,40 +399,49 @@ class AdminCreateExam(View):
 
 class AdminAddQuestion(View):
     def get(self,request):
-        latest_exam = Exam.objects.last() 
-        part = request.POST.get("part_to_delete")
+        is_admin = Administrator.objects.filter(user_id=request.user.id)
 
-        qs_exam = Exam.objects.all() #Gets all the exam in the db
-        qs_parts = Part.objects.filter(exam_id = latest_exam) #Gets the parts of the latest exam added
-        qs_questions = Question.objects.filter(exam = latest_exam) #Gets all the questions of the latest exam added
-        part_ques_number = Question.objects.filter(part_id = part).count() #Counts the number of questions of the particular part
-        
-        qs_admin = Administrator.objects.filter(user_id=request.user.id)
-        
-        context = {
-            'admin_details': qs_admin,
-            'latest_exam': qs_exam,
-            'parts': qs_parts,
-            'questions': qs_questions,
-            'part_number': part_ques_number,
-        }
+        if request.user.is_authenticated:
+            if is_admin:
+            
+                latest_exam = Exam.objects.last() 
+                part = request.POST.get("part_to_delete")
 
-        if not request.user.is_authenticated:
-            return redirect("administrator:admin_login")
-        
-        if latest_exam:
-            latest_exam_id = latest_exam.pk
-            get_exam = Exam.objects.filter(exam_id = latest_exam_id)
+                qs_exam = Exam.objects.all() #Gets all the exam in the db
+                qs_parts = Part.objects.filter(exam_id = latest_exam) #Gets the parts of the latest exam added
+                qs_questions = Question.objects.filter(exam = latest_exam) #Gets all the questions of the latest exam added
+                part_ques_number = Question.objects.filter(part_id = part).count() #Counts the number of questions of the particular part
+                
+                qs_admin = Administrator.objects.filter(user_id=request.user.id)
+                
+                context = {
+                    'admin_details': qs_admin,
+                    'latest_exam': qs_exam,
+                    'parts': qs_parts,
+                    'questions': qs_questions,
+                    'part_number': part_ques_number,
+                }
 
-            if get_exam.filter(link__isnull=True): 
-                return render(request, 'administrator/examManagement/adminExamDetails.html', context)
+                
+                if latest_exam:
+                    latest_exam_id = latest_exam.pk
+                    get_exam = Exam.objects.filter(exam_id = latest_exam_id)
+
+                    if get_exam.filter(link__isnull=True): 
+                        return render(request, 'administrator/examManagement/adminExamDetails.html', context)
+                    else:
+                        messages.error(request, "Can't add questions to a linked exam.")
+                        return redirect("administrator:admin_create_exam")
+                else:
+                    messages.error(request, "No exam found in database")
+                    return redirect("administrator:admin_create_exam")
+                    
             else:
-                 messages.error(request, "Can't add questions to a linked exam.")
-                 return redirect("administrator:admin_create_exam")
-        
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
         else:
-            messages.error(request, "No exam found in database")
-            return redirect("administrator:admin_create_exam")
+            messages.error(request, "You are unauthorized to access this link.")
+            return redirect("administrator:admin_login")
 
     def post(self, request):
         # Method to create exam parts
@@ -561,15 +601,24 @@ class AdminAddQuestion(View):
 
 class AdminViewAllExamsTable(View):
     def get(self, request):
-        qs_exam = Exam.objects.all()
-        qs_admin = Administrator.objects.filter(user_id=request.user.id)
-        
-        context = {
-            'admin_details': qs_admin,
-            'exams': qs_exam,
-        }
+        is_admin = Administrator.objects.filter(user_id=request.user.id)
 
-        if not request.user.is_authenticated:
+        if request.user.is_authenticated:
+            if is_admin:
+            
+                qs_exam = Exam.objects.all()
+                qs_admin = Administrator.objects.filter(user_id=request.user.id)
+                
+                context = {
+                    'admin_details': qs_admin,
+                    'exams': qs_exam,
+                }
+        
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
+        else:
+            messages.error(request, "You are unauthorized to access this link.")
             return redirect("administrator:admin_login")
         return render(request, 'administrator/examManagement/adminAllExams.html', context)
 
@@ -586,30 +635,36 @@ class AdminViewAllExamsTable(View):
 def view_exam(request, exam_id=None):
     get_all = Exam.objects.all().values_list('exam_id')
     if request.method != 'POST':
-        if Exam.objects.filter(exam_id__in=get_all):
-            qs_admin = Administrator.objects.filter(user_id=request.user.id)
-            qs_exam = Exam.objects.get(exam_id = exam_id)
-            qs_questions = Question.objects.filter(exam = exam_id)
-            qs_parts = Part.objects.filter(exam_id = exam_id) #Gets the parts of the latest exam added
-            
-            # get = qs_questions.values_list('part').distinct()
-            # for parts in enumerate(get):
-            #     print(parts)
+        is_admin = Administrator.objects.filter(user_id=request.user.id)
+        if request.user.is_authenticated:
+            if is_admin:
+                if Exam.objects.filter(exam_id__in=get_all):
+                    qs_admin = Administrator.objects.filter(user_id=request.user.id)
+                    qs_exam = Exam.objects.get(exam_id = exam_id)
+                    qs_questions = Question.objects.filter(exam = exam_id)
+                    qs_parts = Part.objects.filter(exam_id = exam_id) #Gets the parts of the latest exam added
+                    
+                    # get = qs_questions.values_list('part').distinct()
+                    # for parts in enumerate(get):
+                    #     print(parts)
 
-            # print(parts[1])
+                    # print(parts[1])
+                else:
+                    messages.error(request,"User does not exist")
+
+                    context ={
+                        'exams': qs_exam,
+                        'questions' : qs_questions,
+                        'parts': qs_parts,
+                        'admin_details': qs_admin,
+                    }
+                    
+            else:
+                messages.error(request, "You are unauthorized to access this link.")
+                return redirect("administrator:admin_login")
         else:
-            messages.error(request,"User does not exist")
-
-        context ={
-            'exams': qs_exam,
-            'questions' : qs_questions,
-            'parts': qs_parts,
-            'admin_details': qs_admin,
-
-        }
-
-        if not request.user.is_authenticated:
-            return redirect("administrator:administrator_login")
+            messages.error(request, "You are unauthorized to access this link.")
+            return redirect("administrator:admin_login")
         return render(request, 'administrator/examManagement/adminEditExam.html', context)
     
     else:
