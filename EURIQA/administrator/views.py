@@ -184,30 +184,34 @@ class AdminAccountRegistrationView(View):
                 zip_code = request.POST.get('zip')
 
                 full_address = street + ", " + city + ", " + province + ", " + zip_code
-                
-                user = User.objects.create_user(username=username, password=password, email=email, first_name=firstname, last_name=lastname)
-                
-            if user_type == 'enrollee':
-                user_id_latest_added=User.objects.all().last()
-                register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level, program = program, strand = strand, enrolled_as = enrolled_as)
-                register_enrollee.save()
-                
-                # Can easily update the number of enrollees for we set either program and strand to null if they received no input from the template
-                # Update total enrollees in Program
-                total_enrollees_col = Enrollee.objects.filter(program = set_program).count()
-                update_enrollees_col = Program.objects.filter(program_id = set_program).update(num_enrollees = total_enrollees_col)
-                
-                # Update total enrollees in Strand
-                total_enrollees_shs = Enrollee.objects.filter(strand = set_strand).count()
-                update_total_enrollees_shs = Strand.objects.filter(strand_id = set_strand).update(num_enrollees = total_enrollees_shs)
 
-            else:
-                user_id_latest_added=User.objects.all().last()
-                register_admin = Administrator(user = user_id_latest_added, middle_name=middlename, address = full_address, position = position)
-                register_admin.save()
+                # Check if username exists
+                if User.objects.filter(username = username).exists():
+                    messages.error(request, "Username already exists")
+                    
+                else:
+                    user = User.objects.create_user(username=username, password=password, email=email, first_name=firstname, last_name=lastname)
+                
+                    if user_type == 'enrollee':
+                        user_id_latest_added=User.objects.all().last()
+                        register_enrollee = Enrollee(user = user_id_latest_added, middle_name=middlename, address = full_address, level = level, program = program, strand = strand, enrolled_as = enrolled_as)
+                        register_enrollee.save()
+                        
+                        # Can easily update the number of enrollees for we set either program and strand to null if they received no input from the template
+                        # Update total enrollees in Program
+                        total_enrollees_col = Enrollee.objects.filter(program = set_program).count()
+                        update_enrollees_col = Program.objects.filter(program_id = set_program).update(num_enrollees = total_enrollees_col)
+                        
+                        # Update total enrollees in Strand
+                        total_enrollees_shs = Enrollee.objects.filter(strand = set_strand).count()
+                        update_total_enrollees_shs = Strand.objects.filter(strand_id = set_strand).update(num_enrollees = total_enrollees_shs)
 
-        messages.success(request, "Account created")
+                    else:
+                        user_id_latest_added=User.objects.all().last()
+                        register_admin = Administrator(user = user_id_latest_added, middle_name=middlename, address = full_address, position = position)
+                        register_admin.save()
 
+                    messages.success(request, "Account created")
         return redirect("administrator:admin_regform")
 
 class AdminManageAccounts(View):
