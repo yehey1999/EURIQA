@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'euriqa'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F9D9A7AB87224329A46B4167708ACB69 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7D1B2A85051046C8BEF743E6AE4B0326 }}
