@@ -49,7 +49,7 @@ pyasn1-modules==0.2.8
 PyMySQL==1.0.2
 pyparsing==3.0.6
 python-dateutil==2.8.2
-pywin32==302
+# pywin32==302
 rcssmin==1.1.0
 requests==2.26.0
 requests-oauthlib==1.3.0
